@@ -58,7 +58,27 @@
 @import "bootstrap/responsive-utilities";
 
 
+///////
+// Const
+///////
+
+
+.upper {
+  text-transform: uppercase;
+}
+.abs {
+  position: absolute;
+}
+.rel {
+  position: relative;
+}
+
+
+///////
 // Header
+///////
+
+
 .navbar-fixed-top {
   background-color: rgba(255, 255, 255, .85);
   height: 107px;
@@ -73,7 +93,59 @@
 
 .jumbotron {
   padding-top: 107px;
-  background: transparent url("/images/main.png") no-repeat center top;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  background: transparent url("/images/test.jpg") no-repeat center top;
   background-size: contain;
   height: 700px;
+}
+
+
+///////
+// Footer
+///////
+
+
+footer {
+  background-color: #cecece;
+  -webkit-box-shadow: inset 0px 2px 5px 0px rgba(82,82,82,1);
+  -moz-box-shadow: inset 0px 2px 5px 0px rgba(82,82,82,1);
+  box-shadow: inset 0px 2px 5px 0px rgba(82,82,82,1);
+}
+
+
+///////
+// Gifsmas Grid
+///////
+
+
+.container.container-gifsmas {
+  .gif {
+      // Mixins defined in /scss/bootstrap/mixins/_grid.scss
+      @include make-xs-column($columns: 12);
+
+      @media (max-width: $screen-md-min) {
+        @include make-md-column($columns: 4, $gutter: 0);
+      }
+      @media (min-width: $screen-lg-min) {
+        @include make-lg-column($columns: 3, $gutter: 0);
+      }
+
+      img {width: 100%;}
+  }
+}
+
+
+///////
+// Misc
+///////
+.intro h4 { margin: 50px 0; }
+.intro h5 { margin-top: 43px; }
+.social-shares {
+  text-align: center;
+}
+.social-icon {
+  svg {
+    width: 32px;
+  }
 }

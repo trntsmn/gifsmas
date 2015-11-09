@@ -6,7 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-hbs');
-
+var hbsHelpers = require('./helpers/hbsHelpers');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -24,14 +24,7 @@ server.engine('hbs', hbs.express4({
 server.set('views', path.join(__dirname, 'views'));
 //server.engine('hbs', exphbs({defaultLayout: 'layout', extname: ".hbs"}));
 server.set('view engine', 'hbs');
-
-hbs.registerAsyncHelper('svg', function(filename, cb) {
-  var tmp = path.join(__dirname, "public", filename);
-  fs.readFile(tmp, 'utf8', function(err, content) {
-    console.log(content);
-    cb(new hbs.SafeString(content));
-  });
-});
+hbsHelpers.registerAll(hbs, __dirname);
 
 
 // uncomment after placing your favicon in /public
@@ -69,8 +62,8 @@ if (server.get('env') === 'development') {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: err
-
+      error: err,
+      title: err.status + " An Error has Occured",
     });
   });
 }
@@ -81,7 +74,8 @@ server.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: {}
+    error: {},
+    title: err.status + " An Error has Occured",
   });
 });
 

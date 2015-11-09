@@ -6529,6 +6529,15 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+.upper {
+  text-transform: uppercase; }
+
+.abs {
+  position: absolute; }
+
+.rel {
+  position: relative; }
+
 .navbar-fixed-top {
   background-color: rgba(255, 255, 255, 0.85);
   height: 107px; }
@@ -6539,8 +6548,58 @@ button.close {
 
 .jumbotron {
   padding-top: 107px;
-  background: transparent url("/images/main.png") no-repeat center top;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  background: transparent url("/images/test.jpg") no-repeat center top;
   background-size: contain;
   height: 700px; }
+
+footer {
+  background-color: #cecece;
+  -webkit-box-shadow: inset 0px 2px 5px 0px #525252;
+  -moz-box-shadow: inset 0px 2px 5px 0px #525252;
+  box-shadow: inset 0px 2px 5px 0px #525252; }
+
+.container.container-gifsmas .gif {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px; }
+  @media (max-width: 992px) {
+    .container.container-gifsmas .gif {
+      position: relative;
+      min-height: 1px;
+      padding-left: 0;
+      padding-right: 0; } }
+  @media (max-width: 992px) and (min-width: 992px) {
+    .container.container-gifsmas .gif {
+      float: left;
+      width: 33.33333%; } }
+  @media (min-width: 1200px) {
+    .container.container-gifsmas .gif {
+      position: relative;
+      min-height: 1px;
+      padding-left: 0;
+      padding-right: 0; } }
+  @media (min-width: 1200px) and (min-width: 1200px) {
+    .container.container-gifsmas .gif {
+      float: left;
+      width: 25%; } }
+  .container.container-gifsmas .gif img {
+    width: 100%; }
+
+.intro h4 {
+  margin: 50px 0; }
+
+.intro h5 {
+  margin-top: 43px; }
+
+.social-shares {
+  text-align: center; }
+
+.social-icon svg {
+  width: 32px; }
 
 /*# sourceMappingURL=style.css.map */

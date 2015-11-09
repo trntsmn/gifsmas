@@ -1,5 +1,5 @@
 # Step one
-Install all dependencies with `npm install`.
+Install all server dependencies with `npm install`. Then install the frontend dependencies with `bower install`.
 
 
 # Step two
