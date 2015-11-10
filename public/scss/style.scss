@@ -95,9 +95,11 @@
   padding-top: 107px;
   padding-bottom: 0;
   margin-bottom: 0;
-  background: transparent url("/images/test.jpg") no-repeat center top;
-  background-size: contain;
+  background: transparent url("/images/test.jpg") no-repeat center center;
+  background-size: cover;
   height: 700px;
+  max-width: 1170px;
+  margin: 0 auto;
 }
 
 
@@ -145,7 +147,8 @@ footer {
   text-align: center;
 }
 .social-icon {
-  svg {
+  img {
     width: 32px;
   }
 }
+section.app {margin-top: 108px;}

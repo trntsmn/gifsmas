@@ -6550,9 +6550,11 @@ button.close {
   padding-top: 107px;
   padding-bottom: 0;
   margin-bottom: 0;
-  background: transparent url("/images/test.jpg") no-repeat center top;
-  background-size: contain;
-  height: 700px; }
+  background: transparent url("/images/test.jpg") no-repeat center center;
+  background-size: cover;
+  height: 700px;
+  max-width: 1170px;
+  margin: 0 auto; }
 
 footer {
   background-color: #cecece;
@@ -6599,7 +6601,10 @@ footer {
 .social-shares {
   text-align: center; }
 
-.social-icon svg {
+.social-icon img {
   width: 32px; }
+
+section.app {
+  margin-top: 108px; }
 
 /*# sourceMappingURL=style.css.map */

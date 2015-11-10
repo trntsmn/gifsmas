@@ -10,6 +10,7 @@ var hbsHelpers = require('./helpers/hbsHelpers');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var sandbox = require('./routes/sandbox');
 
 var server = express();
 
@@ -45,6 +46,7 @@ server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/', routes);
 server.use('/users', users);
+server.use('/sandbox', sandbox)
 
 // catch 404 and forward to error handler
 server.use(function(req, res, next) {

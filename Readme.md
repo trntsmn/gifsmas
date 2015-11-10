@@ -1,5 +1,8 @@
+# Step zero
+*Background:* This is a NodeJs project. To work on NodeJs you must install it. Goto [nodejs.org] and download version 5.x.x. After you have node installed you'll need to install bower. The is done from the command line as are the rest of the commands below. Type `sudo npm install -g bower` to install bower globally. Now you're ready to begin.
+
 # Step one
-Install all server dependencies with `npm install`. Then install the frontend dependencies with `bower install`.
+Install all serverside dependencies with `npm install`. Then install the frontend dependencies with `bower install`.
 
 
 # Step two
