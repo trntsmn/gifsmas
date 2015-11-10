@@ -15,6 +15,6 @@ angular.module('app.routes', []).config(['$routeProvider', '$locationProvider', 
     controller: 'FormController',
     controllerAs: 'form'
   })
-  .otherwise({redirectTo: '/'});
+  .otherwise({redirectTo: ''});
 
 }]);
