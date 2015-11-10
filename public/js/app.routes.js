@@ -10,6 +10,11 @@ angular.module('app.routes', []).config(['$routeProvider', '$locationProvider', 
     controller: 'MeController',
     controllerAs: 'me'
   })
+  .when('/form', {
+    templateUrl: 'views/form.html',
+    controller: 'FormController',
+    controllerAs: 'form'
+  })
   .otherwise({redirectTo: '/'});
 
 }]);
