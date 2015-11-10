@@ -35,6 +35,7 @@ Sometimes you may need to allocate resources to heroku, do this as `heroku ps:sc
 + `heroku logs` - Shows access logs and error logs
 + `heroku restart` - We all know that restarting is magic
 + `heroku keys:add` - Add your public key to heroku, so that you can login.
++ `heroku open` - Open heroku instance in the default browser.
 + See [http://heroku.com] for the best detail.
 
 _SSH Keys are needed to work with heroku_
