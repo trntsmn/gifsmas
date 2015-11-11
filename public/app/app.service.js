@@ -5,9 +5,9 @@
     .module('app')
     .factory('appService', appService);
 
-  appService.$inject = ['$http', '$routeParams'];
+  appService.$inject = ['$http', '$routeParams', '$q'];
 
-  function appService($http, $routeParams) {
+  function appService($http, $routeParams, $q) {
 
     var service = {
       getList: getList,
@@ -19,6 +19,10 @@
     function getActive() {
       // body...
 
+    }
+
+    function isPersonal() {
+      return $routeParams.id === undefined ? $q.when(false) : $q.when(true);
     }
 
     function getList() {
@@ -41,7 +45,7 @@
     function readMine() {
       return $http({
         method: 'GET',
-        url: '/gifs/mine/' + $routeParams.me,
+        url: '/gifs/mine/' + $routeParams.id,
       }).
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously

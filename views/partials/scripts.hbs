@@ -1,25 +1,53 @@
 {{#isProduction}}
+
+
 {{!
-
-There is a gulp task defined to minify files.
-From the project's root run `gulp scripts` to
-have the main.min.js file generated from the
-contents of /public/app/.
-
+  There is a gulp task defined to minify files.
+  From the project's root run `gulp scripts` to
+  have the main.min.js file generated from the
+  contents of /public/app/.
 }}
 <script src="/components/angular/angular.js"></script>
 <script src="/components/angular-route/angular-route.js"></script>
 <script src="/components/angular-animate/angular-animate.js"></script>
 <script src="/js/main.min.js"></script>
+
 {{else}}
+
+{{!
+  Deleopment depends, starting with the Angular controller
+}}
 <script src="/components/angular/angular.js"></script>
 <script src="/components/angular-route/angular-route.js"></script>
 <script src="/components/angular-animate/angular-animate.js"></script>
+
+
+{{!
+  App modules first
+}}
+<script src="/app/common/exception/exception.module.js" ></script>
+<script src="/app/common/logger/logger.module.js" ></script>
 <script src="/app/app.js"></script>
+
+
+{{!
+  Common utilities next
+}}
+<script src="/app/common/exception/exception-handler.provider.js" ></script>
+<script src="/app/common/exception/exception.js" ></script>
+<script src="/app/common/logger/logger.js"></script>
+
+
+{{!
+  Finally the app and its depends
+}}
 <script src="/app/app.service.js"></script>
 <script src="/app/grid/grid.controller.js"></script>
 <script src="/app/feature/feature.controller.js"></script>
+<script src="/app/feature/feature.service.js"></script>
+<script src="/app/feature/feature.directive.js"></script>
 <script src="/app/submission/submission.controller.js"></script>
 <script src="/app/submission/submission.provider.js"></script>
 <script src="/app/personal/personal.controller.js"></script>
+
 {{/isProduction}}

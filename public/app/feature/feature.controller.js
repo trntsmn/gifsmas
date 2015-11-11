@@ -3,13 +3,14 @@
 
   angular
     .module('app')
-    .controller('FeatureController', FeatureController);
+    .controller('FeatureController', FeatureController)
 
   FeatureController.$inject = ['appService', '$routeParams'];
 
   function FeatureController(appService, $routeParams) {
     var vm = this;
     vm.getList = getList;
+    vm.supportingTemplate = "one";
     vm.isActive = isActive;
     vm.gifs = [];
     vm.selectedGif = undefined;

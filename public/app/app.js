@@ -1,5 +1,5 @@
 angular
-    .module('app', ['ngRoute', 'ngAnimate' ])
+    .module('app', ['ngRoute', 'ngAnimate', 'common.exception', 'common.logger' ])
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
       $routeProvider
       .when('/', {
