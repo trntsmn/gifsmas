@@ -1,5 +1,5 @@
 angular
-    .module('app', ['ngRoute', 'ngAnimate' ]);
+    .module('app', ['ngRoute', 'ngAnimate', 'common.exception', 'common.logger' ])
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
       $routeProvider
       .when('/', {
@@ -11,7 +11,9 @@ angular
         controllerAs: "vm"
       })
       .when('/me/:id', {
-        templateUrl: 'views/me.html',
+        templateUrl: 'app/submission/submission.html',
+        controller: "SubmissionController",
+        controllerAs: "vm"
       })
       .when('/form', {
         templateUrl: 'views/form.html',
@@ -22,8 +24,6 @@ angular
 
     }]);
 
-// angular.module('app', ['ngRoute', 'ngAnimate'])
-
 (function() {
   'use strict';
 
@@ -31,9 +31,9 @@ angular
     .module('app')
     .factory('appService', appService);
 
-  appService.$inject = ['$http', '$routeParams'];
+  appService.$inject = ['$http', '$routeParams', '$q'];
 
-  function appService($http, $routeParams) {
+  function appService($http, $routeParams, $q) {
 
     var service = {
       getList: getList,
@@ -45,6 +45,10 @@ angular
     function getActive() {
       // body...
 
+    }
+
+    function isPersonal() {
+      return $routeParams.id === undefined ? $q.when(false) : $q.when(true);
     }
 
     function getList() {
@@ -67,7 +71,7 @@ angular
     function readMine() {
       return $http({
         method: 'GET',
-        url: '/gifs/mine/' + $routeParams.me,
+        url: '/gifs/mine/' + $routeParams.id,
       }).
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
@@ -84,57 +88,18 @@ angular
 })();
 
 (function() {
-    'use strict';
-
-    var core = angular.module('app');
-
-    var config = {
-        appErrorPrefix: '[NG-Modular Error] ', //Configure the exceptionHandler decorator
-        appTitle: 'Angular Modular Demo',
-        version: '1.0.0'
-    };
-
-    core.value('config', config);
-
-    core.config(configure);
-
-    /* @ngInject */
-    function configure ($logProvider, $routeProvider, routehelperConfigProvider, exceptionHandlerProvider) {
-        // turn debugging off/on (no info or warn)
-        if ($logProvider.debugEnabled) {
-            $logProvider.debugEnabled(true);
-        }
-
-        // Configure the common route provider
-        routehelperConfigProvider.config.$routeProvider = $routeProvider;
-        routehelperConfigProvider.config.docTitle = 'NG-Modular: ';
-        var resolveAlways = { /* @ngInject */
-            ready: function(dataservice) {
-                return dataservice.ready();
-            }
-            // ready: ['dataservice', function (dataservice) {
-            //    return dataservice.ready();
-            // }]
-        };
-        routehelperConfigProvider.config.resolveAlways = resolveAlways;
-
-        // Configure the common exception handler
-        exceptionHandlerProvider.configure(config.appErrorPrefix);
-    }
-})();
-
-(function() {
   'use strict';
 
   angular
     .module('app')
-    .controller('FeatureController', FeatureController);
+    .controller('FeatureController', FeatureController)
 
   FeatureController.$inject = ['appService', '$routeParams'];
 
   function FeatureController(appService, $routeParams) {
     var vm = this;
     vm.getList = getList;
+    vm.supportingTemplate = "one";
     vm.isActive = isActive;
     vm.gifs = [];
     vm.selectedGif = undefined;
@@ -166,48 +131,78 @@ angular
   }
 })();
 
-// (function() {
-//   'use strict';
-//
-//   angular.module('app.feature', []);
-// })();
-// // 
-
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('app.feature')
-        .run(appRun);
+  angular
+    .module('app')
+    .directive('supportingTemplate', supportingTemplate);
 
-    // appRun.$inject = ['routehelper']
+  supportingTemplate.$inject = ['$compile', 'featureService'];
 
-    /* @ngInject */
-    function appRun(routehelper) {
-        routehelper.configureRoutes(getRoutes());
-    }
+  function myDirective() {
+    return {
+      templateUrl: function(elem, attr) {
+        return '/app/feature/feature.' + attr.type + '.html';
+      },
+      restrict: "EAC"
+    };
+  }
 
-    function getRoutes() {
-        return [
-            {
-                url: '/',
-                config: {
-                    templateUrl: 'app/feature/feature.html',
-                    controller: 'FeatureController',
-                    controllerAs: 'vm',
-                    title: 'avengers',
-                    settings: {
-                        nav: 2,
-                        content: '<i class="fa fa-lock"></i> Avengers'
-                    }
-                }
-            }
-        ];
-    }
+
+  function supportingTemplate($compile, featureService) {
+    return {
+      scope: {
+        vm: '=' // Two-way data binding,
+          //TODO consider using a one-way binding here!
+      },
+      link: function(scope, element) {
+        // Use the FeatureService to load in one of our directive templates
+        featureService.getTemplate(scope.vm.supportingTemplate).then(function(response) {
+          // Compile the template passing in scope, with the passed
+          // scope access controller props using the parent as `vm.myVar`.
+          element.append($compile(response.data)(scope));
+        });
+      }
+    };
+  }
 })();
 
+(function() {
+  'use strict';
 
+  angular
+    .module('app')
+    .factory('featureService', featureService);
 
+  featureService.$inject = ["$http"];
+
+  function featureService($http) {
+    var service = {
+      getTemplate: getTemplate
+    };
+
+    return service;
+
+    function getTemplate(content) {
+      return $http({
+        method: 'GET',
+        url: 'app/feature/feature.' + content + '.html',
+        cache: true
+      }).
+      success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        return data;
+      }).
+      error(function(data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+    }
+
+  }
+})();
 
 (function () {
     'use strict';
@@ -246,19 +241,92 @@ angular
     }
 })();
 
-// (function() {
-//   'use strict';
-//
-//   angular.module('app.', []);
-// })();
+(function() {
+  'use strict';
 
-// Include in index.html so that app level exceptions are handled.
-// Exclude from testRunner.html which should run exactly what it wants to run
+  angular
+    .module('app')
+    .controller('PersonalController', PersonalController);
+
+  PersonalController.$inject = ['appService', '$routeParams'];
+
+  function PersonalController(appService, $routeParams) {
+    var vm = this;
+    vm.getList = getList;
+    vm.isActive = isActive;
+    vm.gifs = [];
+    vm.selectedGif = undefined;
+    vm.title = 'Avengers';
+
+    activate();
+
+    function activate() {
+      return getList();
+    }
+
+    function getList() {
+      return appService.getList()
+        .then(function(data) {
+          vm.gifs = data.data;
+          console.log("hello");
+          for (var i = 0; i < vm.gifs.length; i++) {
+            console.log(vm.gifs[i].id + " and " + $routeParams.id);
+            if(vm.gifs[i].id == $routeParams.id) {
+              vm.selectedGif = vm.gifs[i];
+            }
+          }
+        });
+    }
+
+    function isActive(avenger) {
+      return !!(vm.selectedGif === avenger);
+    }
+  }
+})();
+
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('SubmissionController', SubmissionController);
+
+    SubmissionController.$inject = ['appService'];
+
+    function SubmissionController(appService) {
+        var vm = this;
+
+        vm.getList = getList;
+        vm.isActive = isActive;
+        vm.gifs = [];
+        vm.selectedGif = undefined;
+        vm.title = 'Avengers';
+
+        activate();
+
+        function activate() {
+            return getList();
+        }
+
+        function getList() {
+            return appService.getList()
+                .then(function(data){
+                    return vm.gifs = data.data;
+                });
+        }
+
+        function isActive(avenger) {
+            return !!(vm.selectedGif === avenger);
+        }
+    }
+})();
+
+
 (function() {
     'use strict';
 
     angular
-        .module('blocks.exception')
+        .module('common.exception')
         .provider('exceptionHandler', exceptionHandlerProvider)
         .config(config);
 
@@ -323,7 +391,7 @@ angular
     'use strict';
 
     angular
-        .module('blocks.exception')
+        .module('common.exception')
         .factory('exception', exception);
 
     /* @ngInject */
@@ -340,22 +408,23 @@ angular
         }
     }
 })();
+
 (function() {
     'use strict';
 
-    angular.module('blocks.exception', ['blocks.logger']);
+    angular.module('common.exception', ['common.logger']);
 })();
 
 (function() {
     'use strict';
 
     angular
-        .module('blocks.logger')
+        .module('common.logger')
         .factory('logger', logger);
 
-    logger.$inject = ['$log', 'toastr'];
+    logger.$inject = ['$log'];
 
-    function logger($log, toastr) {
+    function logger($log) {
         var service = {
             showToasts: true,
 
@@ -372,22 +441,18 @@ angular
         /////////////////////
 
         function error(message, data, title) {
-            toastr.error(message, title);
             $log.error('Error: ' + message, data);
         }
 
         function info(message, data, title) {
-            toastr.info(message, title);
             $log.info('Info: ' + message, data);
         }
 
         function success(message, data, title) {
-            toastr.success(message, title);
             $log.info('Success: ' + message, data);
         }
 
         function warning(message, data, title) {
-            toastr.warning(message, title);
             $log.warn('Warning: ' + message, data);
         }
     }
@@ -396,7 +461,7 @@ angular
 (function() {
     'use strict';
 
-    angular.module('blocks.logger', []);
+    angular.module('common.logger', []);
 })();
 
 (function() {
