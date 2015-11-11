@@ -42,19 +42,8 @@
     </nav>
 
     {{{body}}}
-    <div data-ng-controller="HomeController as home">
-      <!-- ANGULAR DYNAMIC CONTENT -->
-      <div data-ng-view></div>
-    </div>
-    {{> footer}}
 
-    <script src="/components/angular/angular.js"></script>
-    <script src="/components/angular-animate/angular-animate.js"></script>
-    <script src="/components/angular-route/angular-route.js"></script>
-    <script src="/js/app.js"></script>
-    <script src="/js/app.routes.js"></script>
-    <script src="/js/controllers/home.controller.js"></script>
-    <script src="/js/controllers/form.controller.js"></script>
-    <script src="/js/controllers/me.controller.js"></script>
+    {{> footer}}
+    {{> scripts}}
   </body>
 </html>

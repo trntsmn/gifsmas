@@ -1,3 +1,4 @@
+<section data-ng-controller="HomeController as home">
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
@@ -21,7 +22,7 @@
     </div>
   </div>
   <!-- Example row of columns -->
-  <div class="row">
+  <div class="row" >
     <div class="gif">
       <img src="/images/one.png" alt="Day 1" />
     </div>
@@ -35,8 +36,9 @@
       <img src="/images/two.png" alt="Day 1" />
     </div>
   </div>
-
+  <div data-ng-include="'../js/gifs/gifs.html'"></div>
 
 
 
 </div>
+</section>

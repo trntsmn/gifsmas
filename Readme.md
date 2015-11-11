@@ -39,3 +39,21 @@ Sometimes you may need to allocate resources to heroku, do this as `heroku ps:sc
 + See [http://heroku.com] for the best detail.
 
 _SSH Keys are needed to work with heroku_
+
+-------
+
+# Buzzwords
+
+## Gifsmas makes use of the following
+
++ (Handlebars)[http://handlebarsjs.com/] - the backend template engine.
++ (Angular)[https://angularjs.org] - the fronted js framework.
++ (Angular Animate)[http://www.nganimate.org/] - badass animation framework.
++ (Heroku)[https://dashboard.heroku.com/apps] - the fastest way to get a node stack running.
++ (Git)[http://github.com] - source control and continuous integration.
++ (SCSS)[http://sass-lang.com/] - Less is dead... use use SCSS (not SASS).
++ (Express)[http://expressjs.com/] - a decent node backend framework.
++ (NodeJs)[https://nodejs.org] - Node and its package manager NPM are used for the site's backend.
++ (Bower)[http://bower.io] - a tool for managing frontend dependencies. Bower should be installed globally using NPM.
++ (Atom)[http://atom.io] - the best text editor.
++ (Markdown)[http://google.com?q=Markdown] - the syntax of choice for documentation.

@@ -23,5 +23,32 @@
     "multer": "^1.1.0",
     "node-sass-middleware": "0.8.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.10.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-cache": "^0.4.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-express": "^0.3.5",
+    "gulp-livereload": "^3.8.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.0",
+    "gulp-uglify": "^1.4.2"
+  },
+  "webroot": "public",
+  "webapp": "public/app",
+  "dest": "public/js",
+  "paths": {
+    "source": {
+      "js": [
+        "public/app/**/*.js"
+      ]
+    },
+    "dest": {
+      "base": "public/",
+      "js": "public/js/"
+    },
+    "production": "public/js/"
   }
 }

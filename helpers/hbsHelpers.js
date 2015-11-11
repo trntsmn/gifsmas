@@ -9,7 +9,7 @@ var fs = require('fs');
 ///////////
 
 
-exports.registerAll = function(hbs, appPath) {
+exports.registerAll = function(hbs, appPath, env) {
 
   hbs.registerAsyncHelper('svg', function(filename, cb) {
     var tmp = path.join(appPath, "public", filename);
@@ -26,5 +26,12 @@ exports.registerAll = function(hbs, appPath) {
   hbs.registerHelper('year', function () {
     return new Date().getFullYear();
   })
+
+  hbs.registerHelper('isProduction', function(block) {
+    if(env === 'production')
+        return block.fn();
+    else
+        return block.inverse();
+});
 
 }

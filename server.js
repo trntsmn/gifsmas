@@ -11,6 +11,8 @@ var hbsHelpers = require('./helpers/hbsHelpers');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var sandbox = require('./routes/sandbox');
+var gifs = require('./routes/gifs');
+
 
 var server = express();
 
@@ -25,7 +27,7 @@ server.engine('hbs', hbs.express4({
 server.set('views', path.join(__dirname, 'views'));
 //server.engine('hbs', exphbs({defaultLayout: 'layout', extname: ".hbs"}));
 server.set('view engine', 'hbs');
-hbsHelpers.registerAll(hbs, __dirname);
+hbsHelpers.registerAll(hbs, __dirname, server.get('env'));
 
 
 // uncomment after placing your favicon in /public
@@ -46,7 +48,8 @@ server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/', routes);
 server.use('/users', users);
-server.use('/sandbox', sandbox)
+server.use('/sandbox', sandbox);
+server.use('/gifs', gifs);
 
 // catch 404 and forward to error handler
 server.use(function(req, res, next) {
