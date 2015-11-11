@@ -1,0 +1,25 @@
+{{#isProduction}}
+{{!
+
+There is a gulp task defined to minify files.
+From the project's root run `gulp scripts` to
+have the main.min.js file generated from the
+contents of /public/app/.
+
+}}
+<script src="/components/angular/angular.js"></script>
+<script src="/components/angular-route/angular-route.js"></script>
+<script src="/components/angular-animate/angular-animate.js"></script>
+<script src="/js/main.min.js"></script>
+{{else}}
+<script src="/components/angular/angular.js"></script>
+<script src="/components/angular-route/angular-route.js"></script>
+<script src="/components/angular-animate/angular-animate.js"></script>
+<script src="/app/app.js"></script>
+<script src="/app/app.service.js"></script>
+<script src="/app/grid/grid.controller.js"></script>
+<script src="/app/feature/feature.controller.js"></script>
+<script src="/app/submission/submission.controller.js"></script>
+<script src="/app/submission/submission.provider.js"></script>
+<script src="/app/personal/personal.controller.js"></script>
+{{/isProduction}}
