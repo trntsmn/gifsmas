@@ -10,7 +10,7 @@
   function FeatureController(appService, $routeParams) {
     var vm = this;
     vm.getList = getList;
-    vm.supportingTemplate = "one";
+    vm.supportingTemplate = undefined;
     vm.isActive = isActive;
     vm.gifs = [];
     vm.selectedGif = undefined;
@@ -26,7 +26,6 @@
       return appService.getList()
         .then(function(data) {
           vm.gifs = data.data;
-          console.log("hello");
           for (var i = 0; i < vm.gifs.length; i++) {
             console.log(vm.gifs[i].id + " and " + $routeParams.id);
             if(vm.gifs[i].id == $routeParams.id) {

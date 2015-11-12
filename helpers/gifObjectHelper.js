@@ -11,7 +11,7 @@ var fs = require('fs');
 
 exports.format = function(gif) {
   var now = new Date();
-  var activate = new Date(gif.active * 1000);
+  var activate = new Date(gif.activate * 1000);
   if(now > activate) {
     // This is an active gif
     gif.active = true;

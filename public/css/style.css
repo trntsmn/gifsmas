@@ -6557,11 +6557,11 @@ button.close {
     z-index: -9;
     position: relative; }
     #main > div.wrapper > section.feature {
-      padding-top: 107px;
-      background: transparent url("/images/test.jpg") no-repeat center center;
       background-size: cover;
       height: 700px;
       width: 1170px; }
+      #main > div.wrapper > section.feature img {
+        width: 100%; }
     #main > div.wrapper > section.submission {
       padding-top: 107px; }
 

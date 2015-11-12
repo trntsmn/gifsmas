@@ -109,11 +109,15 @@
     position: relative;;
 
     > section.feature {
-      padding-top: 107px;
-      background: transparent url("/images/test.jpg") no-repeat center center;
+      //padding-top: 107px;
+      //background: transparent url("/images/test.jpg") no-repeat center center;
       background-size: cover;
       height: 700px;
       width: 1170px;
+
+      img {
+        width: 100%;
+      }
     }
 
     > section.submission {
