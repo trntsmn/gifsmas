@@ -12,7 +12,7 @@ Run either of the following to start the app:
 
 *OR*
 
-`DEBUG=gifsmas:* npm start`
+`NODE_ENV=production DEBUG=gifsmas:* npm start`
 
 # Step three
 Point your browser to [http://localhost:3000].

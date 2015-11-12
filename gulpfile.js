@@ -14,7 +14,7 @@ gulp.task('styles', function(){
 });
 
 gulp.task('scripts', function(){
-  return gulp.src(['public/app/**/*.js', 'public/app/common/**/*.js'])
+  return gulp.src(['public/app/*.js', 'public/app/common/**/*.js', 'public/app/**/*.js'])
     .pipe(concat('main.js'))
     .pipe(gulp.dest('public/js/'))
     .pipe(rename({suffix: '.min'}))

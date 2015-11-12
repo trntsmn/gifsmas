@@ -88,241 +88,6 @@ angular
 })();
 
 (function() {
-  'use strict';
-
-  angular
-    .module('app')
-    .controller('FeatureController', FeatureController)
-
-  FeatureController.$inject = ['appService', '$routeParams'];
-
-  function FeatureController(appService, $routeParams) {
-    var vm = this;
-    vm.getList = getList;
-    vm.supportingTemplate = "one";
-    vm.isActive = isActive;
-    vm.gifs = [];
-    vm.selectedGif = undefined;
-    vm.title = 'Avengers';
-
-    activate();
-
-    function activate() {
-      return getList();
-    }
-
-    function getList() {
-      return appService.getList()
-        .then(function(data) {
-          vm.gifs = data.data;
-          console.log("hello");
-          for (var i = 0; i < vm.gifs.length; i++) {
-            console.log(vm.gifs[i].id + " and " + $routeParams.id);
-            if(vm.gifs[i].id == $routeParams.id) {
-              vm.selectedGif = vm.gifs[i];
-            }
-          }
-        });
-    }
-
-    function isActive(avenger) {
-      return !!(vm.selectedGif === avenger);
-    }
-  }
-})();
-
-(function() {
-  'use strict';
-
-  angular
-    .module('app')
-    .directive('supportingTemplate', supportingTemplate);
-
-  supportingTemplate.$inject = ['$compile', 'featureService'];
-
-  function myDirective() {
-    return {
-      templateUrl: function(elem, attr) {
-        return '/app/feature/feature.' + attr.type + '.html';
-      },
-      restrict: "EAC"
-    };
-  }
-
-
-  function supportingTemplate($compile, featureService) {
-    return {
-      scope: {
-        vm: '=' // Two-way data binding,
-          //TODO consider using a one-way binding here!
-      },
-      link: function(scope, element) {
-        // Use the FeatureService to load in one of our directive templates
-        featureService.getTemplate(scope.vm.supportingTemplate).then(function(response) {
-          // Compile the template passing in scope, with the passed
-          // scope access controller props using the parent as `vm.myVar`.
-          element.append($compile(response.data)(scope));
-        });
-      }
-    };
-  }
-})();
-
-(function() {
-  'use strict';
-
-  angular
-    .module('app')
-    .factory('featureService', featureService);
-
-  featureService.$inject = ["$http"];
-
-  function featureService($http) {
-    var service = {
-      getTemplate: getTemplate
-    };
-
-    return service;
-
-    function getTemplate(content) {
-      return $http({
-        method: 'GET',
-        url: 'app/feature/feature.' + content + '.html',
-        cache: true
-      }).
-      success(function(data, status, headers, config) {
-        // this callback will be called asynchronously
-        // when the response is available
-        return data;
-      }).
-      error(function(data, status, headers, config) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-      });
-    }
-
-  }
-})();
-
-(function() {
-  'use strict';
-
-  angular
-    .module('app')
-    .controller('PersonalController', PersonalController);
-
-  PersonalController.$inject = ['appService', '$routeParams'];
-
-  function PersonalController(appService, $routeParams) {
-    var vm = this;
-    vm.getList = getList;
-    vm.isActive = isActive;
-    vm.gifs = [];
-    vm.selectedGif = undefined;
-    vm.title = 'Avengers';
-
-    activate();
-
-    function activate() {
-      return getList();
-    }
-
-    function getList() {
-      return appService.getList()
-        .then(function(data) {
-          vm.gifs = data.data;
-          console.log("hello");
-          for (var i = 0; i < vm.gifs.length; i++) {
-            console.log(vm.gifs[i].id + " and " + $routeParams.id);
-            if(vm.gifs[i].id == $routeParams.id) {
-              vm.selectedGif = vm.gifs[i];
-            }
-          }
-        });
-    }
-
-    function isActive(avenger) {
-      return !!(vm.selectedGif === avenger);
-    }
-  }
-})();
-
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .controller('SubmissionController', SubmissionController);
-
-    SubmissionController.$inject = ['appService'];
-
-    function SubmissionController(appService) {
-        var vm = this;
-
-        vm.getList = getList;
-        vm.isActive = isActive;
-        vm.gifs = [];
-        vm.selectedGif = undefined;
-        vm.title = 'Avengers';
-
-        activate();
-
-        function activate() {
-            return getList();
-        }
-
-        function getList() {
-            return appService.getList()
-                .then(function(data){
-                    return vm.gifs = data.data;
-                });
-        }
-
-        function isActive(avenger) {
-            return !!(vm.selectedGif === avenger);
-        }
-    }
-})();
-
-
-(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .controller('GridController', GridController);
-
-    GridController.$inject = ['appService'];
-
-    function GridController(appService) {
-        var vm = this;
-
-        vm.getList = getList;
-        vm.isActive = isActive;
-        vm.gifs = [];
-        vm.selectedGif = undefined;
-        vm.title = 'Avengers';
-
-        activate();
-
-        function activate() {
-            return getList();
-        }
-
-        function getList() {
-            return appService.getList()
-                .then(function(data){
-                    return vm.gifs = data.data;
-                });
-        }
-
-        function isActive(avenger) {
-            return !!(vm.selectedGif === avenger);
-        }
-    }
-})();
-
-(function() {
     'use strict';
 
     angular
@@ -578,3 +343,238 @@ angular
         'ngRoute',
     ]);
 })();
+
+(function() {
+  'use strict';
+
+  angular
+    .module('app')
+    .controller('FeatureController', FeatureController)
+
+  FeatureController.$inject = ['appService', '$routeParams'];
+
+  function FeatureController(appService, $routeParams) {
+    var vm = this;
+    vm.getList = getList;
+    vm.supportingTemplate = "one";
+    vm.isActive = isActive;
+    vm.gifs = [];
+    vm.selectedGif = undefined;
+    vm.title = 'Avengers';
+
+    activate();
+
+    function activate() {
+      return getList();
+    }
+
+    function getList() {
+      return appService.getList()
+        .then(function(data) {
+          vm.gifs = data.data;
+          console.log("hello");
+          for (var i = 0; i < vm.gifs.length; i++) {
+            console.log(vm.gifs[i].id + " and " + $routeParams.id);
+            if(vm.gifs[i].id == $routeParams.id) {
+              vm.selectedGif = vm.gifs[i];
+            }
+          }
+        });
+    }
+
+    function isActive(avenger) {
+      return !!(vm.selectedGif === avenger);
+    }
+  }
+})();
+
+(function() {
+  'use strict';
+
+  angular
+    .module('app')
+    .directive('supportingTemplate', supportingTemplate);
+
+  supportingTemplate.$inject = ['$compile', 'featureService'];
+
+  function myDirective() {
+    return {
+      templateUrl: function(elem, attr) {
+        return '/app/feature/feature.' + attr.type + '.html';
+      },
+      restrict: "EAC"
+    };
+  }
+
+
+  function supportingTemplate($compile, featureService) {
+    return {
+      scope: {
+        vm: '=' // Two-way data binding,
+          //TODO consider using a one-way binding here!
+      },
+      link: function(scope, element) {
+        // Use the FeatureService to load in one of our directive templates
+        featureService.getTemplate(scope.vm.supportingTemplate).then(function(response) {
+          // Compile the template passing in scope, with the passed
+          // scope access controller props using the parent as `vm.myVar`.
+          element.append($compile(response.data)(scope));
+        });
+      }
+    };
+  }
+})();
+
+(function() {
+  'use strict';
+
+  angular
+    .module('app')
+    .factory('featureService', featureService);
+
+  featureService.$inject = ["$http"];
+
+  function featureService($http) {
+    var service = {
+      getTemplate: getTemplate
+    };
+
+    return service;
+
+    function getTemplate(content) {
+      return $http({
+        method: 'GET',
+        url: 'app/feature/feature.' + content + '.html',
+        cache: true
+      }).
+      success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        return data;
+      }).
+      error(function(data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+    }
+
+  }
+})();
+
+(function() {
+  'use strict';
+
+  angular
+    .module('app')
+    .controller('PersonalController', PersonalController);
+
+  PersonalController.$inject = ['appService', '$routeParams'];
+
+  function PersonalController(appService, $routeParams) {
+    var vm = this;
+    vm.getList = getList;
+    vm.isActive = isActive;
+    vm.gifs = [];
+    vm.selectedGif = undefined;
+    vm.title = 'Avengers';
+
+    activate();
+
+    function activate() {
+      return getList();
+    }
+
+    function getList() {
+      return appService.getList()
+        .then(function(data) {
+          vm.gifs = data.data;
+          console.log("hello");
+          for (var i = 0; i < vm.gifs.length; i++) {
+            console.log(vm.gifs[i].id + " and " + $routeParams.id);
+            if(vm.gifs[i].id == $routeParams.id) {
+              vm.selectedGif = vm.gifs[i];
+            }
+          }
+        });
+    }
+
+    function isActive(avenger) {
+      return !!(vm.selectedGif === avenger);
+    }
+  }
+})();
+
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('GridController', GridController);
+
+    GridController.$inject = ['appService'];
+
+    function GridController(appService) {
+        var vm = this;
+
+        vm.getList = getList;
+        vm.isActive = isActive;
+        vm.gifs = [];
+        vm.selectedGif = undefined;
+        vm.title = 'Avengers';
+
+        activate();
+
+        function activate() {
+            return getList();
+        }
+
+        function getList() {
+            return appService.getList()
+                .then(function(data){
+                    return vm.gifs = data.data;
+                });
+        }
+
+        function isActive(avenger) {
+            return !!(vm.selectedGif === avenger);
+        }
+    }
+})();
+
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('SubmissionController', SubmissionController);
+
+    SubmissionController.$inject = ['appService'];
+
+    function SubmissionController(appService) {
+        var vm = this;
+
+        vm.getList = getList;
+        vm.isActive = isActive;
+        vm.gifs = [];
+        vm.selectedGif = undefined;
+        vm.title = 'Avengers';
+
+        activate();
+
+        function activate() {
+            return getList();
+        }
+
+        function getList() {
+            return appService.getList()
+                .then(function(data){
+                    return vm.gifs = data.data;
+                });
+        }
+
+        function isActive(avenger) {
+            return !!(vm.selectedGif === avenger);
+        }
+    }
+})();
+
