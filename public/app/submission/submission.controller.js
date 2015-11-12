@@ -32,5 +32,7 @@
         function isActive(avenger) {
             return !!(vm.selectedGif === avenger);
         }
+
+        
     }
 })();

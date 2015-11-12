@@ -1,36 +1,36 @@
-(function () {
-    'use strict';
+(function() {
+  'use strict';
 
-    angular
-        .module('app')
-        .controller('GridController', GridController);
+  angular
+    .module('app')
+    .controller('GridController', GridController);
 
-    GridController.$inject = ['appService'];
+  GridController.$inject = ['appService'];
 
-    function GridController(appService) {
-        var vm = this;
+  function GridController(appService) {
+    var vm = this;
 
-        vm.getList = getList;
-        vm.isActive = isActive;
-        vm.gifs = [];
-        vm.selectedGif = undefined;
-        vm.title = 'Avengers';
+    vm.getList = getList;
+    vm.isActive = isActive;
+    vm.gifs = [];
+    vm.selectedGif = undefined;
+    vm.title = 'Avengers';
 
-        activate();
+    activate();
 
-        function activate() {
-            return getList();
-        }
-
-        function getList() {
-            return appService.getList()
-                .then(function(data){
-                    return vm.gifs = data.data;
-                });
-        }
-
-        function isActive(avenger) {
-            return !!(vm.selectedGif === avenger);
-        }
+    function activate() {
+      return getList();
     }
+
+    function getList() {
+      return appService.getList()
+        .then(function(data) {
+          return vm.gifs = data.data;
+        });
+    }
+
+    function isActive(avenger) {
+      return !!(vm.selectedGif === avenger);
+    }
+  }
 })();

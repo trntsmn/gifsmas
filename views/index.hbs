@@ -1,9 +1,9 @@
 <section>
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div id='feature'>
-  <section data-ng-view class="down-and-out">
+<div id='main'>
+  <div data-ng-view class="wrapper down-and-out">
     <!-- Feature content here -->
-  </section>
+  </div>
 </div>
 
 <div class="container container-gifsmas">
@@ -21,22 +21,9 @@
       </div>
     </div>
   </div>
-  <!-- Example row of columns -->
-  <div class="row" >
-    <div class="gif">
-      <img src="/images/one.png" alt="Day 1" />
-    </div>
-    <div class="gif">
-      <img src="/images/two.png" alt="Day 1" />
-    </div>
-    <div class="gif">
-      <img src="/images/one.png" alt="Day 1" />
-    </div>
-    <div class="gif">
-      <img src="/images/two.png" alt="Day 1" />
-    </div>
-  </div>
-  <div data-ng-include="'app/grid/grid.html'"></div>
+
+
+  <div data-ng-include="'app/grid/grid.html'" class="wrapper"></div>
 
 
 

@@ -91,25 +91,38 @@
   }
 }
 
-#feature {
+
+///////
+// Main content area
+///////
+
+
+#main {
   padding: 0;
   margin: 0;
   height: 700px;
   max-width: 1170px;
   margin: 0 auto;
   overflow: hidden;
-  > section {
+  > div.wrapper {
     z-index: -9;
-  }
-  > section > .container {
-    padding-top: 107px;
-    background: transparent url("/images/test.jpg") no-repeat center center;
-    background-size: cover;
-    height: 700px;
-    width: 1170px;
-  }
+    position: relative;;
 
+    > section.feature {
+      padding-top: 107px;
+      background: transparent url("/images/test.jpg") no-repeat center center;
+      background-size: cover;
+      height: 700px;
+      width: 1170px;
+    }
+
+    > section.submission {
+      padding-top: 107px;
+    }
+  }
 }
+
+
 ///////
 // Footer
 ///////
@@ -117,9 +130,9 @@
 
 footer {
   background-color: #cecece;
-  -webkit-box-shadow: inset 0px 2px 5px 0px rgba(82,82,82,1);
-  -moz-box-shadow: inset 0px 2px 5px 0px rgba(82,82,82,1);
-  box-shadow: inset 0px 2px 5px 0px rgba(82,82,82,1);
+  -webkit-box-shadow: inset 0px 2px 5px -1px  rgba(82,82,82,1);
+  -moz-box-shadow: inset 0px 2px 5px -1px rgba(82,82,82,1);
+  box-shadow: inset 0px 2px 5px -1px  rgba(82,82,82,1);
 }
 
 

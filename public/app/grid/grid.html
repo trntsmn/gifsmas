@@ -1,28 +1,18 @@
-<div data-ng-controller="GridController as vm" >
-    <h2 class="row">{{vm.title}} - $route, config, track by, order by, promises</h2>
+<div data-ng-controller="GridController as vm">
 
-    <div class="row btn-group">
-        <a class="btn btn-default"
-                data-ng-href="#/day/{{a.id}}"
-                data-ng-repeat="a in vm.gifs track by a.name"
-                data-ng-click="vm.selectedGif = a">{{a.name}}</a>
+  <div class="row">
+    <div class="gif" data-ng-repeat="a in vm.gifs | orderBy:'order' track by a.id ">
+      <a class="" data-ng-href="#/day/{{a.id}}" data-ng-click="vm.selectedGif = a">
+        <img data-ng-src="{{a.thumbnail}}" alt="{{a.name}}" />
+      </a>
     </div>
-    <div class="row">
-        <span class="label label-primary">{{vm.selectedGif.name}}</span>
-    </div>
+  </div>
 
-    <div class="row">
-        <table class="table table-bordered table-striped table-condensed">
-            <thead>
-                <th>Name</th>
-                <th>Description</th>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat="a in vm.gifs | orderBy:'name' track by a.id ">
-                    <td>{{a.name}}</td>
-                    <td>{{a.description}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
+  <div class="row">
+    <!-- Leaving this here to remind me how to bind a value
+    <span class="label label-primary">{{vm.selectedGif.name}}</span>
+    -->
+  </div>
+
 </div>

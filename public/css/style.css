@@ -6546,27 +6546,30 @@ button.close {
   .navbar-fixed-top .vcenter {
     margin-top: 17px; }
 
-#feature {
+#main {
   padding: 0;
   margin: 0;
   height: 700px;
   max-width: 1170px;
   margin: 0 auto;
   overflow: hidden; }
-  #feature > section {
-    z-index: -9; }
-  #feature > section > .container {
-    padding-top: 107px;
-    background: transparent url("/images/test.jpg") no-repeat center center;
-    background-size: cover;
-    height: 700px;
-    width: 1170px; }
+  #main > div.wrapper {
+    z-index: -9;
+    position: relative; }
+    #main > div.wrapper > section.feature {
+      padding-top: 107px;
+      background: transparent url("/images/test.jpg") no-repeat center center;
+      background-size: cover;
+      height: 700px;
+      width: 1170px; }
+    #main > div.wrapper > section.submission {
+      padding-top: 107px; }
 
 footer {
   background-color: #cecece;
-  -webkit-box-shadow: inset 0px 2px 5px 0px #525252;
-  -moz-box-shadow: inset 0px 2px 5px 0px #525252;
-  box-shadow: inset 0px 2px 5px 0px #525252; }
+  -webkit-box-shadow: inset 0px 2px 5px -1px #525252;
+  -moz-box-shadow: inset 0px 2px 5px -1px #525252;
+  box-shadow: inset 0px 2px 5px -1px #525252; }
 
 .container.container-gifsmas .gif {
   position: relative;
