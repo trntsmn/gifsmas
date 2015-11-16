@@ -105,7 +105,7 @@
   margin: 0 auto;
   overflow: hidden;
   > div.wrapper {
-    z-index: -9;
+    //z-index: -9;
     position: relative;;
 
     > section.feature {
@@ -162,6 +162,12 @@ footer {
 
       img {width: 100%;}
   }
+
+  .ng-enter-stagger,
+  .ng-leave-stagger {
+    transition-delay: 200ms;
+    transition-duration: 0s;
+  }
 }
 
 
@@ -187,6 +193,162 @@ section.app {margin-top: 108px;}
 ///////
 // Animations
 ///////
+
+
+@mixin transitionDuration ($duration) {
+	transition-duration: $duration;
+	-webkit-transition-duration: $duration;
+}
+
+@mixin easingTimingFunction () {
+	-webkit-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-moz-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-ms-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	 -o-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	    transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
+
+	-webkit-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-moz-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	-ms-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	 -o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	    transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
+}
+
+@mixin bouncyTimingFunction () {
+	-webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1); /* older webkit */
+	-webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	   -moz-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	    -ms-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	     -o-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	        transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1); /* older webkit */
+	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595);
+	   -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595);
+	    -ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595);
+	     -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595);
+	        transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595); /* custom */
+}
+
+@mixin easingOutQuadTimingFunction () {
+	-webkit-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	   -moz-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	    -ms-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	     -o-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	        transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
+
+	-webkit-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	   -moz-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	    -ms-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	     -o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+	        transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
+}
+
+@mixin transform ($value) {
+	transform: $value;
+	-ms-transform: $value;
+	-webkit-transform: $value;
+}
+
+
+.bouncy-slide-down {
+	@include bouncyTimingFunction();
+
+	&.ng-enter {
+		@include transform(translateY(-240px));
+		@include transitionDuration(250ms);
+		opacity: 0;
+	}
+
+	&.ng-enter-active {
+		@include transform(translateY(0));
+		opacity: 1;
+	}
+
+	&.ng-leave {
+		@include transform(translateY(0));
+		@include transitionDuration(250ms);
+		opacity: 1;
+	}
+
+	&.ng-leave-active {
+		@include transform(translateY(-240px));
+		opacity: 0;
+	}
+
+	// Hide
+	&.ng-hide-add {
+		@include transform(translateY(0));
+		@include transitionDuration(250ms);
+		opacity:1;
+	}
+	&.ng-hide-add.ng-hide-add-active {
+		@include transform(translateY(-240px));
+		opacity:0;
+	}
+
+	// Show
+	&.ng-hide-remove {
+		@include transform(translateY(-240px));
+		@include transitionDuration(250ms);
+		display:block!important;
+		opacity:0;
+	}
+	&.ng-hide-remove.ng-hide-remove-active {
+		@include transform(translateY(0));
+		opacity:1;
+	}
+}
+
+
+.rotate-in {
+	@include bouncyTimingFunction();
+
+	&.ng-enter {
+		@include transform(perspective(300px) rotateY(40deg));
+		@include transitionDuration(550ms);
+		opacity: 0;
+	}
+
+	&.ng-enter-active {
+		@include transform(perspective(300px) rotateY(0deg));
+		opacity: 1;
+	}
+
+	&.ng-leave {
+		@include transform(perspective(300px) rotateY(0deg));
+		@include transitionDuration(550ms);
+		opacity: 1;
+	}
+
+	&.ng-leave-active {
+		@include transform(perspective(300px) rotateY(-40deg));
+		opacity: 0;
+	}
+
+	// Hide
+	&.ng-hide-add {
+		@include transform(perspective(300px) rotateY(0deg));
+		@include transitionDuration(550ms);
+		opacity:1;
+	}
+	&.ng-hide-add.ng-hide-add-active {
+		@include transform(perspective(300px) rotateY(-40deg));
+		opacity:0;
+	}
+
+	// Show
+	&.ng-hide-remove {
+		@include transform(perspective(300px) rotateY(40deg));
+		@include transitionDuration(550ms);
+		display:block!important;
+		opacity:0;
+	}
+	&.ng-hide-remove.ng-hide-remove-active {
+		@include transform(perspective(300px) rotateY(0deg));
+		opacity:1;
+	}
+}
 
 
 .down-and-out.ng-enter,

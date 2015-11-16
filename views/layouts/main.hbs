@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="app">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,21 @@
     <title>{{title}}</title>
 
     <link rel='stylesheet' href='/css/style.css' />
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+
+
+    {{!
+      Let's kick off the party with modernizr, we'll use it to
+      detect how we'll capture video.
+    }}
+    <script src="/js/modernizr.min.js" charset="utf-8"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -20,17 +35,11 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body data-ng-app="app" data-ng-cloak>
 
     <nav class="navbar navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="/#/">{{svg 'images/logo.svg'}}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
