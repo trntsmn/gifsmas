@@ -52,3 +52,45 @@
 <script src="/app/submission/capture.directive.js"></script>
 <script src="/app/meta/meta.service.js"></script>
 <script src="/app/meta/meta.directive.js"></script>
+
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '7970714394',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+<script>
+document.getElementById('ogBtn').onclick = function() {
+  FB.ui({
+    display: 'popup',
+    method: 'feed',
+    name: 'Facebook Dialogs',
+    link: 'https://vast-beyond-5642.herokuapp.com/#/day/6',
+    href: 'https://vast-beyond-5642.herokuapp.com/#/day/6',
+    picture: 'https://vast-beyond-5642.herokuapp.com/images/gifs/6-image.gif',
+    caption: 'Reference Documentation',
+    description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+  }, function(response){});
+}
+</script>
+
+
+    <!-- Your share button code -->
+    <div class="fb-share-button"
+        data-href="https://vast-beyond-5642.herokuapp.com/#/day/6" 
+        data-layout="button_count">
+    </div>
