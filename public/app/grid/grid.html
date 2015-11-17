@@ -4,6 +4,9 @@
     <div class="gif rotate-in" data-ng-class="animation"  data-ng-repeat="a in vm.gifs | orderBy:'order' track by a.id ">
       <a class="" data-ng-href="#/day/{{a.id}}" data-ng-click="vm.selectedGif = a">
         <img data-ng-src="{{a.thumbnail}}" alt="{{a.name}}" />
+        <div class="blocker">
+          <img data-ng-src="/images/numbers/{{a.order}}.svg" />
+        </div>
       </a>
     </div>
   </div>

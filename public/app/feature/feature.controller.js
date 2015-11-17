@@ -5,9 +5,9 @@
     .module('app')
     .controller('FeatureController', FeatureController)
 
-  FeatureController.$inject = ['appService', '$routeParams'];
+  FeatureController.$inject = ['appService', '$routeParams', '$anchorScroll'];
 
-  function FeatureController(appService, $routeParams) {
+  function FeatureController(appService, $routeParams, $anchorScroll) {
     var vm = this;
     vm.getList = getList;
     vm.supportingTemplate = undefined;
@@ -15,7 +15,8 @@
     vm.gifs = [];
     vm.selectedGif = undefined;
     vm.title = 'Avengers';
-
+    $anchorScroll.yOffset = 0;
+    $anchorScroll("main");
     activate();
 
     function activate() {

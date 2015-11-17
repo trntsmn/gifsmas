@@ -6549,28 +6549,66 @@ button.close {
 #main {
   padding: 0;
   margin: 0;
-  height: 700px;
-  max-width: 1170px;
-  margin: 0 auto;
-  overflow: hidden; }
-  #main > div.wrapper {
-    position: relative; }
-    #main > div.wrapper > section.feature {
-      background-size: cover;
-      height: 700px;
-      width: 1170px; }
-      #main > div.wrapper > section.feature img {
-        width: 100%; }
-    #main > div.wrapper > section.submission {
+  max-width: 1200px;
+  margin: 0 auto; }
+  #main > .wrapper {
+    height: 665px;
+    position: relative;
+    -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* easeOutQuad */
+    -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* easeOutQuad */ }
+    #main > .wrapper.ng-enter {
+      position: absolute;
+      transform: translateY(665px);
+      -ms-transform: translateY(665px);
+      -webkit-transform: translateY(665px);
+      transition-duration: 1s;
+      -webkit-transition-duration: 1s;
+      opacity: 0;
+      top: 0; }
+    #main > .wrapper.ng-enter-active {
+      transform: translateY(0);
+      -ms-transform: translateY(0);
+      -webkit-transform: translateY(0);
+      opacity: 1;
+      position: absolute;
+      top: 0; }
+    #main > .wrapper.ng-leave {
+      transform: translateY(0);
+      -ms-transform: translateY(0);
+      -webkit-transform: translateY(0);
+      transition-duration: 1s;
+      -webkit-transition-duration: 1s;
+      opacity: 1; }
+    #main > .wrapper.ng-leave-active {
+      transform: translateY(-665px);
+      -ms-transform: translateY(-665px);
+      -webkit-transform: translateY(-665px);
+      opacity: 0; }
+    #main > .wrapper > section.feature img {
+      width: 100%; }
+    #main > .wrapper > section.submission {
       padding-top: 107px; }
 
 footer {
   background-color: #cecece;
-  -webkit-box-shadow: inset 0px 2px 5px -1px #525252;
-  -moz-box-shadow: inset 0px 2px 5px -1px #525252;
-  box-shadow: inset 0px 2px 5px -1px #525252; }
+  -webkit-box-shadow: inset 0 2px 5px -1px #525252;
+  -moz-box-shadow: inset 0 2px 5px -1px #525252;
+  box-shadow: inset 0 2px 5px -1px #525252; }
 
 .container.container-gifsmas .gif {
+  overflow: hidden;
+  display: block;
+  height: 150px;
   position: relative;
   float: left;
   width: 100%;
@@ -6608,7 +6646,38 @@ footer {
       float: left;
       width: 25%; } }
   .container.container-gifsmas .gif img {
-    width: 100%; }
+    width: 100%;
+    position: absolute; }
+  .container.container-gifsmas .gif .blocker {
+    -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* easeOutQuad */
+    -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* easeOutQuad */
+    transition-duration: 550ms;
+    -webkit-transition-duration: 550ms;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); }
+  .container.container-gifsmas .gif .blocker img {
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+  .container.container-gifsmas .gif a:hover .blocker {
+    transform: perspective(300px) rotateY(90deg);
+    -ms-transform: perspective(300px) rotateY(90deg);
+    -webkit-transform: perspective(300px) rotateY(90deg);
+    background-color: transparent; }
 
 .container.container-gifsmas .ng-enter-stagger,
 .container.container-gifsmas .ng-leave-stagger {
@@ -6631,52 +6700,52 @@ section.app {
   margin-top: 108px; }
 
 .bouncy-slide-down {
-  -webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1);
-  /* older webkit */
-  -webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -moz-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -ms-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -o-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  /* easeOutBack */
-  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1);
-  /* older webkit */
-  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  -ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
-  /* custom */ }
+  -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* easeOutQuad */
+  -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* easeOutQuad */ }
   .bouncy-slide-down.ng-enter {
-    transform: translateY(-240px);
-    -ms-transform: translateY(-240px);
-    -webkit-transform: translateY(-240px);
-    transition-duration: 250ms;
-    -webkit-transition-duration: 250ms;
-    opacity: 0; }
+    position: absolute;
+    transform: translateY(700px);
+    -ms-transform: translateY(700px);
+    -webkit-transform: translateY(700px);
+    transition-duration: 122s;
+    -webkit-transition-duration: 122s;
+    opacity: 0;
+    top: 0; }
   .bouncy-slide-down.ng-enter-active {
     transform: translateY(0);
     -ms-transform: translateY(0);
     -webkit-transform: translateY(0);
-    opacity: 1; }
+    opacity: 1;
+    position: absolute;
+    top: 0; }
   .bouncy-slide-down.ng-leave {
     transform: translateY(0);
     -ms-transform: translateY(0);
     -webkit-transform: translateY(0);
-    transition-duration: 250ms;
-    -webkit-transition-duration: 250ms;
+    transition-duration: 122s;
+    -webkit-transition-duration: 122s;
     opacity: 1; }
   .bouncy-slide-down.ng-leave-active {
-    transform: translateY(-240px);
-    -ms-transform: translateY(-240px);
-    -webkit-transform: translateY(-240px);
+    transform: translateY(-700px);
+    -ms-transform: translateY(-700px);
+    -webkit-transform: translateY(-700px);
     opacity: 0; }
   .bouncy-slide-down.ng-hide-add {
     transform: translateY(0);
     -ms-transform: translateY(0);
     -webkit-transform: translateY(0);
-    transition-duration: 250ms;
-    -webkit-transition-duration: 250ms;
+    transition-duration: 1250ms;
+    -webkit-transition-duration: 1250ms;
     opacity: 1; }
   .bouncy-slide-down.ng-hide-add.ng-hide-add-active {
     transform: translateY(-240px);
@@ -6687,8 +6756,8 @@ section.app {
     transform: translateY(-240px);
     -ms-transform: translateY(-240px);
     -webkit-transform: translateY(-240px);
-    transition-duration: 250ms;
-    -webkit-transition-duration: 250ms;
+    transition-duration: 1250ms;
+    -webkit-transition-duration: 1250ms;
     display: block !important;
     opacity: 0; }
   .bouncy-slide-down.ng-hide-remove.ng-hide-remove-active {

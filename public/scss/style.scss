@@ -3,7 +3,6 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
 // Core variables and mixins
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
@@ -46,7 +45,6 @@
 @import "bootstrap/wells";
 @import "bootstrap/close";
 
-
 // Components w/ JavaScript
 @import "bootstrap/modals";
 @import "bootstrap/tooltip";
@@ -56,13 +54,11 @@
 // Utility classes
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
-
+@import "animation";
 
 ///////
 // Const
 ///////
-
-
 .upper {
   text-transform: uppercase;
 }
@@ -73,16 +69,12 @@
   position: relative;
 }
 
-
 ///////
 // Header
 ///////
-
-
 .navbar-fixed-top {
   background-color: rgba(255, 255, 255, .85);
   height: 107px;
-
   svg {
     width: 300px;
   }
@@ -91,78 +83,108 @@
   }
 }
 
-
 ///////
 // Main content area
 ///////
-
-
 #main {
   padding: 0;
   margin: 0;
-  height: 700px;
-  max-width: 1170px;
+  max-width: 1200px;
   margin: 0 auto;
-  overflow: hidden;
-  > div.wrapper {
-    //z-index: -9;
-    position: relative;;
-
+  > .wrapper {
+    height: 665px;
+    position: relative;
+    @include easingOutQuadTimingFunction();
+    &.ng-enter {
+      position: absolute;
+      @include transform(translateY(665px));
+      @include transitionDuration(1s);
+      opacity: 0;
+      top: 0;
+    }
+    &.ng-enter-active {
+      @include transform(translateY(0));
+      opacity: 1;
+      position: absolute;
+      top: 0;
+    }
+    &.ng-leave {
+      @include transform(translateY(0));
+      @include transitionDuration(1s);
+      opacity: 1;
+    }
+    &.ng-leave-active {
+      @include transform(translateY(-665px));
+      opacity: 0;
+    }
     > section.feature {
-      //padding-top: 107px;
-      //background: transparent url("/images/test.jpg") no-repeat center center;
-      background-size: cover;
-      height: 700px;
-      width: 1170px;
-
       img {
         width: 100%;
       }
     }
-
     > section.submission {
       padding-top: 107px;
     }
   }
 }
 
-
 ///////
 // Footer
 ///////
-
-
 footer {
   background-color: #cecece;
-  -webkit-box-shadow: inset 0px 2px 5px -1px  rgba(82,82,82,1);
-  -moz-box-shadow: inset 0px 2px 5px -1px rgba(82,82,82,1);
-  box-shadow: inset 0px 2px 5px -1px  rgba(82,82,82,1);
+  -webkit-box-shadow: inset 0 2px 5px -1px rgba(82,82,82,1);
+  -moz-box-shadow: inset 0 2px 5px -1px rgba(82,82,82,1);
+  box-shadow: inset 0 2px 5px -1px rgba(82,82,82,1);
 }
-
 
 ///////
 // Gifsmas Grid
 ///////
-
-
 .container.container-gifsmas {
   .gif {
-      // Mixins defined in /scss/bootstrap/mixins/_grid.scss
-      @include make-xs-column($columns: 12);
+    overflow: hidden;
+    display: block;
+    height: 150px;
 
-      @media (min-width: $screen-sm-min) {
-        @include make-sm-column($columns: 6, $gutter: 0);
-      }
-      @media (min-width: $screen-md-min) {
-        @include make-md-column($columns: 4, $gutter: 0);
-      }
-      @media (min-width: $screen-lg-min) {
-        @include make-lg-column($columns: 3, $gutter: 0);
-      }
+    // Mixins defined in /scss/bootstrap/mixins/_grid.scss
+    @include make-xs-column($columns: 12);
+    @media (min-width: $screen-sm-min) {
+      @include make-sm-column($columns: 6, $gutter: 0);
+    }
+    @media (min-width: $screen-md-min) {
+      @include make-md-column($columns: 4, $gutter: 0);
+    }
+    @media (min-width: $screen-lg-min) {
+      @include make-lg-column($columns: 3, $gutter: 0);
+    }
+    img {
+      width: 100%;
+      position: absolute;
+    }
+    .blocker {
+      @include easingOutQuadTimingFunction();
+      @include transitionDuration(550ms);
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,.5);
+    }
+    .blocker img {
+      width: 30%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
 
-      img {width: 100%;}
+    a:hover {
+      .blocker {
+        @include transform(perspective(300px) rotateY(90deg));
+        background-color: rgba(0,0,0,0);
+      }
+    }
   }
-
   .ng-enter-stagger,
   .ng-leave-stagger {
     transition-delay: 200ms;
@@ -170,14 +192,15 @@ footer {
   }
 }
 
-
 ///////
 // Misc
 ///////
-
-
-.intro h4 { margin: 50px 0; }
-.intro h5 { margin-top: 43px; }
+.intro h4 {
+  margin: 50px 0;
+}
+.intro h5 {
+  margin-top: 43px;
+}
 .social-shares {
   text-align: center;
 }
@@ -186,194 +209,128 @@ footer {
     width: 32px;
   }
 }
-section.app {margin-top: 108px;}
-
-
+section.app {
+  margin-top: 108px;
+}
 
 ///////
 // Animations
 ///////
-
-
-@mixin transitionDuration ($duration) {
-	transition-duration: $duration;
-	-webkit-transition-duration: $duration;
-}
-
-@mixin easingTimingFunction () {
-	-webkit-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	-moz-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	-ms-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	 -o-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	    transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
-
-	-webkit-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	-moz-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	-ms-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	 -o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	    transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
-}
-
-@mixin bouncyTimingFunction () {
-	-webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1); /* older webkit */
-	-webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275);
-	   -moz-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275);
-	    -ms-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275);
-	     -o-transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275);
-	        transition: all 0 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
-
-	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1); /* older webkit */
-	-webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595);
-	   -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595);
-	    -ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595);
-	     -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595);
-	        transition-timing-function: cubic-bezier(0.175, 0.885, 0.450, 1.595); /* custom */
-}
-
-@mixin easingOutQuadTimingFunction () {
-	-webkit-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	   -moz-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	    -ms-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	     -o-transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	        transition: all 0 cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
-
-	-webkit-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	   -moz-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	    -ms-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	     -o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
-	        transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940); /* easeOutQuad */
-}
-
-@mixin transform ($value) {
-	transform: $value;
-	-ms-transform: $value;
-	-webkit-transform: $value;
-}
-
-
 .bouncy-slide-down {
-	@include bouncyTimingFunction();
+  @include easingOutQuadTimingFunction();
+  &.ng-enter {
+    position: absolute;
+    @include transform(translateY(700px));
+    @include transitionDuration(122s);
+    opacity: 0;
+    top: 0;
+  }
+  &.ng-enter-active {
+    @include transform(translateY(0));
+    opacity: 1;
+    position: absolute;
+    top: 0;
+  }
+  &.ng-leave {
+    @include transform(translateY(0));
+    @include transitionDuration(122s);
+    opacity: 1;
+  }
+  &.ng-leave-active {
+    @include transform(translateY(-700px));
+    opacity: 0;
+  }
 
-	&.ng-enter {
-		@include transform(translateY(-240px));
-		@include transitionDuration(250ms);
-		opacity: 0;
-	}
+  // Hide
+  &.ng-hide-add {
+    @include transform(translateY(0));
+    @include transitionDuration(1250ms);
+    opacity: 1;
+  }
+  &.ng-hide-add.ng-hide-add-active {
+    @include transform(translateY(-240px));
+    opacity: 0;
+  }
 
-	&.ng-enter-active {
-		@include transform(translateY(0));
-		opacity: 1;
-	}
-
-	&.ng-leave {
-		@include transform(translateY(0));
-		@include transitionDuration(250ms);
-		opacity: 1;
-	}
-
-	&.ng-leave-active {
-		@include transform(translateY(-240px));
-		opacity: 0;
-	}
-
-	// Hide
-	&.ng-hide-add {
-		@include transform(translateY(0));
-		@include transitionDuration(250ms);
-		opacity:1;
-	}
-	&.ng-hide-add.ng-hide-add-active {
-		@include transform(translateY(-240px));
-		opacity:0;
-	}
-
-	// Show
-	&.ng-hide-remove {
-		@include transform(translateY(-240px));
-		@include transitionDuration(250ms);
-		display:block!important;
-		opacity:0;
-	}
-	&.ng-hide-remove.ng-hide-remove-active {
-		@include transform(translateY(0));
-		opacity:1;
-	}
+  // Show
+  &.ng-hide-remove {
+    @include transform(translateY(-240px));
+    @include transitionDuration(1250ms);
+    display: block!important;
+    opacity: 0;
+  }
+  &.ng-hide-remove.ng-hide-remove-active {
+    @include transform(translateY(0));
+    opacity: 1;
+  }
 }
-
-
 .rotate-in {
-	@include bouncyTimingFunction();
+  @include bouncyTimingFunction();
+  &.ng-enter {
+    @include transform(perspective(300px) rotateY(40deg));
+    @include transitionDuration(550ms);
+    opacity: 0;
+  }
+  &.ng-enter-active {
+    @include transform(perspective(300px) rotateY(0deg));
+    opacity: 1;
+  }
+  &.ng-leave {
+    @include transform(perspective(300px) rotateY(0deg));
+    @include transitionDuration(550ms);
+    opacity: 1;
+  }
+  &.ng-leave-active {
+    @include transform(perspective(300px) rotateY(-40deg));
+    opacity: 0;
+  }
 
-	&.ng-enter {
-		@include transform(perspective(300px) rotateY(40deg));
-		@include transitionDuration(550ms);
-		opacity: 0;
-	}
+  // Hide
+  &.ng-hide-add {
+    @include transform(perspective(300px) rotateY(0deg));
+    @include transitionDuration(550ms);
+    opacity: 1;
+  }
+  &.ng-hide-add.ng-hide-add-active {
+    @include transform(perspective(300px) rotateY(-40deg));
+    opacity: 0;
+  }
 
-	&.ng-enter-active {
-		@include transform(perspective(300px) rotateY(0deg));
-		opacity: 1;
-	}
-
-	&.ng-leave {
-		@include transform(perspective(300px) rotateY(0deg));
-		@include transitionDuration(550ms);
-		opacity: 1;
-	}
-
-	&.ng-leave-active {
-		@include transform(perspective(300px) rotateY(-40deg));
-		opacity: 0;
-	}
-
-	// Hide
-	&.ng-hide-add {
-		@include transform(perspective(300px) rotateY(0deg));
-		@include transitionDuration(550ms);
-		opacity:1;
-	}
-	&.ng-hide-add.ng-hide-add-active {
-		@include transform(perspective(300px) rotateY(-40deg));
-		opacity:0;
-	}
-
-	// Show
-	&.ng-hide-remove {
-		@include transform(perspective(300px) rotateY(40deg));
-		@include transitionDuration(550ms);
-		display:block!important;
-		opacity:0;
-	}
-	&.ng-hide-remove.ng-hide-remove-active {
-		@include transform(perspective(300px) rotateY(0deg));
-		opacity:1;
-	}
+  // Show
+  &.ng-hide-remove {
+    @include transform(perspective(300px) rotateY(40deg));
+    @include transitionDuration(550ms);
+    display: block!important;
+    opacity: 0;
+  }
+  &.ng-hide-remove.ng-hide-remove-active {
+    @include transform(perspective(300px) rotateY(0deg));
+    opacity: 1;
+  }
 }
-
-
 .down-and-out.ng-enter,
 .down-and-out.ng-leave {
-    position: absolute;
+  position: absolute;
 }
 .down-and-out.ng-enter {
-    -moz-transition: ease-out all 0.3s 0.4s;
-    -o-transition: ease-out all 0.3s 0.4s;
-    -webkit-transition: ease-out all 0.3s 0.4s;
-    transition: ease-out all 0.3s 0.4s;
+  -moz-transition: ease-out all 0.3s 0.4s;
+  -o-transition: ease-out all 0.3s 0.4s;
+  -webkit-transition: ease-out all 0.3s 0.4s;
+  transition: ease-out all 0.3s 0.4s;
 }
 .down-and-out.ng-leave {
-    -moz-transition: 0.3s ease-out all;
-    -o-transition: 0.3s ease-out all;
-    -webkit-transition: 0.3s ease-out all;
-    transition: 0.3s ease-out all;
+  -moz-transition: 0.3s ease-out all;
+  -o-transition: 0.3s ease-out all;
+  -webkit-transition: 0.3s ease-out all;
+  transition: 0.3s ease-out all;
 }
 .down-and-out.ng-enter,
 .down-and-out.ng-leave.ng-leave-active {
-    top: 200px;
-    opacity: 0;
+  top: 200px;
+  opacity: 0;
 }
 .down-and-out.ng-leave,
 .down-and-out.ng-enter.ng-enter-active {
-    top: 0;
-    opacity: 1;
+  top: 0;
+  opacity: 1;
 }

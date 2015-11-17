@@ -15,11 +15,11 @@ exports.format = function(gif) {
   if(now > activate) {
     // This is an active gif
     gif.active = true;
-    gif.image = gif.activeImage;
-    gif.thumbnail = gif.activeThumbnail;
+    //gif.image = gif.activeImage;
+    //gif.thumbnail = gif.activeThumbnail;
   } else {
-    gif.image = gif.inactiveImage;
-    gif.thumbnail = gif.inactiveThumbnail;
+    gif.image = null
+    gif.thumbnail = null;
   }
   return gif
 
