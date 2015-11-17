@@ -16,6 +16,10 @@ router.get('/form', function(req, res, next) {
   res.render('sandbox/form', { title: 'Sandbox Form', layout: 'noAngular' });
 });
 
+router.get('/social', function(req, res, next) {
+  res.render('sandbox/social', { title: 'Sandbox Social', layout: 'noAngular' });
+});
+
 router.post('/uploads', upload.single('file'), function(req, res){
     console.log(req.body) // form fields
     console.log(req.file) // form file
