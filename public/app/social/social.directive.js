@@ -68,10 +68,10 @@
 
   function tumblrShare(socialService) {
     var title = encodeURIComponent(socialService.getTitle());
-    var image = "https://vast-beyond-5642.herokuapp.com/images/gifs/6-small.gif"
+    var image = encodeURIComponent(socialService.getImage());
     var description = encodeURIComponent(socialService.getDescription());
-    var url = socialService.getUrl();
-    var dest = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${url}&posttype=photo&content=${image}&caption=${description}`;
+    var url = encodeURIComponent(socialService.getUrl());
+    var dest = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${url}&posttype=photo&content=${image}&caption=${description}&tags=Gifsmas,Hiebing`;
 
     return {
       restrict: "E",
