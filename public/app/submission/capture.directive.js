@@ -9,7 +9,9 @@
 
   captureTemplate.$inject = ['$http', '$routeParams', '$q'];
 
-
+  /**
+   * This isn't used just, left as an example.
+   */
   function cameraLightbox() {
     return {
       template: '<video>Video stream not available.</video>',
@@ -26,6 +28,10 @@
       link: link
     };
 
+    /**
+     * Detect the appropriate template to use, based on
+     * browser capabilities
+     */
     function using() {
       if (Modernizr.getusermedia){
         return '/app/submission/video.html';
@@ -37,6 +43,9 @@
       }
     }
 
+    /**
+     * Bind js depending on browser capabilities.
+     */
     function link(scope, element, attrs) {
       if (Modernizr.getusermedia){
         video(scope, element, attrs);
