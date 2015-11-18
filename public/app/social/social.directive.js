@@ -68,10 +68,10 @@
 
   function tumblrShare(socialService) {
     var title = encodeURIComponent(socialService.getTitle());
-    var image = socialService.getImage();
+    var image = "https://vast-beyond-5642.herokuapp.com/images/gifs/6-small.gif"
     var description = encodeURIComponent(socialService.getDescription());
     var url = socialService.getUrl();
-    var dest = `https://www.tumblr.com/share?canonicalUrl=${url}&posttype=photo&title=${title}&content=${image}&caption=${description}`;
+    var dest = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${url}&posttype=photo&content=${image}&caption=${description}`;
 
     return {
       restrict: "E",
@@ -97,7 +97,7 @@
     var dest = `https://www.pinterest.com/pin/create/button/?description=${title}&media=${image}&url=${url}`;
     return {
       restrict: "E",
-      template: `<a data-pin-do="buttonPin" data-pin-custom="true"  href="${dest}" target="_blank" class="social-icon"><img src="/images/social-pinterest.svg" alt="Pinterest Sharing"></a>`
+      template: `<a data-pin-do="buttonPin" data-pin-custom="true"   href="${dest}" target="_blank" class="social-icon"><img src="/images/social-pinterest.svg" alt="Pinterest Sharing"></a>`
     };
   }
 
