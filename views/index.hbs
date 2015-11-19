@@ -1,31 +1,13 @@
-<section>
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <div id='main'>
-  <div data-ng-view class="wrapper">
-    <!-- Feature content here -->
+  <div class="container">
+    <div class="wrapper rel">
+    <div data-ng-view data-ng-animate-children>
+      <!-- Feature content here -->
+    </div>
+  </div>
   </div>
 </div>
 
 <div class="container container-gifsmas">
-  <div class="row intro">
-    <div class="col-sm-12 col-md-8">
-      <h4>Only the Grinch would miss a GIF. Revisit your favorites or check back to see each new GIF as it’s revealed.</h4>
-    </div>
-    <div class="col-sm-12 col-md-4">
-      <h5 class="text-center upper">Sharing is caring</h5>
-      <div class="social-shares">
-        <facebook-share></facebook-share>
-        <tumblr-share></tumblr-share>
-        <twitter-share></twitter-share>
-        <pinterest-share></pinterest-share>
-      </div>
-    </div>
-  </div>
-
-
-  <div data-ng-include="'app/grid/grid.html'" class="wrapper"></div>
-
-
-
+  <div data-ng-include="'app/grid/grid.html'" data-ng-cloak class="wrapper"></div>
 </div>
-</section>

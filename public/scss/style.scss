@@ -55,6 +55,7 @@
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
 @import "animation";
+$red: #f50003;
 
 ///////
 // Const
@@ -77,6 +78,12 @@
   height: 107px;
   svg {
     width: 300px;
+    fill: $red;
+    .st1fillhere {
+      fill-rule: evenodd;
+      clip-rule: evenodd;
+      fill: #FF0000;
+    }
   }
   .vcenter {
     margin-top: 17px;
@@ -87,39 +94,65 @@
 // Main content area
 ///////
 #main {
-  padding: 0;
-  margin: 0;
-  max-width: 1200px;
-  margin: 0 auto;
-  > .wrapper {
-    height: 665px;
-    position: relative;
-    @include easingOutQuadTimingFunction();
-    &.ng-enter {
-      position: absolute;
-      @include transform(translateY(665px));
-      @include transitionDuration(1s);
-      opacity: 0;
-      top: 0;
-    }
-    &.ng-enter-active {
-      @include transform(translateY(0));
-      opacity: 1;
-      position: absolute;
-      top: 0;
-    }
+  .wrapper > div {
     &.ng-leave {
-      @include transform(translateY(0));
       @include transitionDuration(1s);
       opacity: 1;
+      position: absolute;
+      width: 100%;
     }
     &.ng-leave-active {
-      @include transform(translateY(-665px));
       opacity: 0;
     }
+    &.ng-enter {
+      @include transitionDuration(1s);
+      opacity: 0;
+    }
+    &.ng-enter-active {
+      opacity: 1;
+    }
+    img.animate {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      @include easingOutQuadTimingFunction();
+      @include transitionDuration(1s);
+      &.begining {
+        @include transform(translateY(665px));
+        opacity: 0;
+        top: 0;
+      }
+      &.middle {
+        @include transform(translateY(0));
+        opacity: 1;
+      }
+      &.end {
+        @include transform(translateY(-665px));
+        opacity: 0;
+      }
+    }
     > section.feature {
-      img {
-        width: 100%;
+      .row.intro {
+        position: relative;
+        z-index: 10;
+        background-color: #fff;
+      }
+      .row.rel {
+        z-index: -9;
+        img {
+          width: 100%;
+        }
+      }
+      svg {
+        fill: $red;
+        width: 120px;
+        left: -35px;
+        position: absolute;
+        top: -32px;
+      }
+      h1 {
+        color: $red;
+        text-indent: 64px;
       }
     }
     > section.submission {
@@ -177,7 +210,6 @@ footer {
       left: 50%;
       transform: translate(-50%,-50%);
     }
-
     a:hover {
       .blocker {
         @include transform(perspective(300px) rotateY(90deg));

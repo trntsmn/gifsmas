@@ -9,18 +9,23 @@
 
   function FeatureController(appService, $routeParams, $anchorScroll) {
     var vm = this;
-    vm.getList = getList;
-    vm.supportingTemplate = undefined;
-    vm.isActive = isActive;
-    vm.gifs = [];
-    vm.selectedGif = undefined;
-    vm.title = 'Avengers';
+    vm.supportingTemplate = null;
+    vm.gif = null;
+    vm.active = false;
     $anchorScroll.yOffset = 0;
     $anchorScroll("main");
-    activate();
+    vm.activate = activate;
+    ctor();
+
+    function ctor() {
+      activate();
+    }
 
     function activate() {
-      return getList();
+      return appService.getActive().then(function(res){
+        vm.gif = res;
+        vm.active = true;
+      });
     }
 
     function getList() {
@@ -28,16 +33,11 @@
         .then(function(data) {
           vm.gifs = data.data;
           for (var i = 0; i < vm.gifs.length; i++) {
-            console.log(vm.gifs[i].id + " and " + $routeParams.id);
             if(vm.gifs[i].id == $routeParams.id) {
               vm.selectedGif = vm.gifs[i];
             }
           }
         });
-    }
-
-    function isActive(avenger) {
-      return !!(vm.selectedGif === avenger);
     }
   }
 })();

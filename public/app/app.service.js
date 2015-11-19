@@ -8,7 +8,6 @@
   appService.$inject = ['$http', '$routeParams', '$q'];
 
   function appService($http, $routeParams, $q) {
-
     var service = {
       getList: getList,
       getActive: getActive,
@@ -17,12 +16,44 @@
     return service;
 
     function getActive() {
-      // body...
+      if(isPersonal()) {
+          return readMine().then(function(response) {
+            return _filterCache(response.data);
+          })
+        } else {
+          return getList().then(function(response) {
+            return _filterCache(response.data);
+          })
+        }
+    }
 
+    function _filterCache(cache) {
+      var possible = null;
+      for (var i = 0; i < cache.length; i++) {
+        // This block handles the case where we are view a personal gif
+        if ($routeParams.me !== undefined && $routeParams.me == cache[i].id) {
+          console.log("never yet");
+          return $q.when(cache[i]);
+        }
+        // This block handles the case where we are viewing the list
+        if ($routeParams.id !== undefined && $routeParams.id == cache[i].id) {
+          return $q.when(cache[i]);
+        }
+
+        if (cache[i].active) {
+          if (possible === null) {
+            possible = cache[i];
+          } else if (possible.order < cache[i].order) {
+            possible = cache[i];
+          }
+        }
+
+      }
+      return $q.when(possible);
     }
 
     function isPersonal() {
-      return $routeParams.id === undefined ? $q.when(false) : $q.when(true);
+      return $routeParams.me === undefined ? false : true;
     }
 
     function getList() {
@@ -45,7 +76,8 @@
     function readMine() {
       return $http({
         method: 'GET',
-        url: '/gifs/mine/' + $routeParams.id,
+        url: '/gifs/mine/' + $routeParams.me,
+        cache: true
       }).
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
