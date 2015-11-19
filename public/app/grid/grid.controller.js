@@ -3,18 +3,18 @@
 
   angular
     .module('app')
-    .controller('GridController', GridController);
+    .controller('GridController', GridController)
+    .directive('imgNumber', imgNumber);
 
   GridController.$inject = ['appService'];
+  imgNumber.$inject = ['$compile', 'featureService'];
 
   function GridController(appService) {
     var vm = this;
-
     vm.getList = getList;
-    vm.isActive = isActive;
     vm.gifs = [];
     vm.selectedGif = undefined;
-    vm.title = 'Avengers';
+    vm.title = 'Take your selfie';
 
     activate();
 
@@ -28,9 +28,22 @@
           return vm.gifs = data.data;
         });
     }
-
-    function isActive(avenger) {
-      return !!(vm.selectedGif === avenger);
-    }
   }
+
+
+    function imgNumber($compile, featureService) {
+      return {
+        scope: {
+          id: '@'
+        },
+        link: function(scope, element) {
+              featureService.getSvg(scope.id).then(function(response) {
+                // Compile the template passing in scope, with the passed
+                // scope access controller props using the parent as `vm.myVar`.
+                element.append($compile(response.data)(scope));
+              });
+        },
+        restrict: "E"
+      };
+    }
 })();

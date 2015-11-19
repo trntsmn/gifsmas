@@ -3,6 +3,8 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
 // Core variables and mixins
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
@@ -60,6 +62,14 @@ $red: #f50003;
 ///////
 // Const
 ///////
+@mixin font-stack() {
+  font-family: 'Montserrat', 'Futura', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.01em;
+}
 .upper {
   text-transform: uppercase;
 }
@@ -69,24 +79,56 @@ $red: #f50003;
 .rel {
   position: relative;
 }
+body {
+  font-size: 16px;
+  @include font-stack();
+}
+h1 {
+  font-size: 36px;
+  text-transform: uppercase;
+}
+h3 {
+  font-size: 24px;
+  color: #424242;
+}
+h6 {
+  font-size: 14px;
+}
 
 ///////
 // Header
 ///////
 .navbar-fixed-top {
   background-color: rgba(255, 255, 255, .85);
-  height: 107px;
-  svg {
+  text-align: center;
+  padding: 15px;
+  a.animate-header {
+    display: block;
     width: 300px;
-    fill: $red;
-    .st1fillhere {
-      fill-rule: evenodd;
-      clip-rule: evenodd;
-      fill: #FF0000;
+    margin: 0 auto;
+    @include easingOutQuadTimingFunction();
+    @include transitionDuration(.5s);
+    &.shrink {
+      width: 180px;
     }
-  }
-  .vcenter {
-    margin-top: 17px;
+
+    &.shrink-add-active {
+      width: 180px;
+    }
+
+    svg {
+      width: 100%;
+      display: block;
+      fill: $red;
+      .st1fillhere {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #FF0000;
+      }
+    }
+    .vcenter {
+      margin-top: 17px;
+    }
   }
 }
 
@@ -94,6 +136,7 @@ $red: #f50003;
 // Main content area
 ///////
 #main {
+  padding-top: 105px;
   .wrapper > div {
     &.ng-leave {
       @include transitionDuration(1s);
@@ -179,9 +222,10 @@ footer {
     overflow: hidden;
     display: block;
     height: 150px;
+    position: relative;
 
     // Mixins defined in /scss/bootstrap/mixins/_grid.scss
-    @include make-xs-column($columns: 12);
+    @include make-xs-column($columns: 6, $gutter: 0);
     @media (min-width: $screen-sm-min) {
       @include make-sm-column($columns: 6, $gutter: 0);
     }
@@ -203,12 +247,13 @@ footer {
       height: 100%;
       background-color: rgba(0,0,0,.5);
     }
-    .blocker img {
-      width: 30%;
+    .blocker svg {
+      width: 20%;
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%,-50%);
+      fill: white;
+      transform: translate3d(-50%,-50%, 0);
     }
     a:hover {
       .blocker {

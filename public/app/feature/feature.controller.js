@@ -12,12 +12,12 @@
     vm.supportingTemplate = null;
     vm.gif = null;
     vm.active = false;
-    $anchorScroll.yOffset = 0;
-    $anchorScroll("main");
     vm.activate = activate;
     ctor();
 
     function ctor() {
+      $anchorScroll.yOffset = 0;
+      $anchorScroll("main");
       activate();
     }
 

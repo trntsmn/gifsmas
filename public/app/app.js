@@ -27,5 +27,27 @@
           redirectTo: ''
         });
 
-  }]);
+    }])
+    .directive('animateHeader', ['$animate', '$anchorScroll', function($animate, $anchorScroll){
+      return {
+        restrict: "EC",
+        link: function(scope, element, attrs) {
+
+          angular.element(document).bind('scroll', function(){
+            console.log("scrolling");
+            var beenScrolled = false;
+            if(window.scrollY > 47) {
+              element.addClass('shrink');
+            }
+
+            if(window.scrollY < 47) {
+              console.log("grow");
+              element.removeClass('shrink')
+
+            }
+          });
+
+        }
+      };
+    }]);
 })();
