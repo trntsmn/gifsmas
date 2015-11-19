@@ -6646,25 +6646,53 @@ h6 {
       -ms-transform: translateY(-665px);
       -webkit-transform: translateY(-665px);
       opacity: 0; }
-  #main .wrapper > div > section.feature .row.intro {
+  #main .wrapper > div section.feature .row.intro {
     position: relative;
     z-index: 10;
     background-color: #fff; }
-  #main .wrapper > div > section.feature .row.rel {
+  #main .wrapper > div section.feature .row.rel {
     z-index: -9; }
-    #main .wrapper > div > section.feature .row.rel img {
+    #main .wrapper > div section.feature .row.rel img {
       width: 100%; }
-  #main .wrapper > div > section.feature svg {
+  #main .wrapper > div section.feature svg {
     fill: #f50003;
     width: 120px;
     left: -35px;
     position: absolute;
     top: -32px; }
-  #main .wrapper > div > section.feature h1 {
+  #main .wrapper > div section.feature h1 {
     color: #f50003;
     text-indent: 64px; }
-  #main .wrapper > div > section.submission {
-    padding-top: 107px; }
+  #main .wrapper > div section.submission .row.rel .blocker {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    overflow: hidden; }
+    #main .wrapper > div section.submission .row.rel .blocker video {
+      top: 0;
+      position: absolute;
+      z-index: 12; }
+    #main .wrapper > div section.submission .row.rel .blocker canvas {
+      top: 0;
+      position: absolute;
+      z-index: -99; }
+    #main .wrapper > div section.submission .row.rel .blocker blockquote {
+      top: 0;
+      position: absolute;
+      z-index: 143;
+      display: block;
+      border: none !important;
+      margin: 0 !important;
+      padding: 0 !important; }
+  #main .wrapper > div section.submission .row.rel .overlay {
+    z-index: 201;
+    position: absolute;
+    top: 0;
+    width: 100%; }
+    #main .wrapper > div section.submission .row.rel .overlay img {
+      width: 100%; }
+  #main .wrapper > div section.submission .row.interface a img {
+    width: 50px; }
 
 footer {
   background-color: #cecece;

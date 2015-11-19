@@ -7,6 +7,8 @@
     .directive('cameraLightbox', cameraLightbox);
 
 
+
+
   captureTemplate.$inject = ['$http', '$routeParams', '$q'];
 
   /**
@@ -16,26 +18,33 @@
     return {
       template: '<video>Video stream not available.</video>',
       restrict: 'E' // This is a Html element <camera-lightbox></camera-lightbox>
-                    // could also be 'A' for attribute or 'C' for class.
+        // could also be 'A' for attribute or 'C' for class.
     }
   }
 
   function captureTemplate($http, $routeParams, $q) {
 
     return {
+      controller: "SubmissionController",
+      controllerAs: 'vm',
       templateUrl: using,
       restrict: "EAC",
       link: link
+
     };
+
+    function clicker() {
+      console.log("Clicker from directive scope.");
+    }
 
     /**
      * Detect the appropriate template to use, based on
      * browser capabilities
      */
     function using() {
-      if (Modernizr.getusermedia){
+      if (Modernizr.getusermedia) {
         return '/app/submission/video.html';
-      }else if (Modernizr.capture) {
+      } else if (Modernizr.capture) {
         return '/app/submission/input.html';
       } else {
         // This browser supports nothing, what shall we do?
@@ -46,10 +55,15 @@
     /**
      * Bind js depending on browser capabilities.
      */
-    function link(scope, element, attrs) {
-      if (Modernizr.getusermedia){
+    function link(scope, element, attrs, controller) {
+      controller.clicker();
+
+      function clicker() {
+        console.log("Clicker from link scope.");
+      }
+      if (Modernizr.getusermedia) {
         video(scope, element, attrs);
-      }else if (Modernizr.capture) {
+      } else if (Modernizr.capture) {
         input(scope, element, attrs);
       } else {
         // This browser supports nothing, what shall we do?
@@ -59,7 +73,7 @@
     }
 
     function video(scope, element, attrs) {
-      var width = 320; // We will scale the photo width to this
+      var width = 1200; // We will scale the photo width to this
       var height = 0; // This will be computed based on the input stream
 
       var streaming = false;
@@ -71,7 +85,7 @@
 
       video = element.find('video');
       canvas = element.find('canvas');
-      photo = element.find('img');
+      photo = element.find('blockquote').find("img");
       startbutton = element.find('button');
 
       //clearphoto();

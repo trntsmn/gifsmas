@@ -1,14 +1,35 @@
-<div class="camera">
-  <div class="blocker"><video id="video">Video stream not available.</video></div>
-</div>
+<section class="submission">
+  <div class="row rel">
+    <div class="camera">
+      <div class="blocker">
 
-<button>Take photo</button>
+        <canvas>
+          <!-- Temp storage for our image -->
+        </canvas>
 
-<canvas>
-  <!-- Temp storage for our image -->
-</canvas>
+        <video id="video">Video stream not available.</video>
 
 
-<div class="output">
-  <img id="photo" alt="The screen capture will appear in this box.">
-</div>
+
+        <blockquote>
+          <img>
+        </blockquote>
+
+      </div>
+    </div>
+
+    <div class="overlay" data-ng-if="vm.overlay == 'internet'"><img src="/images/internet.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 'wow'"><img src="/images/giphy.gif" /></div>
+  </div>
+
+  <div class='row interface'>
+    <button class='btn btn-warning'>Take photo</button>
+    <a data-ng-click="vm.overlay = 'internet'">
+      <img src="/images/internet.gif" />
+    </a>
+    <a data-ng-click="vm.overlay = 'wow'">
+      <img src="/images/giphy.gif" />
+    </a>
+    <a class="btn btn-success" data-ng-click="vm.clicker">Reset</a>
+  </div>
+</section>

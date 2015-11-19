@@ -5,18 +5,30 @@
         .module('app')
         .controller('SubmissionController', SubmissionController);
 
-    SubmissionController.$inject = ['appService'];
+    SubmissionController.$inject = ['appService', '$anchorScroll'];
 
-    function SubmissionController(appService) {
+    function SubmissionController(appService, $anchorScroll) {
         var vm = this;
 
         vm.getList = getList;
         vm.isActive = isActive;
         vm.gifs = [];
         vm.selectedGif = undefined;
-        vm.title = 'Avengers';
+        vm.active = false;
+        vm.activate = activate;
+        vm.overlay
+        vm.clicker = clicker;
+        ctor();
 
-        activate();
+        function ctor() {
+          $anchorScroll.yOffset = 0;
+          $anchorScroll("main");
+          activate();
+        }
+
+        function clicker() {
+          console.log("Clicker from controller");
+        }
 
         function activate() {
             return getList();
@@ -33,6 +45,6 @@
             return !!(vm.selectedGif === avenger);
         }
 
-        
+
     }
 })();
