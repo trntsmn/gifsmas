@@ -1,17 +1,48 @@
-<form action="/sandbox/uploads" method="post" enctype="multipart/form-data">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+<section class="submission">
+  <div class="row rel">
+    <div class="camera">
+      <div class="blocker">
+
+        <blockquote>
+          <!-- We need an image for preivew on standard browsers -->
+          <img>
+          <!-- And a div for our old pal IE < 10 -->
+          <div>
+        </blockquote>
+
+      </div>
+    </div>
+
+    <div class="overlay" data-ng-if="vm.overlay == 'internet'"><img src="/images/internet.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 'wow'"><img src="/images/giphy.gif" /></div>
   </div>
-  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="file" name="file">
-    <p class="help-block">Example block-level help text here.</p>
+
+  <div class='row interface'>
+    <form action="/sandbox/uploads" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="file">Accept image</label>
+        <input type="file" id="file" name="file" accept="image/*;capture=camera">
+        <p class="help-block">Example block-level help text here.</p>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> A checkbox
+        </label>
+      </div>
+      <button type="submit" class="btn btn-warning">Submit</button>
+    </form>
+
+    <button class='btn btn-warning'>Take photo</button>
+    <a data-ng-click="vm.overlay = 'internet'">
+      <img src="/images/internet.gif" />
+    </a>
+    <a data-ng-click="vm.overlay = 'wow'">
+      <img src="/images/giphy.gif" />
+    </a>
+    <a class="btn btn-success" data-ng-click="vm.reset()">Reset</a>
   </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> A checkbox
-    </label>
-  </div>
-  <button type="submit" class="btn btn-warning">Submit</button>
-</form>
+</section>

@@ -26,7 +26,7 @@
         .otherwise({
           redirectTo: ''
         });
-
+      $locationProvider.html5Mode(true);
     }])
     .directive('animateHeader', ['$animate', '$anchorScroll', function($animate, $anchorScroll){
       return {
@@ -34,14 +34,12 @@
         link: function(scope, element, attrs) {
 
           angular.element(document).bind('scroll', function(){
-            console.log("scrolling");
             var beenScrolled = false;
             if(window.scrollY > 47) {
               element.addClass('shrink');
             }
 
             if(window.scrollY < 47) {
-              console.log("grow");
               element.removeClass('shrink')
 
             }
@@ -49,5 +47,7 @@
 
         }
       };
-    }]);
+    }])
+     // This sets the default page title
+    .run(function($rootScope){$rootScope.base = "Hiebing Gifsmas"});
 })();

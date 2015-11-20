@@ -8,6 +8,18 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+
+router.get('/day*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.render('index');
+});
+
+
+router.get('/me*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.render('index');
+});
+
 router.post('/uploads/', function(req, res){
     console.log(req.body) // form fields
     console.log(req.files) // form files

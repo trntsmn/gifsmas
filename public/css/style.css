@@ -6599,16 +6599,15 @@ h6 {
 #main {
   padding-top: 105px; }
   #main .wrapper > div.ng-leave {
-    transition-duration: 1s;
-    -webkit-transition-duration: 1s;
+    transition-duration: 111s;
+    -webkit-transition-duration: 111s;
     opacity: 1;
-    position: absolute;
     width: 100%; }
   #main .wrapper > div.ng-leave-active {
     opacity: 0; }
   #main .wrapper > div.ng-enter {
-    transition-duration: 1s;
-    -webkit-transition-duration: 1s;
+    transition-duration: 111s;
+    -webkit-transition-duration: 111s;
     opacity: 0; }
   #main .wrapper > div.ng-enter-active {
     opacity: 1; }
@@ -6628,8 +6627,8 @@ h6 {
     -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     /* easeOutQuad */
-    transition-duration: 1s;
-    -webkit-transition-duration: 1s; }
+    transition-duration: 111s;
+    -webkit-transition-duration: 111s; }
     #main .wrapper > div img.animate.begining {
       transform: translateY(665px);
       -ms-transform: translateY(665px);
@@ -6684,6 +6683,8 @@ h6 {
       border: none !important;
       margin: 0 !important;
       padding: 0 !important; }
+      #main .wrapper > div section.submission .row.rel .blocker blockquote div {
+        FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale); }
   #main .wrapper > div section.submission .row.rel .overlay {
     z-index: 201;
     position: absolute;
@@ -6769,7 +6770,9 @@ footer {
     top: 50%;
     left: 50%;
     fill: white;
-    transform: translate3d(-50%, -50%, 0); }
+    transform: translate3d(-50%, -50%, 0);
+    -ms-transform: translate3d(-50%, -50%, 0);
+    -webkit-transform: translate3d(-50%, -50%, 0); }
   .container.container-gifsmas .gif a:hover .blocker {
     transform: perspective(300px) rotateY(90deg);
     -ms-transform: perspective(300px) rotateY(90deg);

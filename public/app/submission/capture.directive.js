@@ -42,7 +42,7 @@
      * browser capabilities
      */
     function using() {
-      if (Modernizr.getusermedia) {
+      if (false && Modernizr.getusermedia) {
         return '/app/submission/video.html';
       } else if (Modernizr.capture) {
         return '/app/submission/input.html';
@@ -56,23 +56,18 @@
      * Bind js depending on browser capabilities.
      */
     function link(scope, element, attrs, controller) {
-      controller.clicker();
-
-      function clicker() {
-        console.log("Clicker from link scope.");
-      }
-      if (Modernizr.getusermedia) {
-        video(scope, element, attrs);
+      if (false && Modernizr.getusermedia) {
+        video(scope, element, attrs, controller);
       } else if (Modernizr.capture) {
-        input(scope, element, attrs);
+        input(scope, element, attrs, controller);
       } else {
-        // This browser supports nothing, what shall we do?
-        upload(scope, element, attrs);
+        // This browser (safari) supports nothing, what shall we do?
+        upload(scope, element, attrs, controller);
       }
 
     }
 
-    function video(scope, element, attrs) {
+    function video(scope, element, attrs, controller) {
       var width = 1200; // We will scale the photo width to this
       var height = 0; // This will be computed based on the input stream
 
@@ -82,6 +77,8 @@
       var canvas = null;
       var photo = null;
       var startbutton = null;
+      controller.reset = reset;
+
 
       video = element.find('video');
       canvas = element.find('canvas');
@@ -169,32 +166,17 @@
         }
       }
 
-      /*
-      function updateTime() {
-        element.text(dateFilter(new Date(), format));
+      function reset() {
+        photo[0].setAttribute('src', '');
+        controller.overlay = null;
       }
-
-      scope.$watch(attrs.myCurrentTime, function(value) {
-        format = value;
-        updateTime();
-      });
-
-      element.on('$destroy', function() {
-        $interval.cancel(timeoutId);
-      });
-
-      // start the UI update process; save the timeoutId for canceling
-      timeoutId = $interval(function() {
-        updateTime(); // update DOM
-      }, 1000);
-      */
     }
 
-    function input(scope, element, attrs) {
+    function input(scope, element, attrs, controller) {
 
     }
 
-    function upload(scope, element, attrs) {
+    function upload(scope, element, attrs, controller) {
 
     }
   }

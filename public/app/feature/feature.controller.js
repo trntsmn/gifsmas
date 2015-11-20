@@ -5,9 +5,10 @@
     .module('app')
     .controller('FeatureController', FeatureController)
 
-  FeatureController.$inject = ['appService', '$routeParams', '$anchorScroll'];
+  FeatureController.$inject = ['appService', '$routeParams', '$anchorScroll', '$rootScope'];
 
-  function FeatureController(appService, $routeParams, $anchorScroll) {
+  function FeatureController(appService, $routeParams, $anchorScroll, $rootScope) {
+    $rootScope.title = "Hiebing Gifsmas";
     var vm = this;
     vm.supportingTemplate = null;
     vm.gif = null;
@@ -25,6 +26,7 @@
       return appService.getActive().then(function(res){
         vm.gif = res;
         vm.active = true;
+        $rootScope.title = vm.gif.name + " " + $rootScope.base;
       });
     }
 

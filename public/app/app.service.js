@@ -8,10 +8,13 @@
   appService.$inject = ['$http', '$routeParams', '$q'];
 
   function appService($http, $routeParams, $q) {
+    var id = null;
+
     var service = {
       getList: getList,
       getActive: getActive,
-      readMine: readMine
+      readMine: readMine,
+      setPersonal: setPersonal
     };
     return service;
 
@@ -54,6 +57,11 @@
 
     function isPersonal() {
       return $routeParams.me === undefined ? false : true;
+    }
+
+    function setPersonal(id) {
+      this.id = id;
+      $routeParams.me = id;
     }
 
     function getList() {

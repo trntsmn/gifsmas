@@ -17,15 +17,19 @@
 
 
   function ogMeta($compile, $rootScope, socialService) {
-    var title = "My title";
-    var description = "My Desc";
-    var image = "https://vast-beyond-5642.herokuapp.com/images/gifs/6-image.gif";
+    var title = socialService.getTitle();
+    var image = socialService.getImage();
+    var description = socialService.getDescription();
+    var url = socialService.getUrl();
+    var base = $rootScope.base;
 
     return {
       link: function(scope, element) {
         var meta = `<meta property="og:title" content="${title}" />
         <meta property="og:description" content="${description}" />
-        <meta property="og:image" content="${image}" />`
+        <meta property="og:image" content="${image}" />
+        <meta property="og:site_name" content="${base}">
+        <meta property="og:url" content="${url}">`;
         angular.element(document).find('head').append($compile(meta)(scope));
       },
       restrict: "C" // restrict this to a class to save our html from invalidating.

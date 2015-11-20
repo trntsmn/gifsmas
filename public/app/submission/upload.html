@@ -1,13 +1,36 @@
-<form action="/sandbox/uploads" method="post" enctype="multipart/form-data">
-  <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="file" name="file">
-    <p class="help-block">Example block-level help text here.</p>
+<section class="submission">
+  <div class="row rel" data-ng-if="vm.previewing">
+    <div class="camera">
+      <div class="blocker">
+
+        <blockquote>
+          <!-- We need an image for preivew on standard browsers -->
+          <img>
+          <!-- And a div for our old pal IE < 10 -->
+          <div>
+        </blockquote>
+
+      </div>
+    </div>
+
+    <div class="overlay" data-ng-if="vm.overlay == 'internet'"><img src="/images/internet.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 'wow'"><img src="/images/giphy.gif" /></div>
   </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> A checkbox
-    </label>
+
+  <div class='row interface'>
+    <form action="/sandbox/uploads" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="file" name="file">
+        <p class="help-block">Example block-level help text here.</p>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> A checkbox
+        </label>
+      </div>
+      <button type="submit" class="btn btn-warning">Submit</button>
+    </form>
   </div>
-  <button type="submit" class="btn btn-warning">Submit</button>
-</form>
+
+</section>
