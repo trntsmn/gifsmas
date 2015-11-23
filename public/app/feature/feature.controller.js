@@ -10,6 +10,7 @@
   function FeatureController(appService, $routeParams, $anchorScroll, $rootScope) {
     $rootScope.title = "Hiebing Gifsmas";
     var vm = this;
+    vm.class = 'feature-controller';
     vm.supportingTemplate = null;
     vm.gif = null;
     vm.active = false;

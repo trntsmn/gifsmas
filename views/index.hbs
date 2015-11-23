@@ -1,13 +1,17 @@
-<div id='main'>
-  <div class="container">
-    <div class="wrapper rel">
-    <div data-ng-view data-ng-animate-children>
-      <!-- Feature content here -->
+<div class="tree-left"><img src="/images/bkgd-right.png" alt="winter tree background" /></div>
+<div class="tree-right"><img src="/images/bkgd-left.png" alt="winter tree background" /></div>
+<div class="snow">
+  <div id='main'>
+    <div class="container">
+      <div class="row rel">
+        <div data-ng-view class="col-xs-12">
+          <!-- Feature content here -->
+        </div>
+      </div>
     </div>
   </div>
-  </div>
-</div>
 
-<div class="container container-gifsmas">
-  <div data-ng-include="'app/grid/grid.html'" data-ng-cloak class="wrapper"></div>
+  <div id="grid" class="container container-gifsmas">
+    <div data-ng-include="'app/grid/grid.html'" data-ng-cloak class="wrapper"></div>
+  </div>
 </div>

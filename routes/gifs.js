@@ -106,6 +106,15 @@ var gifsDb =
     'thumbnail': '/images/gifs/2-th.jpg',
     "name": "Pinterest Fails",
     "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
+},{
+    "id": 1,
+    "order": 12,
+    'activate': 1997375235,
+    'active': false,
+    'image': '/images/gifs/2-image.gif',
+    'thumbnail': '/images/gifs/2-th.jpg',
+    "name": "Pinterest Fails",
+    "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
 }];
 
 

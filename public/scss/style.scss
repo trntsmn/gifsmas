@@ -82,6 +82,7 @@ $red: #f50003;
 body {
   font-size: 16px;
   @include font-stack();
+  position: relative;
 }
 h1 {
   font-size: 36px;
@@ -111,11 +112,9 @@ h6 {
     &.shrink {
       width: 180px;
     }
-
     &.shrink-add-active {
       width: 180px;
     }
-
     svg {
       width: 100%;
       display: block;
@@ -135,25 +134,26 @@ h6 {
 ///////
 // Main content area
 ///////
-#main {
+#main2 {
   padding-top: 105px;
   .wrapper > div {
+    width: 100%;
+    @include easingOutQuadTimingFunction();
+    @include transitionDuration(11s);
     &.ng-leave {
-      @include transitionDuration(111s);
       opacity: 1;
-      width: 100%;
+      position: absolute;
     }
     &.ng-leave-active {
       opacity: 0;
     }
     &.ng-enter {
-      @include transitionDuration(111s);
       opacity: 0;
     }
     &.ng-enter-active {
       opacity: 1;
     }
-    img.animate {
+    img.animate2 {
       position: absolute;
       top: 0;
       width: 100%;
@@ -206,11 +206,11 @@ h6 {
           overflow: hidden;
           video {
             top: 0;
-            position: absolute;;
+            position: absolute;
             z-index: 12;
           }
           canvas {
-            top:0;
+            top: 0;
             position: absolute;
             z-index: -99;
           }
@@ -223,11 +223,13 @@ h6 {
             margin: 0 !important;
             padding: 0 !important;
             img {
+
               // Preview
             }
             div {
+
               // Preview IE
-              FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
+              FILTER:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
             }
           }
         }
@@ -236,15 +238,66 @@ h6 {
           position: absolute;
           top: 0;
           width: 100%;
-          img { width: 100%; }
+          img {
+            width: 100%;
+          }
         }
       }
       .row.interface {
         a {
-          img { width: 50px;}
+          img {
+            width: 50px;
+          }
         }
       }
-
+    }
+  }
+}
+#main {
+  > .container > .row {
+    > div.col-xs-12 {
+      top: 0;
+      width: 100%;
+      &.ng-enter {
+        animation: scaleUp 1s both ease-in;
+        z-index: 121;
+        .col-heading,
+        .col-social {
+          animation: visibleDelay 1s both ease-in;
+        }
+      }
+      &.ng-leave {
+        animation: upAndAway 750ms both ease-in;
+        z-index: 122;
+        position: absolute;
+        .col-heading,
+        .col-social {
+          visibility: hidden;
+        }
+      }
+      article.feature-controller {
+        svg {
+          fill: $red;
+          height: 90px;
+          float: left;
+          margin-left: -15px;
+        }
+        h1 {
+          color: $red;
+          margin-top: 26px;
+        }
+        h3 {
+          margin: 20px 0 50px;
+          float: left;
+          width: 100%;
+          clear: both;
+        }
+        .heading {
+          float: left;
+          padding-top: 45px;
+          width: 100%;
+        }
+      }
     }
   }
 }
@@ -253,16 +306,36 @@ h6 {
 // Footer
 ///////
 footer {
-  background-color: #cecece;
+  background: #252525 url(/images/bkgd-gray.png) repeat top left;
+  height: 150px;
   -webkit-box-shadow: inset 0 2px 5px -1px rgba(82,82,82,1);
   -moz-box-shadow: inset 0 2px 5px -1px rgba(82,82,82,1);
   box-shadow: inset 0 2px 5px -1px rgba(82,82,82,1);
+  svg {
+    fill: $red;
+    width: 170px;
+    float: left;
+    margin: 54px 90px 0 0;
+    .st0fillhere {
+      fill-rule: evenodd;
+      clip-rule: evenodd;
+      fill: $red;
+    }
+  }
+  a {
+    text-transform: uppercase;
+    color: #818181;
+    float: left;
+    margin: 65px 100px 0 0;
+  }
+  span { margin-top: 65px; }
 }
 
 ///////
 // Gifsmas Grid
 ///////
-.container.container-gifsmas {
+#grid {
+  padding-bottom: 340px;
   .gif {
     overflow: hidden;
     display: block;
@@ -285,25 +358,31 @@ footer {
       position: absolute;
     }
     .blocker {
-      @include easingOutQuadTimingFunction();
-      @include transitionDuration(550ms);
       position: relative;
       width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,.5);
+      height: 150px;
+      svg {
+        width: 20%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        fill: white;
+        @include transform(translate3d(-50%,-50%, 0));
+      }
     }
-    .blocker svg {
-      width: 20%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      fill: white;
-      @include transform(translate3d(-50%,-50%, 0));
-    }
-    a:hover {
+
+
+    &.rotate-in {
       .blocker {
-        @include transform(perspective(300px) rotateY(90deg));
-        background-color: rgba(0,0,0,0);
+        @include easingOutQuadTimingFunction();
+        @include transitionDuration(550ms);
+        background-color: rgba(0,0,0,.5);
+      }
+      a.active:hover {
+        .blocker {
+          @include transform(perspective(300px) rotateY(90deg));
+          background-color: rgba(0,0,0,0);
+        }
       }
     }
   }
@@ -311,6 +390,13 @@ footer {
   .ng-leave-stagger {
     transition-delay: 200ms;
     transition-duration: 0s;
+  }
+  &:nth-child(even) .inactive .blocker {
+  background-color: $red;
+
+  }
+  &:nth-child(odd) .inactive .blocker {
+  background-color: #707070;
   }
 }
 
@@ -333,6 +419,24 @@ footer {
 }
 section.app {
   margin-top: 108px;
+}
+.snow {
+  background: transparent url(/images/bkgd-snow-small.png) fixed repeat top left;
+  z-index: 15;
+}
+.snow2 {
+  background: transparent url(/images/bkgd-snow-big.png) fixed repeat top left;
+  z-index: 15;
+}
+.tree-left,
+.tree-right {
+  position: absolute;
+  bottom: 150px;
+  z-index: -5;
+}
+.tree-right {
+  right: 0;
+  z-index: -4;
 }
 
 ///////
