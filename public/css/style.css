@@ -6893,39 +6893,41 @@ h6 {
     #main2 .wrapper > div section.submission .row.interface a img {
       width: 50px; }
 
-#main > .container > .row > div.col-xs-12 {
-  top: 0;
-  width: 100%; }
-  #main > .container > .row > div.col-xs-12.ng-enter {
-    animation: scaleUp 1s both ease-in;
-    z-index: 121; }
-    #main > .container > .row > div.col-xs-12.ng-enter .col-heading,
-    #main > .container > .row > div.col-xs-12.ng-enter .col-social {
-      animation: visibleDelay 1s both ease-in; }
-  #main > .container > .row > div.col-xs-12.ng-leave {
-    animation: upAndAway 750ms both ease-in;
-    z-index: 122;
-    position: absolute; }
-    #main > .container > .row > div.col-xs-12.ng-leave .col-heading,
-    #main > .container > .row > div.col-xs-12.ng-leave .col-social {
-      visibility: hidden; }
-  #main > .container > .row > div.col-xs-12 article.feature-controller svg {
-    fill: #f50003;
-    height: 90px;
-    float: left;
-    margin-left: -15px; }
-  #main > .container > .row > div.col-xs-12 article.feature-controller h1 {
-    color: #f50003;
-    margin-top: 26px; }
-  #main > .container > .row > div.col-xs-12 article.feature-controller h3 {
-    margin: 20px 0 50px;
-    float: left;
-    width: 100%;
-    clear: both; }
-  #main > .container > .row > div.col-xs-12 article.feature-controller .heading {
-    float: left;
-    padding-top: 45px;
+#main {
+  padding-top: 105px; }
+  #main > .container > .row > div.col-xs-12 {
+    top: 0;
     width: 100%; }
+    #main > .container > .row > div.col-xs-12.ng-enter {
+      animation: scaleUp 1s both ease-in;
+      z-index: 121; }
+      #main > .container > .row > div.col-xs-12.ng-enter .col-heading,
+      #main > .container > .row > div.col-xs-12.ng-enter .col-social {
+        animation: visibleDelay 1s both ease-in; }
+    #main > .container > .row > div.col-xs-12.ng-leave {
+      animation: upAndAway 750ms both ease-in;
+      z-index: 122;
+      position: absolute; }
+      #main > .container > .row > div.col-xs-12.ng-leave .col-heading,
+      #main > .container > .row > div.col-xs-12.ng-leave .col-social {
+        visibility: hidden; }
+    #main > .container > .row > div.col-xs-12 article.feature-controller svg {
+      fill: #f50003;
+      height: 90px;
+      float: left;
+      margin-left: -15px; }
+    #main > .container > .row > div.col-xs-12 article.feature-controller h1 {
+      color: #f50003;
+      margin-top: 26px; }
+    #main > .container > .row > div.col-xs-12 article.feature-controller h3 {
+      margin: 20px 0 50px;
+      float: left;
+      width: 100%;
+      clear: both; }
+    #main > .container > .row > div.col-xs-12 article.feature-controller .heading {
+      float: left;
+      padding-top: 45px;
+      width: 100%; }
 
 footer {
   background: #252525 url(/images/bkgd-gray.png) repeat top left;
@@ -6937,15 +6939,18 @@ footer {
     fill: #f50003;
     width: 170px;
     float: left;
-    margin: 54px 100px 0 0; }
+    margin: 54px 90px 0 0; }
     footer svg .st0fillhere {
       fill-rule: evenodd;
       clip-rule: evenodd;
       fill: #f50003; }
   footer a {
+    text-transform: uppercase;
     color: #818181;
     float: left;
     margin: 65px 100px 0 0; }
+  footer span {
+    margin-top: 65px; }
 
 #grid {
   padding-bottom: 340px; }
