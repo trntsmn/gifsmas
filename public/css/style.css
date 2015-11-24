@@ -6860,38 +6860,6 @@ h6 {
     #main2 .wrapper > div section.feature h1 {
       color: #f50003;
       text-indent: 64px; }
-    #main2 .wrapper > div section.submission .row.rel .blocker {
-      position: relative;
-      width: 100%;
-      height: 700px;
-      overflow: hidden; }
-      #main2 .wrapper > div section.submission .row.rel .blocker video {
-        top: 0;
-        position: absolute;
-        z-index: 12; }
-      #main2 .wrapper > div section.submission .row.rel .blocker canvas {
-        top: 0;
-        position: absolute;
-        z-index: -99; }
-      #main2 .wrapper > div section.submission .row.rel .blocker blockquote {
-        top: 0;
-        position: absolute;
-        z-index: 143;
-        display: block;
-        border: none !important;
-        margin: 0 !important;
-        padding: 0 !important; }
-        #main2 .wrapper > div section.submission .row.rel .blocker blockquote div {
-          FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale); }
-    #main2 .wrapper > div section.submission .row.rel .overlay {
-      z-index: 201;
-      position: absolute;
-      top: 0;
-      width: 100%; }
-      #main2 .wrapper > div section.submission .row.rel .overlay img {
-        width: 100%; }
-    #main2 .wrapper > div section.submission .row.interface a img {
-      width: 50px; }
 
 #main {
   padding-top: 105px; }
@@ -6911,6 +6879,18 @@ h6 {
       #main > .container > .row > div.col-xs-12.ng-leave .col-heading,
       #main > .container > .row > div.col-xs-12.ng-leave .col-social {
         visibility: hidden; }
+    #main > .container > .row > div.col-xs-12 article.feature-controller .row.rel img {
+      width: 100%; }
+    #main > .container > .row > div.col-xs-12 article.feature-controller .row.intro {
+      position: relative; }
+    @media (min-width: 768px) {
+      #main > .container > .row > div.col-xs-12 article.feature-controller .col-social {
+        top: 50%;
+        right: 0;
+        position: absolute;
+        transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%); } }
     #main > .container > .row > div.col-xs-12 article.feature-controller svg {
       fill: #f50003;
       height: 90px;
@@ -6928,10 +6908,41 @@ h6 {
       float: left;
       padding-top: 45px;
       width: 100%; }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker {
+      position: relative;
+      width: 100%;
+      height: 700px;
+      overflow: hidden; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker video {
+        top: 0;
+        position: absolute;
+        z-index: 12; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker canvas {
+        top: 0;
+        position: absolute;
+        z-index: -99; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker blockquote {
+        top: 0;
+        position: absolute;
+        z-index: 143;
+        display: block;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important; }
+        #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker blockquote div {
+          FILTER: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale); }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .overlay {
+      z-index: 201;
+      position: absolute;
+      top: 0;
+      width: 100%; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .overlay img {
+        width: 100%; }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface a img {
+      width: 50px; }
 
 footer {
   background: #252525 url(/images/bkgd-gray.png) repeat top left;
-  height: 150px;
   -webkit-box-shadow: inset 0 2px 5px -1px #525252;
   -moz-box-shadow: inset 0 2px 5px -1px #525252;
   box-shadow: inset 0 2px 5px -1px #525252; }
@@ -6939,18 +6950,34 @@ footer {
     fill: #f50003;
     width: 170px;
     float: left;
-    margin: 54px 90px 0 0; }
+    margin: 54px 50px 0 0; }
     footer svg .st0fillhere {
       fill-rule: evenodd;
       clip-rule: evenodd;
       fill: #f50003; }
   footer a {
+    float: left;
+    clear: both;
     text-transform: uppercase;
     color: #818181;
     float: left;
-    margin: 65px 100px 0 0; }
+    margin-left: 10px; }
+    @media (min-width: 992px) {
+      footer a {
+        margin: 65px 60px 65px 0;
+        clear: none; } }
   footer span {
-    margin-top: 65px; }
+    color: #444;
+    float: left;
+    clear: both;
+    display: block;
+    margin-bottom: 15px;
+    margin-left: 10px; }
+    @media (min-width: 992px) {
+      footer span {
+        margin-top: 65px;
+        float: right;
+        clear: none; } }
 
 #grid {
   padding-bottom: 340px; }
@@ -7048,10 +7075,23 @@ footer {
   margin-top: 43px; }
 
 .social-shares {
-  text-align: center; }
+  text-align: center;
+  padding-bottom: 50px; }
+  @media (min-width: 768px) {
+    .social-shares {
+      padding-bottom: 15px;
+      /* Scoot these up the page slightly. Just to give more visual prominence. */ } }
 
-.social-icon img {
-  width: 32px; }
+.social-shares :first-child .social-icon {
+  margin-left: 0; }
+
+.social-icon {
+  margin-left: 24px; }
+  .social-icon img {
+    width: 32px; }
+
+.social-icon:hover {
+  text-decoration: none; }
 
 section.app {
   margin-top: 108px; }
@@ -7073,6 +7113,12 @@ section.app {
 .tree-right {
   right: 0;
   z-index: -4; }
+
+.tree-left {
+  display: none; }
+  @media (min-width: 768px) {
+    .tree-left {
+      display: block; } }
 
 .bouncy-slide-down {
   -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
