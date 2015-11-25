@@ -26,8 +26,12 @@
     function activate() {
       return appService.getActive().then(function(res){
         vm.gif = res;
-        vm.active = true;
-        $rootScope.title = vm.gif.name + " " + $rootScope.base;
+        vm.active = res === null ? false : true;
+        if(vm.active)
+          $rootScope.title = vm.gif.id + " " + vm.gif.name + " - " + $rootScope.base;
+        else
+          window.location = "/404";
+
       });
     }
 

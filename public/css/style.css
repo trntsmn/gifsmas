@@ -6892,6 +6892,8 @@ h6 {
       #main > .container > .row > div.col-xs-12.ng-leave .col-heading,
       #main > .container > .row > div.col-xs-12.ng-leave .col-social {
         visibility: hidden; }
+    #main > .container > .row > div.col-xs-12 article.error-controller img {
+      width: 100%; }
     #main > .container > .row > div.col-xs-12 article.feature-controller .row.rel img {
       width: 100%; }
     #main > .container > .row > div.col-xs-12 article.feature-controller .row.intro {

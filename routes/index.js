@@ -20,6 +20,12 @@ router.get('/me*', function(req, res, next) {
     res.render('index');
 });
 
+router.get('/404*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.status(404);
+    res.render('index');
+});
+
 router.post('/uploads/', function(req, res){
     console.log(req.body) // form fields
     console.log(req.files) // form files

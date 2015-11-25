@@ -19,28 +19,38 @@
     return service;
 
     function getActive() {
-      if(isPersonal()) {
-          return readMine().then(function(response) {
-            return _filterCache(response.data);
-          })
-        } else {
-          return getList().then(function(response) {
-            return _filterCache(response.data);
-          })
-        }
+      if (isPersonal()) {
+        return readMine().then(function(response) {
+          return _selectActiveGif(response.data);
+        })
+      } else {
+        return getList().then(function(response) {
+          return _selectActiveGif(response.data);
+        })
+      }
     }
 
-    function _filterCache(cache) {
+    /**
+     * Filter cache looks at the url to select the gif from the cache
+     * that should be active.
+     */
+    function _selectActiveGif(cache) {
       var possible = null;
       for (var i = 0; i < cache.length; i++) {
         // This block handles the case where we are view a personal gif
         if ($routeParams.me !== undefined && $routeParams.me == cache[i].id) {
-          console.log("never yet");
-          return $q.when(cache[i]);
+          if(cache[i].active) {
+            console.log("never yet");
+            return $q.when(cache[i]);
+          }
         }
         // This block handles the case where we are viewing the list
         if ($routeParams.id !== undefined && $routeParams.id == cache[i].id) {
-          return $q.when(cache[i]);
+          if(cache[i].active) {
+            return $q.when(cache[i]);
+          } else {
+            return $q.when(null);
+          }
         }
 
         if (cache[i].active) {

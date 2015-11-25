@@ -23,6 +23,11 @@
           controller: 'FormController',
           controllerAs: 'form'
         })
+        .when('/404', {
+          templateUrl: 'app/error/404.html',
+          controller: "ErrorController",
+          controllerAs: "vm"
+        })
         .otherwise({
           redirectTo: ''
         });
