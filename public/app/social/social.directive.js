@@ -80,7 +80,7 @@
     return {
       restrict: "E",
       template: `<a href="${dest}" target="_blank" class="social-icon">
-        <img src="/images/social-instagram.svg" alt="Tumblr Share ">
+        <img src="/images/social-tumblr.svg" alt="Tumblr Share ">
         </a>`,
         link: function(scope, element) {
           var button = element.find('a');
