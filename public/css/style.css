@@ -5035,33 +5035,6 @@ a.badge:hover, a.badge:focus {
       .jumbotron .h1 {
         font-size: 59px; } }
 
-.thumbnail {
-  display: block;
-  padding: 4px;
-  margin-bottom: 23px;
-  line-height: 1.846;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  -webkit-transition: border 0.2s ease-in-out;
-  -o-transition: border 0.2s ease-in-out;
-  transition: border 0.2s ease-in-out; }
-  .thumbnail > img,
-  .thumbnail a > img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto; }
-  .thumbnail .caption {
-    padding: 9px;
-    color: #666; }
-
-a.thumbnail:hover,
-a.thumbnail:focus,
-a.thumbnail.active {
-  border-color: #2196F3; }
-
 .alert {
   padding: 15px;
   margin-bottom: 23px;
@@ -6715,6 +6688,34 @@ button.close {
     transform: translateZ(-3000px) rotateZ(360deg);
     opacity: 0; } }
 
+@keyframes twistReveal {
+  0% {
+    transform: perspective(0) rotateY(0deg);
+    -ms-transform: perspective(0) rotateY(0deg);
+    -webkit-transform: perspective(0) rotateY(0deg); }
+  50% {
+    transform: perspective(300px) rotateY(90deg);
+    -ms-transform: perspective(300px) rotateY(90deg);
+    -webkit-transform: perspective(300px) rotateY(90deg); }
+  100% {
+    transform: perspective(0) rotateY(0deg);
+    -ms-transform: perspective(0) rotateY(0deg);
+    -webkit-transform: perspective(0) rotateY(0deg); } }
+
+@keyframes twistHide {
+  0% {
+    transform: perspective(0) rotateY(0deg);
+    -ms-transform: perspective(0) rotateY(0deg);
+    -webkit-transform: perspective(0) rotateY(0deg); }
+  50% {
+    transform: perspective(300px) rotateY(90deg);
+    -ms-transform: perspective(300px) rotateY(90deg);
+    -webkit-transform: perspective(300px) rotateY(90deg); }
+  100% {
+    transform: perspective(300px) rotateY(90deg);
+    -ms-transform: perspective(300px) rotateY(90deg);
+    -webkit-transform: perspective(300px) rotateY(90deg); } }
+
 .upper {
   text-transform: uppercase; }
 
@@ -6883,7 +6884,7 @@ h6 {
       width: 100%; }
     #main > .container > .row > div.col-xs-12 article.feature-controller .row.intro {
       position: relative; }
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
       #main > .container > .row > div.col-xs-12 article.feature-controller .col-social {
         top: 50%;
         right: 0;
@@ -6893,12 +6894,19 @@ h6 {
         -webkit-transform: translateY(-50%); } }
     #main > .container > .row > div.col-xs-12 article.feature-controller svg {
       fill: #f50003;
-      height: 90px;
+      height: 65px;
       float: left;
-      margin-left: -15px; }
+      margin-right: 15px; }
     #main > .container > .row > div.col-xs-12 article.feature-controller h1 {
       color: #f50003;
-      margin-top: 26px; }
+      float: left;
+      margin-top: 35px;
+      clear: both; }
+      @media (min-width: 768px) {
+        #main > .container > .row > div.col-xs-12 article.feature-controller h1 {
+          clear: none;
+          margin-top: 16px;
+          float: none; } }
     #main > .container > .row > div.col-xs-12 article.feature-controller h3 {
       margin: 20px 0 50px;
       float: left;
@@ -6984,7 +6992,6 @@ footer {
   #grid .gif {
     overflow: hidden;
     display: block;
-    height: 150px;
     position: relative;
     position: relative;
     float: left;
@@ -7022,15 +7029,19 @@ footer {
     #grid .gif {
       float: left;
       width: 25%; } }
-    #grid .gif img {
+    #grid .gif .thumbnail {
       width: 100%;
-      position: absolute; }
+      position: absolute;
+      top: 0;
+      left: 0; }
+    #grid .gif .spacer {
+      width: 100%; }
     #grid .gif .blocker {
       position: relative;
       width: 100%;
-      height: 150px; }
+      height: 100%; }
       #grid .gif .blocker svg {
-        width: 20%;
+        height: 40px;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -7039,26 +7050,11 @@ footer {
         -ms-transform: translate3d(-50%, -50%, 0);
         -webkit-transform: translate3d(-50%, -50%, 0); }
     #grid .gif.rotate-in .blocker {
-      -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      /* easeOutQuad */
-      -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      /* easeOutQuad */
-      transition-duration: 550ms;
-      -webkit-transition-duration: 550ms;
       background-color: rgba(0, 0, 0, 0.5); }
     #grid .gif.rotate-in a.active:hover .blocker {
-      transform: perspective(300px) rotateY(90deg);
-      -ms-transform: perspective(300px) rotateY(90deg);
-      -webkit-transform: perspective(300px) rotateY(90deg);
-      background-color: transparent; }
+      animation: twistHide 550ms both ease-in; }
+    #grid .gif.rotate-in a.active:hover .thumbnail {
+      animation: twistReveal 550ms both ease-in; }
   #grid .ng-enter-stagger,
   #grid .ng-leave-stagger {
     transition-delay: 200ms;

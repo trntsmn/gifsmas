@@ -2,15 +2,17 @@
 
   <div class="row">
     <div class="gif rotate-in "  data-ng-repeat="a in vm.gifs | orderBy:'order' track by a.id ">
-      <a class="active" data-ng-href="day/{{a.id}}" data-ng-click="vm.gif = a" data-ng-if="a.active">
-        <img data-ng-src="{{a.thumbnail}}" alt="{{a.name}}"  />
-        <div class="blocker">
 
+      <a class="active" data-ng-href="day/{{a.id}}" data-ng-click="vm.gif = a" data-ng-if="a.active">
+        <img data-ng-src="{{a.thumbnail}}" alt="{{a.name}}" class='thumbnail' />
+        <div class="blocker">
+          <img src="/images/square.png" alt="Placeholder" class="spacer" />
           <img-number id="{{a.id}}"></img-number>
         </div>
       </a>
       <div class="inactive" data-ng-if="a.active==false">
         <div class="blocker">
+          <img src="/images/square.png" alt="Placeholder" class="spacer" />
           <img-number id="{{a.id}}"></img-number>
         </div>
       </div>

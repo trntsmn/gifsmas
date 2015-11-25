@@ -37,7 +37,6 @@
 @import "bootstrap/labels";
 @import "bootstrap/badges";
 @import "bootstrap/jumbotron";
-@import "bootstrap/thumbnails";
 @import "bootstrap/alerts";
 @import "bootstrap/progress-bars";
 @import "bootstrap/media";
@@ -230,7 +229,7 @@ h6 {
           position: relative;
         }
         .col-social {
-          @media( min-width: $screen-sm-min) {
+          @media( min-width: $screen-md-min) {
             top: 50%;
             right: 0;
             position: absolute;
@@ -239,13 +238,21 @@ h6 {
         }
         svg {
           fill: $red;
-          height: 90px;
+          height: 65px;
           float: left;
-          margin-left: -15px;
+          margin-right: 15px;
         }
         h1 {
           color: $red;
-          margin-top: 26px;
+          float: left;
+          margin-top: 35px;
+          clear: both;
+          @media(min-width: $screen-sm-min) {
+            clear: none;
+            margin-top: 16px;
+            float: none;
+          }
+
         }
         h3 {
           margin: 20px 0 50px;
@@ -371,7 +378,6 @@ footer {
   .gif {
     overflow: hidden;
     display: block;
-    height: 150px;
     position: relative;
 
     // Mixins defined in /scss/bootstrap/mixins/_grid.scss
@@ -385,16 +391,21 @@ footer {
     @media (min-width: $screen-lg-min) {
       @include make-lg-column($columns: 3, $gutter: 0);
     }
-    img {
+    .thumbnail {
       width: 100%;
       position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .spacer {
+      width: 100%;
     }
     .blocker {
       position: relative;
       width: 100%;
-      height: 150px;
+      height: 100%;
       svg {
-        width: 20%;
+        height: 40px;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -404,14 +415,18 @@ footer {
     }
     &.rotate-in {
       .blocker {
-        @include easingOutQuadTimingFunction();
-        @include transitionDuration(550ms);
+        //@include easingOutQuadTimingFunction();
+        //@include transitionDuration(550ms);
         background-color: rgba(0,0,0,.5);
       }
       a.active:hover {
         .blocker {
-          @include transform(perspective(300px) rotateY(90deg));
-          background-color: rgba(0,0,0,0);
+          animation: twistHide 550ms both ease-in;
+          // @include transform(perspective(300px) rotateY(90deg));
+          //background-color: rgba(0,0,0,0);
+        }
+        .thumbnail {
+          animation: twistReveal 550ms both ease-in;
         }
       }
     }
