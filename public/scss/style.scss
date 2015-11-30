@@ -78,6 +78,10 @@ $link-hover-color: $red;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: 0.01em;
 }
+.no-margin {
+  margin: 0;
+  padding: 0;
+}
 .upper {
   text-transform: uppercase;
 }

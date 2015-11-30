@@ -95,7 +95,7 @@ var gifsDb =
     'image': '/images/gifs/4-img.gif',
     'medium': '/images/gifs/4-img-md.gif',
     'thumbnail': '/images/gifs/4-th.jpg',
-    "name": "Grandma’s Skyping",
+    "name": "Grandmas Skyping",
     "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
 },{
     "id": 3,
