@@ -53,6 +53,8 @@
         }
       };
     }])
+    .filter('escape', function() { return window.encodeURIComponent;})
+    .filter('domain', function() { return function(input) {return "http://alpha.gifsmas.com" + input;};})
      // This sets the default page title
     .run(function($rootScope){$rootScope.base = "Hiebing Gifsmas"});
 })();

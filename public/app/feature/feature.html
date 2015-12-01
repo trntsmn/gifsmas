@@ -7,7 +7,6 @@
     <!-- this is the syntax for loading in a supportingTemplate
     <supporting-template vm="vm"></supporting-template>
     -->
-
   </div>
 
   <div class="row intro">
@@ -16,15 +15,15 @@
         <render-svg vm="vm"></render-svg>
         <h1>{{vm.gif.name}}</h1>
       </div>
-      <h3>Only the Grinch would miss a GIF. Revisit your favorites<br /> or check back to see each new GIF as it’s unwrapped.</h3>
+      <h3>Only the Grinch would miss a GIF. Revisit your favorites or check back to see each new GIF as it’s unwrapped.</h3>
     </div>
     <div class="col-sm-12 col-md-4 col-social">
       <h6 class="text-center upper">Sharing is caring</h6>
-      <div class="social-shares">
-        <facebook-share></facebook-share>
-        <twitter-share></twitter-share>
-        <tumblr-share></tumblr-share>
-        <pinterest-share></pinterest-share>
+      <div class="social-shares" data-ng-if="vm.gif">
+        <facebook-share gif="vm.gif"></facebook-share>
+        <twitter-share gif="vm.gif"></twitter-share>
+        <tumblr-share gif="vm.gif"></tumblr-share>
+        <pinterest-share gif="vm.gif"></pinterest-share>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@ var gifsDb =
     'medium': '/images/gifs/12-img-md.gif',
     'thumbnail': '/images/gifs/12-th.jpg',
     "name": "Ugly Sweaters",
-    "description": "Natasha Romanoff, also known as Black Widow, is a world-renowned super spy and one of S.H.I.E.L.D.'s top agents. Her hand-to-hand combat skills, intelligence, and unpredictability make her a deadly secret weapon. True to her mysterious nature, Black Widow comes and goes as she pleases, but always appears exactly when her particular skills are needed."
+    "description": "12 Ugly Sweaters: Find all the ugly sweater inspiration you need with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 11,
     "order": 2,
@@ -26,7 +26,7 @@ var gifsDb =
     'medium': '/images/gifs/11-img-md.gif',
     'thumbnail': '/images/gifs/11-th.jpg',
     "name": "Looming Deadlines",
-    "description": "During World War II, Steve Rogers enlisted in the military and was injected with a super-serum that turned him into super-soldier Captain America! He's a skilled strategist and even more skilled with his shield, but it's his courage and good heart that makes Captain America both a leader and a true hero. "
+    "description": "11 Looming Deadlines: Cool off from all those hot deadlines with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 10,
     "order": 3,
@@ -36,7 +36,7 @@ var gifsDb =
     'medium': '/images/gifs/10-img-md.gif',
     'thumbnail': '/images/gifs/10-th.jpg',
     "name": "Tangled Lights",
-    "description": "Recruited from S.H.I.E.L.D. by his hero and mentor Tony Stark, Falcon is the Avengers' newest and youngest recruit. Like Tony, Sam is a genius with machines and technology. What he lacks in experience, Sam makes up in enthusiasm and determination. Falcon's suit of armor comes fully stocked with holographic wings, explosive flechettes, and retractable talons."
+    "description": "10 Tangled Lights: Step one: untangle. Step two: Give up and check out all 12 Days of Hiebing Gifsmas."
 },{
     "id": 9,
     "order": 4,
@@ -46,7 +46,7 @@ var gifsDb =
     'medium': '/images/gifs/9-img-md.gif',
     'thumbnail': '/images/gifs/9-th.jpg',
     "name": "Kitties Caroling",
-    "description": "Hawkeye is an expert archer with an attitude just as on-target as his aim. His stealth combat experience and his ability to hit any target with any projectile make him a valuable member of the Avengers. However, he refuses to let things get too serious, as he has as many jokes as he does arrows!"
+    "description": "9 Kitties Caroling: Kitty carols, where every note’s a high note. Check out Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 8,
     "order": 5,
@@ -56,7 +56,7 @@ var gifsDb =
     'medium': '/images/gifs/8-img-md.gif',
     'thumbnail': '/images/gifs/8-th.jpg',
     "name": "Reindeers Twerking",
-    "description": "Scientist Bruce Banner was transformed into the Hulk as a result to gamma radiation exposure. Over 8 feet tall and weighing 1,040 pounds, it's Hulk's strength that makes him the strongest hero in the Marvel Universe! Hulk smashes all threats that dare disturb the peace and friendship he has found in the Avengers. "
+    "description": "8 Reindeers Twerking: They’re staying warm by burning up the dance floor. Check out all 12 Days of Hiebing Gifsmas."
 },{
     "id": 7,
     "order": 6,
@@ -66,7 +66,7 @@ var gifsDb =
     'medium': '/images/gifs/7-img-md.gif',
     'thumbnail': '/images/gifs/7-th.jpg',
     "name": "Surly Santas",
-    "description": "Tony Stark is the genius inventor/billionaire/philanthropist owner of Stark Industries. With his super high-tech Iron Man suit, he is practically indestructible, able to fly, and has a large selection of weapons to choose from - but it's Tony's quick thinking and ability to adapt and improvise that make him an effective leader of the Avengers.        "
+    "description": "7 Surly Santas: Feeling surly? Hiebing’s 12 Days of Gifsmas should cheer you right up."
 },{
     "id": 6,
     "order": 7,
@@ -76,7 +76,7 @@ var gifsDb =
     'medium': '/images/gifs/6-img-md.gif',
     'thumbnail': '/images/gifs/6-th.jpg',
     "name": "Regiftceptions",
-    "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
+    "description": "6 Regiftceptions: You thought that crock-pot looked familiar… Work through the trauma of re-gifts with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 5,
     "order": 8,
@@ -86,7 +86,7 @@ var gifsDb =
     'medium': '/images/gifs/5-img-md.gif',
     'thumbnail': '/images/gifs/5-th.jpg',
     "name": "Cookies Later",
-    "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
+    "description": "5 Cookies Later: Five cookies later…we all know the feeling. Stay in the holiday spirit with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 4,
     "order": 9,
@@ -96,7 +96,7 @@ var gifsDb =
     'medium': '/images/gifs/4-img-md.gif',
     'thumbnail': '/images/gifs/4-th.jpg',
     "name": "Grandmas Skyping",
-    "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
+    "description": "4 Grandma’s Skyping: Show your Grandma what “the kids are doing these days” with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 3,
     "order": 10,
@@ -106,7 +106,7 @@ var gifsDb =
     'medium': '/images/gifs/3-img-md.gif',
     'thumbnail': '/images/gifs/3-th.jpg',
     "name": "Chrismas Spirits",
-    "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
+    "description": "3 Chrismas Spirits: A toast to past, present and future. Check out all 12 Days of Hiebing Gifsmas."
 },{
     "id": 2,
     "order": 11,
@@ -116,7 +116,7 @@ var gifsDb =
     'medium': '/images/gifs/2-img-md.gif',
     'thumbnail': '/images/gifs/2-th.jpg',
     "name": "Pinterest Fails",
-    "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
+    "description": "2 Pinterest Fails: What are the holidays without a few bakery mishaps? Get back in the spirit with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 1,
     "order": 12,
@@ -126,7 +126,7 @@ var gifsDb =
     'medium': '/images/gifs/2-img-md.gif',
     'thumbnail': '/images/gifs/2-th.jpg',
     "name": "Pinterest Fails",
-    "description": "Thor is the Asgardian Prince of Thunder, the son of Odin, and the realm's mightiest warrior. He loves the thrill of battle and is always eager to show off his power to the other Avengers, especially the Hulk. Thor's legendary Uru hammer, Mjolnir, gives him the power to control thunder and the ability to fly. He's found a new home on Earth and will defend it as his own... even if he doesn't understand its sayings and customs."
+    "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
 }];
 
 
