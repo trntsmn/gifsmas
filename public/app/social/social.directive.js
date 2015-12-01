@@ -40,6 +40,7 @@
   function facebookShare(socialService) {
     //var title = encodeURIComponent(socialService.getTitle());
     //https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Falpha.gifsmas.com%2Fimages%2Fgifs%2F2-img.gif&t=2+Pinterest+Fails
+    // https://www.facebook.com/dialog/feed?%20app_id=7970714394%20&display=popup&caption=An%20example%20caption%20&link=http://alpha.gifsmas.com/images/gifs/6-img.gif%20&redirect_uri=http://alpha.gifsmas.com
     return {
       restrict: "E",
       scope: {
