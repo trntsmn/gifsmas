@@ -69,7 +69,7 @@
       scope: {
         gif: '='
       },
-      template: `<a href="https://twitter.com/intent/tweet?text={{gif.description | escape}}%20{{"/day/"+gif.id | domain}}" target="_blank" class="social-icon">
+      template: `<a href="https://twitter.com/intent/tweet?text={{gif.description | escape}}%20{{'/day/'+gif.id | domain}}" target="_blank" class="social-icon">
         <img src="/images/social-twitter.svg" alt="Twitter Share ">
         </a>`
     };
