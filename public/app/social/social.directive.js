@@ -39,19 +39,19 @@
 
   function facebookShare(socialService) {
     //var title = encodeURIComponent(socialService.getTitle());
+    //https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Falpha.gifsmas.com%2Fimages%2Fgifs%2F2-img.gif&t=2+Pinterest+Fails
     return {
       restrict: "E",
       scope: {
         gif: '='
       },
-      template: `<a href="https://www.facebook.com/sharer.php?u={{gif.image | domain}}&t={{gif.id}}%20{{gif.name | escape}}" target="_blank" class="social-icon">
+      template: `<a href="https://www.facebook.com/sharer.php?u={{gif.image | domain | escape}}&t={{gif.id}}%20{{gif.name | escape}}" target="_blank" class="social-icon">
         <img src="/images/social-facebook.svg" alt="Facebook Share ">
         </a>`,
       link: function(scope, element) {
         var button = element.find('a');
         button.on('click', function(event) {
           window.open(button.attr("href"), "", "width=600, height=500");
-          console.log("Sharing to: " + dest);
           event.preventDefault();
           return false;
         });
