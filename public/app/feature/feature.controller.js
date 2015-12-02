@@ -5,9 +5,9 @@
     .module('app')
     .controller('FeatureController', FeatureController)
 
-  FeatureController.$inject = ['appService', '$routeParams', '$anchorScroll', '$rootScope', "$window"];
+  FeatureController.$inject = ['appService', '$routeParams', '$anchorScroll', '$rootScope', "$window", "$location"];
 
-  function FeatureController(appService, $routeParams, $anchorScroll, $rootScope, $window) {
+  function FeatureController(appService, $routeParams, $anchorScroll, $rootScope, $window, $location) {
     $rootScope.title = "Hiebing Gifsmas";
     var vm = this;
     vm.class = 'feature-controller';

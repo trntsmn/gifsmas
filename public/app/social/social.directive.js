@@ -3,39 +3,16 @@
 
   angular
     .module('app')
-    .directive('ogMeta', ogMeta)
     .directive('facebookShare', facebookShare)
     .directive('twitterShare', twitterShare)
     .directive('tumblrShare', tumblrShare)
     .directive('pinterestShare', pinterestShare);
 
-  ogMeta.$inject = ['$compile', '$rootScope', 'socialService'];
   facebookShare.$inject = ['socialService'];
   twitterShare.$inject = ['socialService'];
   tumblrShare.$inject = ['socialService'];
   pinterestShare.$inject = ['socialService'];
 
-
-  function ogMeta($compile, $rootScope, socialService) {
-    var title = socialService.getTitle();
-    var image = socialService.getImage();
-    var description = socialService.getDescription();
-    var url = socialService.getUrl();
-    var base = $rootScope.base;
-
-
-    return {
-      link: function(scope, element) {
-        var meta = `<meta property="og:title" content="${title}" />
-        <meta property="og:description" content="${description}" />
-        <meta property="og:image" content="${image}" />
-        <meta property="og:site_name" content="${base}">
-        <meta property="og:url" content="${url}">`;
-        angular.element(document).find('head').append($compile(meta)(scope));
-      },
-      restrict: "C" // restrict this to a class to save our html from invalidating.
-    };
-  }
 
   function facebookShare(socialService) {
     //var title = encodeURIComponent(socialService.getTitle());
