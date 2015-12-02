@@ -20,7 +20,7 @@ var gifsDb =
 },{
     "id": 11,
     "order": 2,
-    'activate': 1447175235,
+    'activate': 1449468000,
     'active': false,
     'image': '/images/gifs/11-img.gif',
     'medium': '/images/gifs/11-img-md.gif',
@@ -30,7 +30,7 @@ var gifsDb =
 },{
     "id": 10,
     "order": 3,
-    'activate': 1437175235,
+    'activate': 1449554400,
     'active': false,
     'image': '/images/gifs/10-img.gif',
     'medium': '/images/gifs/10-img-md.gif',
@@ -40,7 +40,7 @@ var gifsDb =
 },{
     "id": 9,
     "order": 4,
-    'activate': 1437176235,
+    'activate': 1449640800,
     'active': false,
     'image': '/images/gifs/9-img.gif',
     'medium': '/images/gifs/9-img-md.gif',
@@ -50,7 +50,7 @@ var gifsDb =
 },{
     "id": 8,
     "order": 5,
-    'activate': 1437175295,
+    'activate': 1449727200, // Dec 10th
     'active': false,
     'image': '/images/gifs/8-img.gif',
     'medium': '/images/gifs/8-img-md.gif',
@@ -60,7 +60,7 @@ var gifsDb =
 },{
     "id": 7,
     "order": 6,
-    'activate': 1437175235,
+    'activate': 1449813600, // Dec 11th
     'active': false,
     'image': '/images/gifs/7-img.gif',
     'medium': '/images/gifs/7-img-md.gif',
@@ -70,7 +70,7 @@ var gifsDb =
 },{
     "id": 6,
     "order": 7,
-    'activate': 1437375235,
+    'activate': 1450072800, // dec 14th
     'active': false,
     'image': '/images/gifs/6-img.gif',
     'medium': '/images/gifs/6-img-md.gif',
@@ -80,7 +80,7 @@ var gifsDb =
 },{
     "id": 5,
     "order": 8,
-    'activate': 1437375235,
+    'activate': 1450159200, // Dec 15h
     'active': false,
     'image': '/images/gifs/5-img.gif',
     'medium': '/images/gifs/5-img-md.gif',
@@ -90,7 +90,7 @@ var gifsDb =
 },{
     "id": 4,
     "order": 9,
-    'activate': 1437375235,
+    'activate': 1450245600, // Dec 16th
     'active': false,
     'image': '/images/gifs/4-img.gif',
     'medium': '/images/gifs/4-img-md.gif',
@@ -100,7 +100,7 @@ var gifsDb =
 },{
     "id": 3,
     "order": 10,
-    'activate': 1437375235,
+    'activate': 1450332000, // Dec 17th
     'active': false,
     'image': '/images/gifs/3-img.gif',
     'medium': '/images/gifs/3-img-md.gif',
@@ -110,7 +110,7 @@ var gifsDb =
 },{
     "id": 2,
     "order": 11,
-    'activate': 1437375235,
+    'activate': 1450418400, // Dec 18th
     'active': false,
     'image': '/images/gifs/2-img.gif',
     'medium': '/images/gifs/2-img-md.gif',
@@ -120,7 +120,7 @@ var gifsDb =
 },{
     "id": 1,
     "order": 12,
-    'activate': 1997375235,
+    'activate': 1450677600, // Dec 21st
     'active': false,
     'image': '/images/gifs/2-img.gif',
     'medium': '/images/gifs/2-img-md.gif',
