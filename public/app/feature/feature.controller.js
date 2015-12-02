@@ -5,9 +5,9 @@
     .module('app')
     .controller('FeatureController', FeatureController)
 
-  FeatureController.$inject = ['appService', '$routeParams', '$anchorScroll', '$rootScope'];
+  FeatureController.$inject = ['appService', '$routeParams', '$anchorScroll', '$rootScope', "$window"];
 
-  function FeatureController(appService, $routeParams, $anchorScroll, $rootScope) {
+  function FeatureController(appService, $routeParams, $anchorScroll, $rootScope, $window) {
     $rootScope.title = "Hiebing Gifsmas";
     var vm = this;
     vm.class = 'feature-controller';
@@ -20,6 +20,7 @@
     function ctor() {
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
+      $window.ga('send', 'pageview', { page: $location.url() });
       activate();
     }
 

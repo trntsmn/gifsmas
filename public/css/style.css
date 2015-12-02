@@ -7016,14 +7016,14 @@ footer {
     float: left;
     width: 50%;
     min-height: 1px;
-    padding-left: 0;
-    padding-right: 0; }
+    padding-left: 0.5px;
+    padding-right: 0.5px; }
     @media (min-width: 768px) {
       #grid .gif {
         position: relative;
         min-height: 1px;
-        padding-left: 0;
-        padding-right: 0; } }
+        padding-left: 0.5px;
+        padding-right: 0.5px; } }
   @media (min-width: 768px) and (min-width: 768px) {
     #grid .gif {
       float: left;
@@ -7032,8 +7032,8 @@ footer {
       #grid .gif {
         position: relative;
         min-height: 1px;
-        padding-left: 0;
-        padding-right: 0; } }
+        padding-left: 0.5px;
+        padding-right: 0.5px; } }
   @media (min-width: 992px) and (min-width: 992px) {
     #grid .gif {
       float: left;
@@ -7042,8 +7042,8 @@ footer {
       #grid .gif {
         position: relative;
         min-height: 1px;
-        padding-left: 0;
-        padding-right: 0; } }
+        padding-left: 0.5px;
+        padding-right: 0.5px; } }
   @media (min-width: 1200px) and (min-width: 1200px) {
     #grid .gif {
       float: left;
