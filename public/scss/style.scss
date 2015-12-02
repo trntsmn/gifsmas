@@ -457,13 +457,18 @@ footer {
     transition-delay: 200ms;
     transition-duration: 0s;
   }
-  &:nth-child(even) .inactive .blocker {
-    background-color: $red;
-  }
-  &:nth-child(odd) .inactive .blocker {
-    background-color: #707070;
-  }
 }
+
+#grid .row .gif:nth-child(3n+0) .inactive .blocker {
+  background-color: $red;
+}
+#grid .row .gif:nth-child(3n+2) .inactive .blocker{
+  background-color: #cccccc;
+}
+#grid .row .gif:nth-child(3n+1) .inactive .blocker{
+  background-color: #252525;
+}
+
 
 ///////
 // Misc

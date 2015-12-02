@@ -7078,10 +7078,15 @@ footer {
   #grid .ng-leave-stagger {
     transition-delay: 200ms;
     transition-duration: 0s; }
-  #grid:nth-child(even) .inactive .blocker {
-    background-color: #f00; }
-  #grid:nth-child(odd) .inactive .blocker {
-    background-color: #707070; }
+
+#grid .row .gif:nth-child(3n+0) .inactive .blocker {
+  background-color: #f00; }
+
+#grid .row .gif:nth-child(3n+2) .inactive .blocker {
+  background-color: #cccccc; }
+
+#grid .row .gif:nth-child(3n+1) .inactive .blocker {
+  background-color: #252525; }
 
 .intro h4 {
   margin: 50px 0; }
