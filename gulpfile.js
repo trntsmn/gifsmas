@@ -14,15 +14,20 @@ gulp.task('styles', function(){
     .pipe(autoprefixer('last 2 versions'))
     .pipe(gulp.dest('public/css/'))
 });
-// <script src="/components/angular/angular.js"></script>
-// <script src="/components/angular-route/angular-route.js"></script>
-// <script src="/components/angular-animate/angular-animate.js"></script>
-// <script src="/components/picturefill/dist/picturefill.min.js"></script>
-// <script src="/components/angular-picture/src/angular-picture.js"></script>
 
 gulp.task('scripts', function(){
-  return gulp.src(["public/components/angular/angular.js","public/components/angular-route/angular-route.js", 'public/app/*.js', 'public/app/common/**/*.js', 'public/app/**/*.js'])
-    .pipe(order(["public/components/angular/angular.js", "public/components/angular-route/angular-route.js", 'public/app/*.js', 'public/app/common/**/*.js', 'public/app/**/*.js']))
+  return gulp.src([
+    "public/components/angular/angular.js",
+    "public/components/angular-route/angular-route.js",
+    "public/components/angular-animate/angular-animate.js",
+    "public/components/picturefill/dist/picturefill.min.js",
+    "public/components/angular-picture/src/angular-picture.js",
+    'public/app/*.js',
+    'public/app/**/*.js'])
+    .pipe(order([
+      'angular.js', "angular-route.js", "angular-animate.js",
+      "picturefill.min.js", 'angular-picture.js',
+      'app.js', "app/**/*.module.js", 'app.service.js', 'app/**/*.js']))
     .pipe(concat('main.js'))
     .pipe(gulp.dest('public/js/'))
     .pipe(rename({suffix: '.min'}))
