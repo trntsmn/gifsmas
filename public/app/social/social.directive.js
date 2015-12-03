@@ -64,7 +64,7 @@
         link: function(scope, element) {
           var button = element.find('a');
           button.on('click', function(event) {
-            window.open(dest, "", "width=600, height=500");
+            window.open(button.attr("href"), "", "width=600, height=500");
             console.log("Sharing to: " + dest);
             event.preventDefault();
             return false;
@@ -77,7 +77,6 @@
     // var title = encodeURIComponent(socialService.getTitle());
     // var image = socialService.getImage();
     // var url = socialService.getUrl();
-    var dest = ``;
     return {
       scope: {
         gif: '='

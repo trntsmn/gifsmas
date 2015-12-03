@@ -4,6 +4,8 @@ var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var cache = require('gulp-cache');
+var order = require('gulp-order');
+var ngAnnotate = require('gulp-ng-annotate');
 
 
 gulp.task('styles', function(){
@@ -12,13 +14,20 @@ gulp.task('styles', function(){
     .pipe(autoprefixer('last 2 versions'))
     .pipe(gulp.dest('public/css/'))
 });
+// <script src="/components/angular/angular.js"></script>
+// <script src="/components/angular-route/angular-route.js"></script>
+// <script src="/components/angular-animate/angular-animate.js"></script>
+// <script src="/components/picturefill/dist/picturefill.min.js"></script>
+// <script src="/components/angular-picture/src/angular-picture.js"></script>
 
 gulp.task('scripts', function(){
-  return gulp.src(['public/app/*.js', 'public/app/common/**/*.js', 'public/app/**/*.js'])
+  return gulp.src(["public/components/angular/angular.js","public/components/angular-route/angular-route.js", 'public/app/*.js', 'public/app/common/**/*.js', 'public/app/**/*.js'])
+    .pipe(order(["public/components/angular/angular.js", "public/components/angular-route/angular-route.js", 'public/app/*.js', 'public/app/common/**/*.js', 'public/app/**/*.js']))
     .pipe(concat('main.js'))
     .pipe(gulp.dest('public/js/'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(uglify())
+    .pipe(ngAnnotate({add: true}))
+    .pipe(uglify({mangle: true}))
     .pipe(gulp.dest('public/js/'))
 });
 
