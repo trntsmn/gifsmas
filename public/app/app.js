@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app', ['ngRoute', 'ngAnimate', 'common.exception', 'common.logger'])
+    .module('app', ['ngRoute', 'ngAnimate', 'ngPicturefill'])
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
       $routeProvider
         .when('/', {

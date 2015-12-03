@@ -2,7 +2,17 @@
 
 
   <div class="row rel">
-    <img ng-src="{{vm.gif.image}}" class="" />
+    <!-- <img ng-src="{{vm.gif.image}}" class="" /> -->
+    <picture picturefill>
+    <!--[if IE 9]><video style="display: none;"><![endif]-->
+    <!-- Displays with 2 device pixels per CSS pixel -->
+    <source data-ng-srcset="{{vm.gif.image}}" pf-media="screen-lg"/>
+    <source data-ng-srcset="{{vm.gif.image}}" pf-media="screen-md"/>
+    <source data-ng-srcset="{{vm.gif.medium}}" pf-media="screen-sm"/>
+    <source data-ng-srcset="{{vm.gif.medium}}" pf-media="screen-xs"/>
+    <!--[if IE 9]></video><![endif]-->
+    <img data-ng-srcset="{{vm.gif.image}}"/>
+    </picture>
     <!-- <img src="/images/spacer.png" alt="Empty image used to position feature image" /> -->
     <!-- this is the syntax for loading in a supportingTemplate
     <supporting-template vm="vm"></supporting-template>

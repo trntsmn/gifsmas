@@ -8,13 +8,8 @@
     .directive('tumblrShare', tumblrShare)
     .directive('pinterestShare', pinterestShare);
 
-  facebookShare.$inject = ['socialService'];
-  twitterShare.$inject = ['socialService'];
-  tumblrShare.$inject = ['socialService'];
-  pinterestShare.$inject = ['socialService'];
 
-
-  function facebookShare(socialService) {
+  function facebookShare() {
     //var title = encodeURIComponent(socialService.getTitle());
     //https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Falpha.gifsmas.com%2Fimages%2Fgifs%2F2-img.gif&t=2+Pinterest+Fails
     // https://www.facebook.com/dialog/feed?%20app_id=7970714394%20&display=popup&caption=An%20example%20caption%20&link=http://alpha.gifsmas.com/images/gifs/6-img.gif%20&redirect_uri=http://alpha.gifsmas.com
@@ -40,7 +35,7 @@
   }
 
 
-  function twitterShare(socialService) {
+  function twitterShare() {
     // var description = encodeURIComponent(socialService.getDescription());
     // var url = socialService.getUrl();
     // var dest = ``;
@@ -53,7 +48,7 @@
     };
   }
 
-  function tumblrShare(socialService) {
+  function tumblrShare() {
     // var title = encodeURIComponent(socialService.getTitle());
     // var image = encodeURIComponent(socialService.getImage());
     // var description = encodeURIComponent(socialService.getDescription());
@@ -65,7 +60,7 @@
       scope: {
         gif: '='
       },
-      template: '<a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={{\'/day/\'+gif.id | domain | escape}}&posttype=photo&content={{gif.image | domain | escape}}&caption={{gif.description | escape }}&tags=Gifsmas,Hiebing" target="_blank" class="social-icon"><img src="/images/social-tumblr.svg" alt="Tumblr Share "></a>',
+      template: '<a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={{\'/day/\'+gif.id | domain | escape}}&posttype=photo&content={{gif.image | domain | escape}}&caption={{gif.description | escape }}%20{{\'/day/\'+gif.id | domain | escape}}&tags=Gifsmas,Hiebing" target="_blank" class="social-icon"><img src="/images/social-tumblr.svg" alt="Tumblr Share "></a>',
         link: function(scope, element) {
           var button = element.find('a');
           button.on('click', function(event) {
@@ -78,7 +73,7 @@
     };
   }
 
-  function pinterestShare(socialService) {
+  function pinterestShare() {
     // var title = encodeURIComponent(socialService.getTitle());
     // var image = socialService.getImage();
     // var url = socialService.getUrl();
