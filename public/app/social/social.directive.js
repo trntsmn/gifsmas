@@ -22,15 +22,7 @@
       scope: {
         gif: '='
       },
-      template: '<a href="https://www.facebook.com/dialog/feed?%20app_id=7970714394%20&display=popup&caption={{gif.description | escape}}%20&link={{gif.image | domain | escape}}&redirect_uri=http://gifsmas.com" target="_blank" class="social-icon"><img src="/images/social-facebook.svg" alt="Facebook Share "> </a>',
-      link: function(scope, element) {
-        var button = element.find('a');
-        button.on('click', function(event) {
-          window.open(button.attr("href"), "", "width=600, height=500");
-          event.preventDefault();
-          return false;
-        });
-      }
+      template: '<a href="https://www.facebook.com/dialog/feed?%20app_id=7970714394%20&display=popup&caption={{gif.description | escape}}%20&link={{gif.image | domain | escape}}&redirect_uri=http://gifsmas.com" target="_blank" class="social-icon"><img src="/images/social-facebook.svg" alt="Facebook Share "> </a>'
     };
   }
 
@@ -82,7 +74,7 @@
         gif: '='
       },
       restrict: "E",
-      template: '<a data-pin-do="buttonPin" data-pin-custom="true"   href="https://www.pinterest.com/pin/create/button/?description={{gif.id}}%20{{gif.name | escape}}&media={{gif.image | domain}}&url={{\'/day/\'+gif.id | domain}}" target="_blank" class="social-icon"><img src="/images/social-pinterest.svg" alt="Pinterest Sharing"></a>'
+      template: '<a data-pin-do="buttonPin" data-pin-custom="true"   href="https://www.pinterest.com/pin/create/button/?description={{gif.description | escape}}&media={{gif.image | domain}}&url={{\'/day/\'+gif.id | domain}}" target="_blank" class="social-icon"><img src="/images/social-pinterest.svg" alt="Pinterest Sharing"></a>'
     };
   }
 
