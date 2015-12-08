@@ -1,4 +1,4 @@
-<section class="submission">
+<article class="{{vm.class}}">
   <div class="row rel">
     <div class="camera">
       <div class="blocker">
@@ -10,7 +10,7 @@
         <video id="video">Video stream not available.</video>
 
         <blockquote>
-          <img>
+          <img data-ng-show="vm.src" data-ng-src="{{vm.src}}" />
         </blockquote>
 
       </div>
@@ -30,4 +30,6 @@
     </a>
     <a class="btn btn-success" data-ng-click="vm.reset()">Reset</a>
   </div>
-</section>
+  <img id="preview" src="/images/default.png" />
+  <input type="hidden" id="avatar_url" name="avatar_url" value="/public/default.png" />
+</article>

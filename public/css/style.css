@@ -6945,7 +6945,7 @@ h6 {
         position: absolute;
         z-index: 12; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker canvas {
-        top: 0;
+        top: -9990px;
         position: absolute;
         z-index: -99; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker blockquote {
