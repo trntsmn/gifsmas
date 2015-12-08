@@ -18,8 +18,8 @@ exports.format = function(gif) {
     //gif.image = gif.activeImage;
     //gif.thumbnail = gif.activeThumbnail;
   } else {
-    gif.image = null
-    gif.thumbnail = null;
+    //gif.image = null
+    //gif.thumbnail = null;
   }
   return gif
 

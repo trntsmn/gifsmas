@@ -28,9 +28,6 @@
 
 
   function twitterShare() {
-    // var description = encodeURIComponent(socialService.getDescription());
-    // var url = socialService.getUrl();
-    // var dest = ``;
     return {
       restrict: "E",
       scope: {
@@ -41,13 +38,7 @@
   }
 
   function tumblrShare() {
-    // var title = encodeURIComponent(socialService.getTitle());
-    // var image = encodeURIComponent(socialService.getImage());
-    // var description = encodeURIComponent(socialService.getDescription());
-    // var url = encodeURIComponent(socialService.getUrl());
-    // var dest = `https://www.tumblr.com/widgets/share/tool?canonicalUrl=${url}&posttype=photo&content=${image}&caption=${description}&tags=Gifsmas,Hiebing`;
-
-    return {
+      return {
       restrict: "E",
       scope: {
         gif: '='
@@ -66,9 +57,6 @@
   }
 
   function pinterestShare() {
-    // var title = encodeURIComponent(socialService.getTitle());
-    // var image = socialService.getImage();
-    // var url = socialService.getUrl();
     return {
       scope: {
         gif: '='

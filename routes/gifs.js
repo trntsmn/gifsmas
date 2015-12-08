@@ -36,7 +36,7 @@ var gifsDb =
     'medium': '/images/gifs/10-img-md.gif',
     'thumbnail': '/images/gifs/10-th.jpg',
     "name": "Tangled Lights",
-    "description": "10 Tangled Lights: Step one: untangle. Step two: Give up and check out all 12 Days of Hiebing Gifsmas."
+    "description": "10 Tangled Lights: Step one: Untangle. Step two: Give up and check out all 12 Days of Hiebing Gifsmas."
 },{
     "id": 9,
     "order": 4,
@@ -76,7 +76,7 @@ var gifsDb =
     'medium': '/images/gifs/6-img-md.gif',
     'thumbnail': '/images/gifs/6-th.jpg',
     "name": "Regiftceptions",
-    "description": "6 Regiftceptions: You thought that crock-pot looked familiar… Work through the trauma of re-gifts with Hiebing’s 12 Days of Gifsmas."
+    "description": "6 Regiftceptions: You thought that Crock-Pot looked familiar… Work through the trauma of regifts with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 5,
     "order": 8,
@@ -96,7 +96,7 @@ var gifsDb =
     'medium': '/images/gifs/4-img-md.gif',
     'thumbnail': '/images/gifs/4-th.jpg',
     "name": "Grandmas Skyping",
-    "description": "4 Grandma’s Skyping: Show your Grandma what “the kids are doing these days” with Hiebing’s 12 Days of Gifsmas."
+    "description": "4 Grandmas Skyping: Show your Grandma what “the kids are doing these days” with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 3,
     "order": 10,
