@@ -5,9 +5,9 @@
     .module('app')
     .controller('SubmissionController', SubmissionController);
 
-  SubmissionController.$inject = ['appService', '$anchorScroll', '$http', '$scope'];
+  SubmissionController.$inject = ['appService', '$anchorScroll', '$http', '$scope', '$location'];
 
-  function SubmissionController(appService, $anchorScroll, $http, $scope) {
+  function SubmissionController(appService, $anchorScroll, $http, $scope, $location) {
     var vm = this;
     vm.class = "submission-controller";
     vm.gifs = [];
@@ -24,6 +24,7 @@
     vm.reset = null; // Rest is pupulated by directive.
     vm.submit = null; // Submit is populated by directive.
     vm.src = null;
+    vm.base = null;
 
     ctor();
 
@@ -51,10 +52,12 @@
       _get_signed_request(file);
     }
 
-    function _upload_file(file, signed_request, url) {
-      var xhr = new XMLHttpRequest();
 
-      console.log(vm.src);
+    function _upload_file(file, signed_request, url) {
+      //$location.path('/me/' + signed_request.name);
+      console.log(file.name)
+      vm.base = file.name;
+      var xhr = new XMLHttpRequest();
       xhr.open("PUT", signed_request);
       xhr.setRequestHeader('x-amz-acl', 'public-read');
       xhr.onload = function() {
@@ -76,6 +79,7 @@
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
+            file.name = response.name;
             _upload_file(file, response.signed_request, response.url);
           } else {
             alert("Could not get signed URL.");

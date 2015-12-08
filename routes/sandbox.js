@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer  = require('multer')
 var aws = require('aws-sdk');
+var uuid = require('node-uuid');
 var upload = multer({ dest: './uploads/' });
 var AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY ? process.env.AWS_ACCESS_KEY :'AKIAIHEVIIVQZIP6Z4XQ';
 var AWS_SECRET_KEY = process.env.AWS_SECRET_KEY ? process.env.AWS_SECRET_KEY : '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';
@@ -25,6 +26,9 @@ router.get('/social', function(req, res, next) {
 });
 
 router.get('/sign_s3', function(req, res){
+    var ext = req.query.file_name.substr((~-req.query.file_name.lastIndexOf(".") >>> 0) + 2).toLowerCase();
+    var newName = uuid.v4() + "." + ext;
+    req.query.file_name = newName;
     aws.config.update({accessKeyId: AWS_ACCESS_KEY, secretAccessKey: AWS_SECRET_KEY});
     var s3 = new aws.S3();
     var s3_params = {
@@ -40,6 +44,7 @@ router.get('/sign_s3', function(req, res){
         }
         else{
             var return_data = {
+                name: req.query.file_name,
                 signed_request: data,
                 url: 'https://'+S3_BUCKET+'.s3.amazonaws.com/'+req.query.file_name
             };

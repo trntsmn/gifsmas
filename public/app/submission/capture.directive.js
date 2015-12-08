@@ -129,7 +129,6 @@
       }, false);
 
       startbutton.on('click', function(ev) {
-        console.log("clicked");
         takepicture();
         ev.preventDefault();
       });
@@ -137,7 +136,6 @@
 
 
       function toBlob(dataUri) {
-        controller.clicker();
         // convert base64/URLEncoded data component to raw binary data held in a string
         var byteString;
         if (dataUri.split(',')[0].indexOf('base64') >= 0)
