@@ -22,6 +22,7 @@ gulp.task('scripts', function(){
     "public/components/angular-animate/angular-animate.js",
     "public/components/picturefill/dist/picturefill.min.js",
     "public/components/angular-picture/src/angular-picture.js",
+    "public/components/angular-sanitize/angular-sanitize.js",
     'public/app/*.js',
     'public/app/**/*.js'])
     .pipe(order([
