@@ -49,9 +49,28 @@
     }
 
     function preview(file) {
-      _get_signed_request(file);
+      _getToken(file);
     }
 
+    function handleError(response) {
+      console.log(response);
+    }
+
+    function _putFile(file, signature, url) {
+      var req = {
+        method: 'PUT',
+        url: signature,
+        responseType: 'json',
+        headers: {
+          'x-amz-acl': 'public-read',
+          'Content-Type': file.type != '' ? file.type : 'application/octet-stream'
+        },
+        data: file
+      };
+      $http(req).then(function(response) {
+        vm.src = url;
+      }, handleError);
+    }
 
     function _upload_file(file, signed_request, url) {
       //$location.path('/me/' + signed_request.name);
@@ -70,6 +89,22 @@
         alert("Could not upload file.");
       };
       xhr.send(file);
+    }
+
+    function _getToken(file) {
+      var req = {
+        method: 'GET',
+        url: '/sandbox/token',
+        responseType: 'json',
+        params: {
+          name: file.name,
+          type: file.type
+        }
+      };
+      $http(req).then(function(response) {
+        file.name = response.data.name;
+        _putFile(file, response.data.signature, response.data.url);
+      }, handleError);
     }
 
     function _get_signed_request(file) {

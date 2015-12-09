@@ -54,6 +54,40 @@ router.get('/sign_s3', function(req, res){
     });
 });
 
+router.get('/token', function(req, res){
+    console.log(JSON.stringify(req.query));
+    var ext = req.query.name.substr((~-req.query.name.lastIndexOf(".") >>> 0) + 2).toLowerCase();
+    var newName = uuid.v4() + "." + ext;
+    req.query.name = newName;
+    aws.config.update({accessKeyId: AWS_ACCESS_KEY, secretAccessKey: AWS_SECRET_KEY});
+    var s3 = new aws.S3();
+    var s3_params = {
+        Bucket: S3_BUCKET,
+        Key: req.query.name,
+        Expires: 60,
+        ContentType: req.query.type,
+        ACL: 'public-read'
+    };
+    s3.getSignedUrl('putObject', s3_params, function(err, data){
+        if(err){
+          console.log(err);
+          res.status(500).send('Internal Server Error').end();  
+        }
+        else{
+            var output = {
+                name: req.query.name,
+                signature: data,
+                url: 'https://'+S3_BUCKET+'.s3.amazonaws.com/'+req.query.name
+            };
+            res.json(output);
+            res.end();
+        }
+    });
+});
+
+
+
+
 router.post('/uploads', upload.single('file'), function(req, res){
     console.log(req.body) // form fields
     console.log(req.file) // form file
