@@ -6749,6 +6749,16 @@ h1 {
   font-size: 36px;
   text-transform: uppercase; }
 
+h2 {
+  font-family: 'Montserrat', 'Futura', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.01em;
+  font-size: 32px;
+  text-transform: uppercase; }
+
 h3 {
   font-size: 24px;
   color: #424242; }
@@ -6936,6 +6946,9 @@ h6 {
       padding-top: 45px;
       width: 100%; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker {
+      background-image: url("/images/placeholder.gif");
+      background-repeat: no-repeat;
+      background-size: cover;
       position: relative;
       width: 100%;
       height: 700px;
@@ -6967,6 +6980,66 @@ h6 {
         width: 100%; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface a img {
       width: 50px; }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .abs {
+      width: 100%;
+      padding: 25px;
+      top: 0;
+      z-index: 1027;
+      -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      /* easeOutQuad */
+      -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      /* easeOutQuad */
+      transition-duration: 400ms;
+      -webkit-transition-duration: 400ms; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs h2 {
+        color: white; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs h3 {
+        color: black; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs > div {
+        background-color: rgba(255, 0, 0, 0.85);
+        width: 100%;
+        padding: 25px; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs .close {
+        -webkit-box-shadow: -8px 10px 26px 0px rgba(0, 0, 0, 0.6);
+        -moz-box-shadow: -8px 10px 26px 0px rgba(0, 0, 0, 0.6);
+        box-shadow: -8px 10px 26px 0px rgba(0, 0, 0, 0.6);
+        position: absolute;
+        right: 0;
+        background-color: #000;
+        opacity: 1;
+        top: 0;
+        right: 0;
+        margin: 17px;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        padding: 9px 13px;
+        color: #fff; }
+        #main > .container > .row > div.col-xs-12 article.submission-controller .abs .close:hover {
+          opacity: .7; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs.ng-leave {
+        opacity: 1;
+        position: absolute; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs.ng-leave-active {
+        opacity: 0; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs.ng-enter {
+        opacity: 0;
+        transform: translateY(-200px);
+        -ms-transform: translateY(-200px);
+        -webkit-transform: translateY(-200px); }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs.ng-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+        -ms-transform: translateY(0);
+        -webkit-transform: translateY(0); }
 
 footer {
   background: #252525 url(/images/bkgd-gray.png) repeat top left;

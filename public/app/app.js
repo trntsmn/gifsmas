@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app', ['ngRoute', 'ngAnimate', 'ngPicturefill'])
+    .module('app', ['ngRoute', 'ngAnimate', 'ngPicturefill', 'ngSanitize'])
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
       $routeProvider
         .when('/', {

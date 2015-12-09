@@ -9,8 +9,8 @@
 
         <video id="video">Video stream not available.</video>
 
-        <blockquote>
-          <img data-ng-show="vm.src" data-ng-src="{{vm.src}}" />
+        <blockquote >
+          <img data-ng-show="vm.previewing" data-ng-src="{{vm.src}}" />
         </blockquote>
 
       </div>
@@ -18,6 +18,19 @@
 
     <div class="overlay" data-ng-if="vm.overlay == 'internet'"><img src="/images/internet.gif" /></div>
     <div class="overlay" data-ng-if="vm.overlay == 'wow'"><img src="/images/giphy.gif" /></div>
+    <div class="error abs" data-ng-if="vm.error">
+      <div>
+        <div data-ng-bind-html="vm.message">Your error here</div>
+        <a data-ng-click="vm.dismiss()" class="close">X</a>
+      </div>
+    </div><!-- End .error.abs -->
+    <div class="intro abs" data-ng-if="vm.intro">
+      <div>
+        <h2>Step 1: Snap a photo of yourself. Then apply a GIF. Finally share your creation.</h2>
+        <a class="btn btn-primary" data-ng-click="vm.snap()">Take picture</a>
+        <a data-ng-click="vm.dismiss()" class="close">X</a>
+      </div>
+    </div><!-- End .error.abs -->
   </div>
 
   <div class='row interface'>

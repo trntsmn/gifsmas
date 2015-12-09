@@ -19,11 +19,15 @@
     vm.previewing = false; // When we first load the app help text will
     // appear until we start previewing the animation
     vm.clicker = clicker;
-    vm.post = post; // Post handle sending the image and overlay to the server
+    vm.dismiss = dismiss;
+    vm.intro = false;
     vm.alert = alert;
+    vm.error = false;
+    vm.message = null;
     vm.reset = null; // Rest is pupulated by directive.
-    vm.submit = null; // Submit is populated by directive.
+    vm.snap = null; // Submit is populated by directive.
     vm.src = null;
+    vm.placeholder = "/images/placeholder.gif";
     vm.base = null;
 
     ctor();
@@ -32,12 +36,10 @@
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
       activate();
-
     }
 
     function clicker() {
       console.log("Clicker from controller");
-      vm.src="less stuff";
     }
 
     function activate() {
@@ -48,8 +50,22 @@
 
     }
 
+    function dismiss() {
+      if(vm.error) {
+        vm.error = false;
+        console.log("Dismissed error message.");
+      }
+      if(vm.intro) {
+        vm.intro = false;
+        console.log("Dismissed intro message.");
+      }
+    }
+
     function preview(file) {
-      _getToken(file);
+      vm.dismiss();
+      _getTokenAndPut(file);
+      vm.previewing = true;
+
     }
 
     function handleError(response) {
@@ -72,26 +88,7 @@
       }, handleError);
     }
 
-    function _upload_file(file, signed_request, url) {
-      //$location.path('/me/' + signed_request.name);
-      console.log(file.name)
-      vm.base = file.name;
-      var xhr = new XMLHttpRequest();
-      xhr.open("PUT", signed_request);
-      xhr.setRequestHeader('x-amz-acl', 'public-read');
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          vm.src = url;
-          $scope.$apply();
-        }
-      };
-      xhr.onerror = function() {
-        alert("Could not upload file.");
-      };
-      xhr.send(file);
-    }
-
-    function _getToken(file) {
+    function _getTokenAndPut(file) {
       var req = {
         method: 'GET',
         url: '/sandbox/token',
@@ -107,25 +104,8 @@
       }, handleError);
     }
 
-    function _get_signed_request(file) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/sandbox/sign_s3?file_name=" + file.name + "&file_type=" + file.type);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            file.name = response.name;
-            _upload_file(file, response.signed_request, response.url);
-          } else {
-            alert("Could not get signed URL.");
-          }
-        }
-      };
-      xhr.send();
-    }
-
-
-    function post(dataUri, overlay) {
+    // Depricated. Left as an example for how to post back to server.
+    function _postUrl(dataUri, overlay) {
       var formData = new FormData();
       var blob = _toBlob(dataUri);
       formData.append("file", blob, "filename.jpg");

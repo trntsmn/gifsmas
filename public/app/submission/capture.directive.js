@@ -80,7 +80,7 @@
       var photo = null;
       var startbutton = null;
       controller.reset = reset;
-
+      controller.snap = takepicture;
 
       video = element.find('video');
       canvas = element.find('canvas');
@@ -103,9 +103,12 @@
             video[0].src = vendorURL.createObjectURL(stream);
           }
           video[0].play();
+          controller.error = false;
+          controller.intro = true;
         },
         function(err) {
-          console.log("An error occured! " + err);
+          controller.error = true;
+          controller.message = "<h2>Could not access camera.</h2> <h3>Please allow access.</h3>"
         }
       );
 
@@ -182,16 +185,15 @@
           var data = canvas[0].toDataURL('image/png');
           //photo[0].setAttribute('src', data);
           var dataBlob = toBlob(data);
-          dataBlob.name = 'yes2.png';
+          dataBlob.name = 'canvas.png';
           controller.preview(dataBlob);
-          controller.src="/images/gifs/7-img.gif";
         } else {
           clearphoto();
         }
       }
 
       function reset() {
-        photo[0].setAttribute('src', '');
+        controller.src = controller.placeholder;
         controller.overlay = null;
       }
     } // END function video()
