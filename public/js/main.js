@@ -34012,6 +34012,11 @@ angular.module('ngPicturefill', [])
           controller: "SubmissionController",
           controllerAs: "vm"
         })
+        .when('/me/:me', {
+          templateUrl: 'app/personal/personal.html',
+          controller: "PersonalController",
+          controllerAs: "vm"
+        })
         .when('/form', {
           templateUrl: 'views/form.html',
           controller: 'FormController',
@@ -35105,18 +35110,32 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     .module('app')
     .controller('PersonalController', PersonalController);
 
-  PersonalController.$inject = ['appService', '$routeParams'];
+  PersonalController.$inject = ['appService', '$routeParams', '$q'];
 
-  function PersonalController(appService, $routeParams) {
+  function PersonalController(appService, $routeParams, $q) {
     var vm = this;
-    vm.getList = getList;
-    vm.isActive = isActive;
-    vm.gifs = [];
-    vm.selectedGif = undefined;
-    vm.title = 'Avengers';
+    vm.class = 'personal-controller';
+    vm.overlay = null;
+    vm.src = null;
+    vm.req = null;
+    vm.activate = activate;
+    vm.gif = {"id": 1, "name" : "Day one"};
 
-    activate();
-    
+    ctor();
+
+    function ctor() {
+      vm.req = $routeParams.me
+      var tmp = $routeParams.me.match(/(.*)_(.*)/);
+      console.log(JSON.stringify(tmp));
+      vm.overlay = tmp[1];
+      vm.src = "https://gifsmas.s3.amazonaws.com/" + tmp[2];
+    }
+
+    // This is just to keep tha api consistant.
+    function activate(){
+      return $q.when(true);
+    }
+
   }
 })();
 
@@ -35222,9 +35241,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       templateUrl: using,
       restrict: "EAC",
       scope: {},
-    bindToController: {
-      vm: '=',
-    },
+      bindToController: {
+        vm: '=',
+      },
       link: link
     };
 
@@ -35264,9 +35283,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     function video(scope, element, attrs, controller) {
       var width = 1200; // We will scale the photo width to this
       var height = 0; // This will be computed based on the input stream
-
       var streaming = false;
-
       var video = null;
       var canvas = null;
       var photo = null;
@@ -35288,6 +35305,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           audio: false
         },
         function(stream) {
+
           if (navigator.mozGetUserMedia) {
             video[0].mozSrcObject = stream;
           } else {
@@ -35295,8 +35313,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             video[0].src = vendorURL.createObjectURL(stream);
           }
           video[0].play();
-          controller.error = false;
-          controller.intro = true;
+
         },
         function(err) {
           controller.error = true;
@@ -35306,6 +35323,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
       video[0].addEventListener('canplay', function(ev) {
+        scope.$apply(function(){
+          controller.error = false;
+          controller.intro = true;
+        });
         if (!streaming) {
           height = video.videoHeight / (video.videoWidth / width);
 
@@ -35322,12 +35343,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           streaming = true;
         }
       }, false);
-
-      startbutton.on('click', function(ev) {
-        takepicture();
-        ev.preventDefault();
-      });
-
 
 
       function toBlob(dataUri) {
@@ -35350,18 +35365,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       }
 
 
-
-      // Fill the photo with an indication that none has been
-      // captured.
-      function clearphoto() {
-        var context = canvas[0].getContext('2d');
-        context.fillStyle = "#AAA";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
-        var data = canvas[0].toDataURL('image/png');
-        photo[0].setAttribute('src', data);
-      }
-
       // Capture a photo by fetching the current contents of the video
       // and drawing it into a canvas, then converting that to a PNG
       // format data URL. By drawing it on an offscreen canvas and then
@@ -35380,13 +35383,15 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           dataBlob.name = 'canvas.png';
           controller.preview(dataBlob);
         } else {
-          clearphoto();
+          controller.reset();
         }
       }
 
       function reset() {
-        controller.src = controller.placeholder;
+        controller.previewing = false;
         controller.overlay = null;
+        controller.src = null;
+        controller.intro = true;
       }
     } // END function video()
 
