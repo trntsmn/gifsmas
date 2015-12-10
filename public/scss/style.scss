@@ -153,71 +153,6 @@ h6 {
 ///////
 // Main content area
 ///////
-#main2 {
-  padding-top: 105px;
-  .wrapper > div {
-    width: 100%;
-    @include easingOutQuadTimingFunction();
-    @include transitionDuration(11s);
-    &.ng-leave {
-      opacity: 1;
-      position: absolute;
-    }
-    &.ng-leave-active {
-      opacity: 0;
-    }
-    &.ng-enter {
-      opacity: 0;
-    }
-    &.ng-enter-active {
-      opacity: 1;
-    }
-    img.animate2 {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      @include easingOutQuadTimingFunction();
-      @include transitionDuration(111s);
-      &.begining {
-        @include transform(translateY(665px));
-        opacity: 0;
-        top: 0;
-      }
-      &.middle {
-        @include transform(translateY(0));
-        opacity: 1;
-      }
-      &.end {
-        @include transform(translateY(-665px));
-        opacity: 0;
-      }
-    }
-    section.feature {
-      .row.intro {
-        position: relative;
-        z-index: 10;
-        background-color: #fff;
-      }
-      .row.rel {
-        z-index: -9;
-        img {
-          width: 100%;
-        }
-      }
-      svg {
-        fill: $red;
-        width: 120px;
-        left: -35px;
-        position: absolute;
-        top: -32px;
-      }
-      h1 {
-        color: $red;
-        text-indent: 64px;
-      }
-    }
-  }
-}
 #main {
   padding-top: 105px;
   > .container > .row {
@@ -247,7 +182,7 @@ h6 {
           margin: 70px 0;
         }
       }
-      article.feature-controller {
+      article.feature-controller, article.personal-controller {
         .row.rel img {
           width: 100%;
         }
@@ -399,6 +334,41 @@ h6 {
           }
         }
       } // End article.submission-controller
+      article.personal-controller {
+        .row.rel {
+          .blocker {
+            background-image: url('/images/placeholder.gif');
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            width: 100%;
+            height: 700px;
+            overflow: hidden;
+            blockquote {
+              top: 0;
+              position: absolute;
+              z-index: 143;
+              display: block;
+              border: none !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              img {
+
+                // Preview
+              }
+            }
+          }
+          .overlay {
+            z-index: 201;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      } // End article.personal-controller
     }
   }
 }

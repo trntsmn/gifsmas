@@ -1,6 +1,39 @@
-<!-- The feature section -->
-<div class="container feature" data-ng-controller="PersonalController as vm">
-<capture-template></capture-template>
+<article class="{{vm.class}}">
+  <div class="row rel">
+    <div class="camera">
+      <div class="blocker">
 
-<h1>Your face here</h1>
-</div>
+        <blockquote >
+          <img data-ng-show="vm.src" data-ng-src="{{vm.src}}" />
+        </blockquote>
+
+      </div>
+    </div>
+
+    <div class="overlay" data-ng-if="vm.overlay == 1"><img src="/images/1.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 2"><img src="/images/2.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 3"><img src="/images/3.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 4"><img src="/images/4.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 5"><img src="/images/5.gif" /></div>
+
+  </div>
+
+  <div class="row intro">
+    <div class="col-sm-12 col-md-8 col-heading">
+      <div class="heading">
+        <render-svg vm="vm"></render-svg>
+        <h1>{{vm.gif.name}}</h1>
+      </div>
+      <h3>Only the Grinch would miss a GIF. Revisit your favorites or check back to see each new GIF as it’s unwrapped.</h3>
+    </div>
+    <div class="col-sm-12 col-md-4 col-social">
+      <h6 class="text-center upper">Sharing is caring</h6>
+      <div class="social-shares" data-ng-if="vm.gif">
+        <facebook-share gif="vm.gif"></facebook-share>
+        <twitter-share gif="vm.gif"></twitter-share>
+        <tumblr-share gif="vm.gif"></tumblr-share>
+        <pinterest-share gif="vm.gif"></pinterest-share>
+      </div>
+    </div>
+  </div>
+</article>

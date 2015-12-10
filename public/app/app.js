@@ -18,6 +18,11 @@
           controller: "SubmissionController",
           controllerAs: "vm"
         })
+        .when('/me/:me', {
+          templateUrl: 'app/personal/personal.html',
+          controller: "PersonalController",
+          controllerAs: "vm"
+        })
         .when('/form', {
           templateUrl: 'views/form.html',
           controller: 'FormController',

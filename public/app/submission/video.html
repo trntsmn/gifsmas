@@ -37,22 +37,36 @@
   </div>
 
   <div class='row interface'>
-    <button class='btn btn-warning' data-ng-click="vm.snap()">Take photo</button>
-    <a data-ng-click="vm.overlay = 1">
-      <img src="/images/1.gif" />
-    </a>
-    <a data-ng-click="vm.overlay = 2">
-      <img src="/images/2.gif" />
-    </a>
-    <a data-ng-click="vm.overlay = 3">
-      <img src="/images/3.gif" />
-    </a>
-    <a data-ng-click="vm.overlay = 4">
-      <img src="/images/4.gif" />
-    </a>
-    <a data-ng-click="vm.overlay = 5">
-      <img src="/images/5.gif" />
-    </a>
-    <a class="btn btn-success" data-ng-click="vm.reset()">Reset</a>
+    <div class="col-sm-6">
+      <div class="controls">
+        <button class='btn btn-warning' data-ng-click="vm.snap()">Take photo</button>
+        <a class="btn btn-success" data-ng-click="vm.reset()">Reset</a>
+      </div>
+      <div class="social-shares" data-ng-if="vm.src">
+        <facebook-share gif="vm.gif"></facebook-share>
+        <twitter-share gif="vm.gif"></twitter-share>
+        <tumblr-share gif="vm.gif"></tumblr-share>
+        <pinterest-share gif="vm.gif"></pinterest-share>
+        <a data-ng-href="/me/2_35322c7c-3b70-40e5-83ee-f0a7605af128.png" target="_blank">link</a>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+      <a data-ng-click="vm.overlay = 1">
+        <img src="/images/1.gif" />
+      </a>
+      <a data-ng-click="vm.overlay = 2">
+        <img src="/images/2.gif" />
+      </a>
+      <a data-ng-click="vm.overlay = 3">
+        <img src="/images/3.gif" />
+      </a>
+      <a data-ng-click="vm.overlay = 4">
+        <img src="/images/4.gif" />
+      </a>
+      <a data-ng-click="vm.overlay = 5">
+        <img src="/images/5.gif" />
+      </a>
+    </div>
+
   </div>
 </article>
