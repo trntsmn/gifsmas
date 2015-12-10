@@ -16,8 +16,11 @@
       </div>
     </div>
 
-    <div class="overlay" data-ng-if="vm.overlay == 'internet'"><img src="/images/internet.gif" /></div>
-    <div class="overlay" data-ng-if="vm.overlay == 'wow'"><img src="/images/giphy.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 1"><img src="/images/1.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 2"><img src="/images/2.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 3"><img src="/images/3.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 4"><img src="/images/4.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 5"><img src="/images/5.gif" /></div>
     <div class="error abs" data-ng-if="vm.error">
       <div>
         <div data-ng-bind-html="vm.message">Your error here</div>
@@ -34,12 +37,21 @@
   </div>
 
   <div class='row interface'>
-    <button class='btn btn-warning'>Take photo</button>
-    <a data-ng-click="vm.overlay = 'internet'">
-      <img src="/images/internet.gif" />
+    <button class='btn btn-warning' data-ng-click="vm.snap()">Take photo</button>
+    <a data-ng-click="vm.overlay = 1">
+      <img src="/images/1.gif" />
     </a>
-    <a data-ng-click="vm.overlay = 'wow'">
-      <img src="/images/giphy.gif" />
+    <a data-ng-click="vm.overlay = 2">
+      <img src="/images/2.gif" />
+    </a>
+    <a data-ng-click="vm.overlay = 3">
+      <img src="/images/3.gif" />
+    </a>
+    <a data-ng-click="vm.overlay = 4">
+      <img src="/images/4.gif" />
+    </a>
+    <a data-ng-click="vm.overlay = 5">
+      <img src="/images/5.gif" />
     </a>
     <a class="btn btn-success" data-ng-click="vm.reset()">Reset</a>
   </div>

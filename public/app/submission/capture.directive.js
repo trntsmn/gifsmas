@@ -30,9 +30,9 @@
       templateUrl: using,
       restrict: "EAC",
       scope: {},
-    bindToController: {
-      vm: '=',
-    },
+      bindToController: {
+        vm: '=',
+      },
       link: link
     };
 
@@ -72,9 +72,7 @@
     function video(scope, element, attrs, controller) {
       var width = 1200; // We will scale the photo width to this
       var height = 0; // This will be computed based on the input stream
-
       var streaming = false;
-
       var video = null;
       var canvas = null;
       var photo = null;
@@ -96,6 +94,7 @@
           audio: false
         },
         function(stream) {
+
           if (navigator.mozGetUserMedia) {
             video[0].mozSrcObject = stream;
           } else {
@@ -103,8 +102,7 @@
             video[0].src = vendorURL.createObjectURL(stream);
           }
           video[0].play();
-          controller.error = false;
-          controller.intro = true;
+
         },
         function(err) {
           controller.error = true;
@@ -114,6 +112,10 @@
 
 
       video[0].addEventListener('canplay', function(ev) {
+        scope.$apply(function(){
+          controller.error = false;
+          controller.intro = true;
+        });
         if (!streaming) {
           height = video.videoHeight / (video.videoWidth / width);
 
@@ -130,12 +132,6 @@
           streaming = true;
         }
       }, false);
-
-      startbutton.on('click', function(ev) {
-        takepicture();
-        ev.preventDefault();
-      });
-
 
 
       function toBlob(dataUri) {
@@ -158,18 +154,6 @@
       }
 
 
-
-      // Fill the photo with an indication that none has been
-      // captured.
-      function clearphoto() {
-        var context = canvas[0].getContext('2d');
-        context.fillStyle = "#AAA";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
-        var data = canvas[0].toDataURL('image/png');
-        photo[0].setAttribute('src', data);
-      }
-
       // Capture a photo by fetching the current contents of the video
       // and drawing it into a canvas, then converting that to a PNG
       // format data URL. By drawing it on an offscreen canvas and then
@@ -188,13 +172,15 @@
           dataBlob.name = 'canvas.png';
           controller.preview(dataBlob);
         } else {
-          clearphoto();
+          controller.reset();
         }
       }
 
       function reset() {
-        controller.src = controller.placeholder;
+        controller.previewing = false;
         controller.overlay = null;
+        controller.src = null;
+        controller.intro = true;
       }
     } // END function video()
 
