@@ -5,16 +5,17 @@
     .module('app')
     .controller('PersonalController', PersonalController);
 
-  PersonalController.$inject = ['appService', '$routeParams', '$q'];
+  PersonalController.$inject = ['appService', '$routeParams', '$q', '$rootScope'];
 
-  function PersonalController(appService, $routeParams, $q) {
+  function PersonalController(appService, $routeParams, $q, $rootScope) {
+    $rootScope.title = "Be the GIF that keeps on giving";
     var vm = this;
     vm.class = 'personal-controller';
     vm.overlay = null;
     vm.src = null;
     vm.req = null;
     vm.activate = activate;
-    vm.gif = {"id": 1, "name" : "Day one"};
+    vm.gif = {"id": 1, "name" : $rootScope.title};
 
     ctor();
 

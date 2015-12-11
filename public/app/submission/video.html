@@ -9,34 +9,46 @@
 
         <video id="video">Video stream not available.</video>
 
-        <blockquote >
+        <blockquote>
           <img data-ng-show="vm.previewing" data-ng-src="{{vm.src}}" />
         </blockquote>
 
       </div>
     </div>
 
-    <div class="overlay" data-ng-if="vm.overlay == 1"><img src="/images/1.gif" /></div>
-    <div class="overlay" data-ng-if="vm.overlay == 2"><img src="/images/2.gif" /></div>
-    <div class="overlay" data-ng-if="vm.overlay == 3"><img src="/images/3.gif" /></div>
-    <div class="overlay" data-ng-if="vm.overlay == 4"><img src="/images/4.gif" /></div>
-    <div class="overlay" data-ng-if="vm.overlay == 5"><img src="/images/5.gif" /></div>
+    <div class="overlay" data-ng-if="vm.overlay == 1">
+      <img src="/images/1.gif" />
+    </div>
+    <div class="overlay" data-ng-if="vm.overlay == 2">
+      <img src="/images/2.gif" />
+    </div>
+    <div class="overlay" data-ng-if="vm.overlay == 3">
+      <img src="/images/3.gif" />
+    </div>
+    <div class="overlay" data-ng-if="vm.overlay == 4">
+      <img src="/images/4.gif" />
+    </div>
+    <div class="overlay" data-ng-if="vm.overlay == 5">
+      <img src="/images/5.gif" />
+    </div>
     <div class="error abs" data-ng-if="vm.error">
       <div>
         <div data-ng-bind-html="vm.message">Your error here</div>
         <a data-ng-click="vm.dismiss()" class="close">X</a>
       </div>
-    </div><!-- End .error.abs -->
+    </div>
+    <!-- End .error.abs -->
     <div class="intro abs" data-ng-if="vm.intro">
       <div>
-        <h2>Step 1: Snap a photo of yourself. Then apply a GIF. Finally share your creation.</h2>
+        <h2>1. Snap a picture (you look great) 2. Select your holiday filter 3. Send it to your BFF</h2>
         <a class="btn btn-primary" data-ng-click="vm.snap()">Take picture</a>
         <a data-ng-click="vm.dismiss()" class="close">X</a>
       </div>
-    </div><!-- End .error.abs -->
+    </div>
+    <!-- End .error.abs -->
   </div>
 
-  <div class='row interface'>
+  <div class='row interface rel'>
     <div class="col-sm-6">
       <div class="controls">
         <button class='btn btn-warning' data-ng-click="vm.snap()">Take photo</button>
@@ -50,7 +62,8 @@
         <a data-ng-href="/me/2_35322c7c-3b70-40e5-83ee-f0a7605af128.png" target="_blank">link</a>
       </div>
     </div>
-    <div class="col-sm-6 col-xs-12">
+    <div class="col-sm-6 col-xs-12 overlays">
+
       <a data-ng-click="vm.overlay = 1">
         <img src="/images/1.gif" />
       </a>
@@ -66,6 +79,7 @@
       <a data-ng-click="vm.overlay = 5">
         <img src="/images/5.gif" />
       </a>
+
     </div>
 
   </div>

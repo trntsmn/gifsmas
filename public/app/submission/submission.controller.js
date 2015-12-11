@@ -5,9 +5,10 @@
     .module('app')
     .controller('SubmissionController', SubmissionController);
 
-  SubmissionController.$inject = ['appService', '$anchorScroll', '$http', '$scope', '$location'];
+  SubmissionController.$inject = ['appService', '$anchorScroll', '$http', '$scope', '$location', '$rootScope'];
 
-  function SubmissionController(appService, $anchorScroll, $http, $scope, $location) {
+  function SubmissionController(appService, $anchorScroll, $http, $scope, $location, $rootScope) {
+    $rootScope.title = "Be the GIF that keeps on giving";
     var vm = this;
     vm.class = "submission-controller";
     vm.gifs = [];

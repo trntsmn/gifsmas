@@ -1,0 +1,31 @@
+<div class="tree-left">
+  {{svg 'images/trees.svg'}}</div>
+<div class="tree-right">{{svg 'images/trees.svg'}}</div>
+<div class="snow">
+  <div id='main'>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 text-center"><a class="animate-header" href="/">{{svg 'images/logo.svg'}}</a></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <span class="header">{{svg 'images/happy-holidays.svg'}}</a>
+          </span>
+        </div>
+      </div>
+      <div class="row rel">
+        {{#each selfies}}
+          <div class="selfie">
+            <div>
+              <img src="/images/selfies/{{this}}" alt="{{this}}" />
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="row rel">
+      <div class="col-xs-12 center"><a href='/' class="btn btn-danger">See all 12 days of Gifsmas</a></div>
+    </div>
+  </div>
+
+</div>

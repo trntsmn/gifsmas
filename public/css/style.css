@@ -6830,44 +6830,52 @@ h6 {
     #main > .container > .row > div.col-xs-12 article.error-controller img {
       width: 100%;
       margin: 70px 0; }
-    #main > .container > .row > div.col-xs-12 article.feature-controller .row.rel img, #main > .container > .row > div.col-xs-12 article.personal-controller .row.rel img {
+    #main > .container > .row > div.col-xs-12 article.feature-controller .row.rel img,
+    #main > .container > .row > div.col-xs-12 article.personal-controller .row.rel img {
       width: 100%; }
-    #main > .container > .row > div.col-xs-12 article.feature-controller .row.intro, #main > .container > .row > div.col-xs-12 article.personal-controller .row.intro {
+    #main > .container > .row > div.col-xs-12 article.feature-controller .row.intro,
+    #main > .container > .row > div.col-xs-12 article.personal-controller .row.intro {
       position: relative; }
     @media (min-width: 992px) {
-      #main > .container > .row > div.col-xs-12 article.feature-controller .col-social, #main > .container > .row > div.col-xs-12 article.personal-controller .col-social {
+      #main > .container > .row > div.col-xs-12 article.feature-controller .col-social,
+      #main > .container > .row > div.col-xs-12 article.personal-controller .col-social {
         top: 50%;
         right: 0;
         position: absolute;
         transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         -webkit-transform: translateY(-50%); } }
-    #main > .container > .row > div.col-xs-12 article.feature-controller svg, #main > .container > .row > div.col-xs-12 article.personal-controller svg {
+    #main > .container > .row > div.col-xs-12 article.feature-controller svg,
+    #main > .container > .row > div.col-xs-12 article.personal-controller svg {
       fill: #f00;
       height: 65px;
       float: left;
       margin-right: 15px; }
-    #main > .container > .row > div.col-xs-12 article.feature-controller h1, #main > .container > .row > div.col-xs-12 article.personal-controller h1 {
+    #main > .container > .row > div.col-xs-12 article.feature-controller h1,
+    #main > .container > .row > div.col-xs-12 article.personal-controller h1 {
       color: #f00;
       float: left;
       margin-top: 35px;
       clear: both; }
       @media (min-width: 768px) {
-        #main > .container > .row > div.col-xs-12 article.feature-controller h1, #main > .container > .row > div.col-xs-12 article.personal-controller h1 {
+        #main > .container > .row > div.col-xs-12 article.feature-controller h1,
+        #main > .container > .row > div.col-xs-12 article.personal-controller h1 {
           clear: none;
           margin-top: 16px;
           float: none; } }
-    #main > .container > .row > div.col-xs-12 article.feature-controller h3, #main > .container > .row > div.col-xs-12 article.personal-controller h3 {
+    #main > .container > .row > div.col-xs-12 article.feature-controller h3,
+    #main > .container > .row > div.col-xs-12 article.personal-controller h3 {
       margin: 20px 0 50px;
       float: left;
       width: 100%;
       clear: both; }
-    #main > .container > .row > div.col-xs-12 article.feature-controller .heading, #main > .container > .row > div.col-xs-12 article.personal-controller .heading {
+    #main > .container > .row > div.col-xs-12 article.feature-controller .heading,
+    #main > .container > .row > div.col-xs-12 article.personal-controller .heading {
       float: left;
       padding-top: 45px;
       width: 100%; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker {
-      background-image: url("/images/placeholder.gif");
+      background-image: url(/images/placeholder.gif);
       background-repeat: no-repeat;
       background-size: cover;
       position: relative;
@@ -6899,8 +6907,24 @@ h6 {
       width: 100%; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .overlay img {
         width: 100%; }
-    #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface a img {
-      width: 50px; }
+    @media (min-width: 992px) {
+      #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays {
+        top: 50%;
+        right: 0;
+        position: absolute;
+        transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%); } }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays a {
+      width: 20%;
+      padding-left: 15px;
+      display: block;
+      float: left; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays a img {
+        border: 2px solid #aaa;
+        width: 100%; }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls {
+      padding: 50px 0; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .abs {
       width: 100%;
       padding: 25px;
@@ -6929,9 +6953,9 @@ h6 {
         width: 100%;
         padding: 25px; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .abs .close {
-        -webkit-box-shadow: -8px 10px 26px 0px rgba(0, 0, 0, 0.6);
-        -moz-box-shadow: -8px 10px 26px 0px rgba(0, 0, 0, 0.6);
-        box-shadow: -8px 10px 26px 0px rgba(0, 0, 0, 0.6);
+        -webkit-box-shadow: -8px 10px 26px 0 rgba(0, 0, 0, 0.6);
+        -moz-box-shadow: -8px 10px 26px 0 rgba(0, 0, 0, 0.6);
+        box-shadow: -8px 10px 26px 0 rgba(0, 0, 0, 0.6);
         position: absolute;
         right: 0;
         background-color: #000;
@@ -6945,7 +6969,7 @@ h6 {
         padding: 9px 13px;
         color: #fff; }
         #main > .container > .row > div.col-xs-12 article.submission-controller .abs .close:hover {
-          opacity: .7; }
+          opacity: 0.7; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .abs.ng-leave {
         opacity: 1;
         position: absolute; }
@@ -6962,7 +6986,7 @@ h6 {
         -ms-transform: translateY(0);
         -webkit-transform: translateY(0); }
     #main > .container > .row > div.col-xs-12 article.personal-controller .row.rel .blocker {
-      background-image: url("/images/placeholder.gif");
+      background-image: url(/images/placeholder.gif);
       background-repeat: no-repeat;
       background-size: cover;
       position: relative;
@@ -7105,6 +7129,59 @@ footer {
 #grid .row .gif:nth-child(3n+1) .inactive .blocker {
   background-color: #252525; }
 
+body.reverse {
+  background: #252525 url(/images/bkgd-gray.png) repeat top left; }
+  body.reverse #main {
+    padding-top: 50px; }
+  body.reverse .tree-left,
+  body.reverse .tree-right {
+    bottom: 0; }
+  body.reverse footer {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
+  body.reverse a.animate-header {
+    margin-right: 35px; }
+    body.reverse a.animate-header svg {
+      margin-bottom: 20px;
+      fill: #f00;
+      height: 60px; }
+      @media (min-width: 768px) {
+        body.reverse a.animate-header svg {
+          height: 85px;
+          margin-bottom: 40px; } }
+      body.reverse a.animate-header svg .st1fillhere {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #FF0000; }
+  body.reverse span.header svg {
+    fill: white;
+    width: 100%;
+    margin-bottom: 65px; }
+    @media (min-width: 768px) {
+      body.reverse span.header svg {
+        height: 380px;
+        width: auto; } }
+  body.reverse .selfie {
+    width: 25%;
+    float: left; }
+    @media (min-width: 768px) {
+      body.reverse .selfie {
+        width: 12.5%; } }
+    body.reverse .selfie img {
+      width: 100%; }
+    body.reverse .selfie > div {
+      margin: 2px; }
+  body.reverse .row.rel {
+    height: 300px; }
+    body.reverse .row.rel > .center {
+      transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      position: absolute;
+      top: 50% !important;
+      text-align: center; }
+
 .intro h4 {
   margin: 50px 0; }
 
@@ -7146,6 +7223,11 @@ section.app {
   position: absolute;
   bottom: 150px;
   z-index: -5; }
+  .tree-left svg,
+  .tree-right svg {
+    fill: white;
+    width: 400px;
+    height: 230px; }
 
 .tree-right {
   right: 0;

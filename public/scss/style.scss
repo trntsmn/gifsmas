@@ -182,7 +182,8 @@ h6 {
           margin: 70px 0;
         }
       }
-      article.feature-controller, article.personal-controller {
+      article.feature-controller,
+      article.personal-controller {
         .row.rel img {
           width: 100%;
         }
@@ -213,7 +214,6 @@ h6 {
             margin-top: 16px;
             float: none;
           }
-
         }
         h3 {
           margin: 20px 0 50px;
@@ -230,7 +230,7 @@ h6 {
       article.submission-controller {
         .row.rel {
           .blocker {
-            background-image: url('/images/placeholder.gif');
+            background-image: url(/images/placeholder.gif);
             background-repeat: no-repeat;
             background-size: cover;
             position: relative;
@@ -277,10 +277,26 @@ h6 {
           }
         }
         .row.interface {
-          a {
-            img {
-              width: 50px;
+          .overlays {
+            @media( min-width: $screen-md-min) {
+              top: 50%;
+              right: 0;
+              position: absolute;
+              @include transform(translateY(-50%));
             }
+            a {
+              width: 20%;
+              padding-left: 15px;
+              display: block;
+              float: left;
+              img {
+                border: 2px solid #aaa;
+                width: 100%;
+              }
+            }
+          }
+          .controls {
+            padding: 50px 0;
           }
         }
         .abs {
@@ -288,17 +304,21 @@ h6 {
           padding: 25px;
           top: 0;
           z-index: 1027;
-          h2{color: white;}
-          h3{color: black;}
+          h2 {
+            color: white;
+          }
+          h3 {
+            color: black;
+          }
           > div {
             background-color: rgba(255, 0, 0, .85);
             width: 100%;
             padding: 25px;
           }
           .close {
-            -webkit-box-shadow: -8px 10px 26px 0px rgba(0,0,0,0.6);
-            -moz-box-shadow: -8px 10px 26px 0px rgba(0,0,0,0.6);
-            box-shadow: -8px 10px 26px 0px rgba(0,0,0,0.6);
+            -webkit-box-shadow: -8px 10px 26px 0 rgba(0,0,0,0.6);
+            -moz-box-shadow: -8px 10px 26px 0 rgba(0,0,0,0.6);
+            box-shadow: -8px 10px 26px 0 rgba(0,0,0,0.6);
             position: absolute;
             right: 0;
             background-color: #000;
@@ -309,10 +329,10 @@ h6 {
             width: 40px;
             height: 40px;
             border-radius: 20px;
-            padding::9px 13px;
+            padding:: 9px 13px;
             color: #fff;
             &:hover {
-              opacity: .7;
+              opacity: 0.7;
             }
           }
           @include easingOutQuadTimingFunction();
@@ -333,11 +353,13 @@ h6 {
             @include transform(translateY(0));
           }
         }
-      } // End article.submission-controller
+      }
+
+      // End article.submission-controller
       article.personal-controller {
         .row.rel {
           .blocker {
-            background-image: url('/images/placeholder.gif');
+            background-image: url(/images/placeholder.gif);
             background-repeat: no-repeat;
             background-size: cover;
             position: relative;
@@ -368,7 +390,9 @@ h6 {
             }
           }
         }
-      } // End article.personal-controller
+      }
+
+      // End article.personal-controller
     }
   }
 }
@@ -464,6 +488,7 @@ footer {
     }
     &.rotate-in {
       .blocker {
+
         //@include easingOutQuadTimingFunction();
         //@include transitionDuration(550ms);
         background-color: rgba(0,0,0,.5);
@@ -471,6 +496,7 @@ footer {
       a.active:hover {
         .blocker {
           animation: twistHide 550ms both ease-in;
+
           // @include transform(perspective(300px) rotateY(90deg));
           //background-color: rgba(0,0,0,0);
         }
@@ -486,17 +512,82 @@ footer {
     transition-duration: 0s;
   }
 }
-
 #grid .row .gif:nth-child(3n+0) .inactive .blocker {
   background-color: $red;
 }
-#grid .row .gif:nth-child(3n+2) .inactive .blocker{
+#grid .row .gif:nth-child(3n+2) .inactive .blocker {
   background-color: #cccccc;
 }
-#grid .row .gif:nth-child(3n+1) .inactive .blocker{
+#grid .row .gif:nth-child(3n+1) .inactive .blocker {
   background-color: #252525;
 }
 
+///////
+// Hiebing Selfies
+///////
+body.reverse {
+  #main {
+    padding-top: 50px;
+  }
+  background: #252525 url(/images/bkgd-gray.png) repeat top left;
+  .tree-left,
+  .tree-right {
+    bottom: 0;
+  }
+  footer {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+  a.animate-header {
+    margin-right: 35px;
+    svg {
+      margin-bottom: 20px;
+      fill: $red;
+      height: 60px;
+      @media(min-width: $screen-sm-min) {
+        height: 85px;
+        margin-bottom: 40px;
+      }
+      .st1fillhere {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #FF0000;
+      }
+    }
+  }
+  span.header svg {
+    fill: white;
+    width: 100%;
+    margin-bottom: 65px;
+    @media(min-width: $screen-sm-min) {
+      height: 380px;
+      width: auto;
+    }
+  }
+  .selfie {
+    width: 25%;
+    float: left;
+    @media(min-width: $screen-sm-min) {
+      width: 12.5%;
+    }
+    img {
+      width: 100%;
+    }
+    > div {
+      margin: 2px;
+    }
+  }
+  .row.rel {
+    height: 300px;
+    > .center {
+      @include transform(translateY(-50%));
+      position: absolute;
+      top: 50% !important;
+      text-align: center;
+    }
+  }
+}
 
 ///////
 // Misc
@@ -511,7 +602,8 @@ footer {
   text-align: center;
   padding-bottom: 50px;
   @media(min-width: $screen-sm-min) {
-    padding-bottom: 15px; /* Scoot these up the page slightly. Just to give more visual prominence. */
+    padding-bottom: 15px;
+    /* Scoot these up the page slightly. Just to give more visual prominence. */
   }
 }
 .social-shares :first-child .social-icon {
@@ -542,6 +634,11 @@ section.app {
   position: absolute;
   bottom: 150px;
   z-index: -5;
+  svg {
+    fill: white;
+    width: 400px;
+    height: 230px;
+  }
 }
 .tree-right {
   right: 0;

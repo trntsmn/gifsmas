@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var multer  = require('multer')
 var upload = multer({ dest: './uploads/' })
+var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -18,6 +19,19 @@ router.get('/day*', function(req, res, next) {
 router.get('/me*', function(req, res, next) {
     // Just send the index.html for other files to support HTML5Mode
     res.render('index');
+});
+
+router.get('/hiebing', function(req, res, next) {
+  var fs = require('fs');
+  var files;
+  fs.readdir('./public/images/selfies', function (err, f) {
+    if (err)
+      throw err;
+    else {
+      res.render('hiebing', { title: 'Happy holidays from your friends at Hiebing', layout: 'noAngular', class: 'reverse', selfies: f });
+    }
+  });
+
 });
 
 router.get('/404*', function(req, res, next) {
