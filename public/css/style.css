@@ -7211,11 +7211,12 @@ section.app {
   margin-top: 108px; }
 
 .snow {
-  background: transparent url(/images/bkgd-snow-small.png) fixed repeat top left;
+  background: transparent url(/images/bkgd-snow-small.png) scroll repeat top left;
   z-index: 15; }
 
 .snow2 {
   background: transparent url(/images/bkgd-snow-big.png) fixed repeat top left;
+  background-size: auto;
   z-index: 15; }
 
 .tree-left,

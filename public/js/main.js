@@ -35110,16 +35110,17 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     .module('app')
     .controller('PersonalController', PersonalController);
 
-  PersonalController.$inject = ['appService', '$routeParams', '$q'];
+  PersonalController.$inject = ['appService', '$routeParams', '$q', '$rootScope'];
 
-  function PersonalController(appService, $routeParams, $q) {
+  function PersonalController(appService, $routeParams, $q, $rootScope) {
+    $rootScope.title = "Be the GIF that keeps on giving";
     var vm = this;
     vm.class = 'personal-controller';
     vm.overlay = null;
     vm.src = null;
     vm.req = null;
     vm.activate = activate;
-    vm.gif = {"id": 1, "name" : "Day one"};
+    vm.gif = {"id": 1, "name" : $rootScope.title};
 
     ctor();
 
@@ -35414,9 +35415,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     .module('app')
     .controller('SubmissionController', SubmissionController);
 
-  SubmissionController.$inject = ['appService', '$anchorScroll', '$http', '$scope', '$location'];
+  SubmissionController.$inject = ['appService', '$anchorScroll', '$http', '$scope', '$location', '$rootScope'];
 
-  function SubmissionController(appService, $anchorScroll, $http, $scope, $location) {
+  function SubmissionController(appService, $anchorScroll, $http, $scope, $location, $rootScope) {
+    $rootScope.title = "Be the GIF that keeps on giving";
     var vm = this;
     vm.class = "submission-controller";
     vm.gifs = [];

@@ -15,6 +15,8 @@ var gifs = require('./routes/gifs');
 
 
 var server = express();
+// Trust proxy passes proxy setting to app... needed for the heroku environment.
+server.enable('trust proxy');
 
 // view engine setup
 
