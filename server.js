@@ -48,7 +48,7 @@ server.use(require('node-sass-middleware')({
 server.use(express.static(path.join(__dirname, 'public')));
 
 // Redirect non-https to https
-express.Router().get('*',function(req,res,next){
+server.use(function(req,res,next){
   if(req.protocol !='https' && server.get('env') === 'production')
     res.redirect('https://'+req.hostname + req.url)
   else
