@@ -32,7 +32,6 @@ server.set('view engine', 'hbs');
 hbsHelpers.registerAll(hbs, __dirname, server.get('env'));
 
 
-// uncomment after placing your favicon in /public
 server.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 server.use(logger('dev'));
 server.use(bodyParser.json());
@@ -47,6 +46,15 @@ server.use(require('node-sass-middleware')({
   root: path.join(__dirname, 'public'),
 }));
 server.use(express.static(path.join(__dirname, 'public')));
+
+// Redirect non-https to https
+express.Router().get('*',function(req,res,next){
+  if(req.protocol !='https' && server.get('env') === 'production')
+    res.redirect('https://'+req.hostname + req.url)
+  else
+    next() /* Continue to other routes if we're not redirecting */
+})
+
 
 server.use('/', routes);
 server.use('/users', users);

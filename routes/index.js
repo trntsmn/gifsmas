@@ -4,14 +4,6 @@ var multer  = require('multer')
 var upload = multer({ dest: './uploads/' })
 var fs = require('fs');
 
-// Redirect non-https to https
-router.get('*',function(req,res,next){
-  if(req.protocol !='https' && server.get('env') === 'production')
-    res.redirect('https://'+req.hostname + req.url)
-  else
-    next() /* Continue to other routes if we're not redirecting */
-})
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
