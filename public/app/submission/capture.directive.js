@@ -70,7 +70,7 @@
     }
 
     function video(scope, element, attrs, controller) {
-      var width = 1200; // We will scale the photo width to this
+      var width = 1170; // We will scale the photo width to this
       var height = 0; // This will be computed based on the input stream
       var streaming = false;
       var video = null;
@@ -162,9 +162,20 @@
       function takepicture() {
         var context = canvas[0].getContext('2d');
         if (width && height) {
-          canvas.width = width;
-          canvas.height = height;
-          context.drawImage(video[0], 0, 0, width, height);
+          //canvas.width = width;
+          //canvas.height = height;
+          context.drawImage(video[0], 0, 0, width, 682);
+
+
+
+          var overlay = loadImage('/images/1.png', function(){
+            canvas.height = 682;
+            context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
+          });
+
+
+
+
 
           var data = canvas[0].toDataURL('image/png');
           //photo[0].setAttribute('src', data);
@@ -182,6 +193,16 @@
         controller.src = null;
         controller.intro = true;
       }
+
+      function loadImage(src, onload) {
+          // http://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
+          var img = new Image();
+
+          img.onload = onload;
+          img.src = src;
+
+          return img;
+      } // End loadImage();
     } // END function video()
 
     function input(scope, element, attrs, controller) {

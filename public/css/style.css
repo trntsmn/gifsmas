@@ -6874,22 +6874,27 @@ h6 {
       float: left;
       padding-top: 45px;
       width: 100%; }
+    #main > .container > .row > div.col-xs-12 article.submission-controller canvas {
+      top: -9990px;
+      position: absolute;
+      z-index: -99; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller canvas.debug {
+        top: 1990px;
+        left: 0;
+        z-index: 1999;
+        pointer-events: none; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker {
       background-image: url(/images/placeholder.gif);
       background-repeat: no-repeat;
       background-size: cover;
       position: relative;
       width: 100%;
-      height: 700px;
+      height: 682px;
       overflow: hidden; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker video {
         top: 0;
         position: absolute;
         z-index: 12; }
-      #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker canvas {
-        top: -9990px;
-        position: absolute;
-        z-index: -99; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker blockquote {
         top: 0;
         position: absolute;
