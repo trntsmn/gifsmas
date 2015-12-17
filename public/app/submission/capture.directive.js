@@ -45,23 +45,17 @@
      * browser capabilities
      */
     function using() {
-      if (Modernizr.getusermedia) {
-        return '/app/submission/video.html';
-      } else if (Modernizr.capture) {
-        return '/app/submission/input.html';
-      } else {
-        // BOOM upload form
-        return '/app/submission/upload.html';
-      }
+      return '/app/submission/video.html';
     }
 
     /**
      * Bind js depending on browser capabilities.
      */
     function link(scope, element, attrs, controller) {
-      if (Modernizr.getusermedia) {
+      console.log(controller.showing);
+      if (controller.showing === 'video') {
         video(scope, element, attrs, controller);
-      } else if (Modernizr.capture) {
+      } else if (controller.showing === 'input') {
         input(scope, element, attrs, controller);
       } else {
         upload(scope, element, attrs, controller);
@@ -106,7 +100,7 @@
         },
         function(err) {
           controller.error = true;
-          controller.message = "<h2>Could not access camera.</h2> <h3>Please allow access.</h3>"
+          controller.message = "<h2>Could not access camera.</h2> <h3>Please allow access or <a data-ng-click='vm.activate(\"upload\")'>upload an existing photo</a>.</h3>"
         }
       );
 

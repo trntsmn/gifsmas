@@ -33,7 +33,7 @@
     </div>
     <div class="error abs" data-ng-if="vm.error">
       <div>
-        <div data-ng-bind-html="vm.message">Your error here</div>
+        <div><h2>Could not access camera.</h2> <h3>Please allow access or <a class='btn btn-default' data-ng-click='vm.activate("upload")'>upload an existing photo</a>.</h3></div>
         <a data-ng-click="vm.dismiss()" class="close">X</a>
       </div>
     </div>
@@ -50,9 +50,15 @@
 
   <div class='row interface rel'>
     <div class="col-sm-6">
-      <div class="controls">
+      <div class="controls" data-ng-if="vm.showing === 'video'">
         <button class='btn btn-warning' data-ng-click="vm.snap()">Take photo</button>
         <a class="btn btn-success" data-ng-click="vm.reset()">Reset</a>
+      </div>
+      <div class="controls" data-ng-if="vm.showing === 'upload'">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="file" name="file">
+        <p class="help-block">Example block-level help text here.</p>
+
       </div>
       <div class="social-shares" data-ng-if="vm.src">
         <facebook-share gif="vm.gif"></facebook-share>

@@ -7167,7 +7167,7 @@ body.reverse {
     float: left; }
     @media (min-width: 768px) {
       body.reverse .selfie {
-        width: 12.5%; } }
+        width: 20%; } }
     body.reverse .selfie img {
       width: 100%; }
     body.reverse .selfie > div {
