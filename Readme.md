@@ -57,3 +57,9 @@ _SSH Keys are needed to work with heroku_
 + (Bower)[http://bower.io] - a tool for managing frontend dependencies. Bower should be installed globally using NPM.
 + (Atom)[http://atom.io] - the best text editor.
 + (Markdown)[http://google.com?q=Markdown] - the syntax of choice for documentation.
+
+# Windows
+
+Node on windows works, just not perfectly.
+Before you build the the project make sure you have the depends installed globally.
+Run the following commands to set up  the build Environment `set GYP_MSVS_VERSION=2013`, `npm install --msvs_version=2013`

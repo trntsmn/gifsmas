@@ -18,7 +18,8 @@
     vm.overlay = null; // The overlay selected will be here.
     vm.preview = preview;
     vm.previewing = false; // When we first load the app help text will
-    // appear until we start previewing the animation
+                      // appear until we start previewing the animation
+    vm.showing = 'video' // [video|upload|input]
     vm.clicker = clicker;
     vm.dismiss = dismiss;
     vm.intro = false;
@@ -30,21 +31,34 @@
     vm.src = null;
     vm.placeholder = "/images/placeholder.gif";
     vm.base = null;
-
+    // We don't have constructors yet so here we define a contructor like
+    // function and call it early on.
     ctor();
 
     function ctor() {
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
-      activate();
+
+      if (Modernizr.getusermedia) {
+        activate('video');
+      } else if (Modernizr.capture) {
+        activate('input');
+      } else {
+        // BOOM upload form
+        activate('upload');
+      }
     }
 
     function clicker() {
       console.log("Clicker from controller");
     }
 
-    function activate() {
+    function activate(str) {
       vm.active = true;
+      if(vm.showing !== str) {
+        vm.dismiss();
+      }
+      vm.showing = str;
     }
 
     function alert(message) {
