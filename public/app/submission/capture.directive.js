@@ -3,13 +3,15 @@
 
   angular
     .module('app')
-    .directive('captureTemplate', captureTemplate)
-    .directive('cameraLightbox', cameraLightbox);
+    .directive('captureVideo', captureVideo)
+    .directive('cameraLightbox', cameraLightbox)
+    .directive('captureFile', captureFile)
+    .directive('disjointedCapture', disjointedCapture);
 
 
 
-
-  captureTemplate.$inject = ['$http', '$routeParams', '$q'];
+  captureVideo.$inject = ['$http', '$routeParams', '$q', 'appService'];
+  captureFile.$inject = ['appService'];
 
   /**
    * This isn't used just, left as an example.
@@ -22,17 +24,122 @@
     }
   }
 
-  function captureTemplate($http, $routeParams, $q) {
+  function disjointedCapture(appService) {
+    return {
+      scope: {
+        vm: '='
+      },
+      restrict: 'A',
+      link: function($scope, element, attrs, controller) {
+        element.bind('click', function(){
+          document.querySelector('#fileCapture').click();
+        });
+      }
+    }
+  }
+
+  function captureFile(appService) {
+    return {
+      controller: "SubmissionController",
+      controllerAs: 'vm',
+      bindToController: true,
+      scope: {
+        vm: '='
+      },
+
+      restrict: 'A',
+      link: function($scope, element, attrs, controller) {
+        element.bind('change', function(event) {
+          var image = angular.element(document.querySelector('#preview'));
+          controller.theFile = event.target.files[0];
+          //controller.preview(controller.theFile);
+          console.log("input changed");
+          var reader = new FileReader();
+          reader.onload = function() {
+            // var image = angular.element(document.querySelector('#preview'));
+            console.log("previewing image")
+              //image[0].src = reader.result;
+            var canvas = angular.element(document.querySelector('#baseCanvas'));
+            var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+            var context = canvas[0].getContext('2d');
+            var dataBlob = toBlob(reader.result);
+            dataBlob.name = 'canvas.png';
+            controller.preview(dataBlob);
+            appService.overwrite = "capturefileOnload";
+            //controller.previewing = true;
+            $scope.$apply();
+
+          }
+          $scope.$apply();
+          reader.readAsDataURL(controller.theFile);
+
+
+        });
+
+        function toBlob(dataUri) {
+          // convert base64/URLEncoded data component to raw binary data held in a string
+          var byteString;
+          if (dataUri.split(',')[0].indexOf('base64') >= 0)
+            byteString = atob(dataUri.split(',')[1]);
+          else
+            byteString = unescape(dataUri.split(',')[1]);
+          // separate out the mime component
+          var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
+          // write the bytes of the string to a typed array
+          var ia = new Uint8Array(byteString.length);
+          for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+          }
+          return new Blob([ia], {
+            type: mimeString
+          });
+        }
+
+        function takepicture() {
+          var canvas = angular.element(document.querySelector('#baseCanvas'));
+          var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+          var context = canvas[0].getContext('2d');
+          if (width && height) {
+            //canvas.width = width;
+            //canvas.height = height;
+            context.drawImage(video[0], 0, 0, width, 682);
+
+
+
+            var overlay = loadImage('/images/1.png', function() {
+              canvas.height = 682;
+              context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
+            });
+
+
+
+
+
+            var data = canvas[0].toDataURL('image/png');
+            //photo[0].setAttribute('src', data);
+            var dataBlob = toBlob(data);
+            dataBlob.name = 'canvas.png';
+            controller.preview(dataBlob);
+          } else {
+            controller.reset();
+          }
+        }
+
+      }
+    };
+  }
+
+  function captureVideo($http, $routeParams, $q, appService) {
 
     return {
       controller: "SubmissionController",
       controllerAs: 'vm',
-      templateUrl: using,
+      //templateUrl: using,
       restrict: "EAC",
-      scope: {},
-      bindToController: {
-        vm: '=',
+      scope: {
+        vm: '='
       },
+      bindToController: true,
       link: link
     };
 
@@ -48,37 +155,25 @@
       return '/app/submission/video.html';
     }
 
-    /**
-     * Bind js depending on browser capabilities.
-     */
+
     function link(scope, element, attrs, controller) {
-      console.log(controller.showing);
-      if (controller.showing === 'video') {
-        video(scope, element, attrs, controller);
-      } else if (controller.showing === 'input') {
-        input(scope, element, attrs, controller);
-      } else {
-        upload(scope, element, attrs, controller);
-      }
 
-    }
-
-    function video(scope, element, attrs, controller) {
       var width = 1170; // We will scale the photo width to this
       var height = 0; // This will be computed based on the input stream
       var streaming = false;
       var video = null;
       var canvas = null;
       var photo = null;
+      var fileInput = null;
       var startbutton = null;
       controller.reset = reset;
       controller.snap = takepicture;
 
-      video = element.find('video');
-      canvas = element.find('canvas');
-      photo = element.find('blockquote').find("img");
-      startbutton = element.find('button');
-
+      video = angular.element(document.querySelector('#baseVideo'));
+      canvas = angular.element(document.querySelector('#baseCanvas'));
+      photo = angular.element(document.querySelector('#basePhoto'));
+      startbutton = angular.element(document.querySelector('#baseButton'));
+      //fileInput.bind('change', controller.clicker());
       //clearphoto();
 
       var getMedia = Modernizr.prefixed('getUserMedia', navigator);
@@ -96,17 +191,16 @@
             video[0].src = vendorURL.createObjectURL(stream);
           }
           video[0].play();
-
+          appService.displayIntro = true;
         },
         function(err) {
-          controller.error = true;
-          controller.message = "<h2>Could not access camera.</h2> <h3>Please allow access or <a data-ng-click='vm.activate(\"upload\")'>upload an existing photo</a>.</h3>"
+          appService.displayError = true;
         }
       );
 
 
       video[0].addEventListener('canplay', function(ev) {
-        scope.$apply(function(){
+        scope.$apply(function() {
           controller.error = false;
           controller.intro = true;
         });
@@ -154,52 +248,81 @@
       // drawing that to the screen, we can change its size and/or apply
       // other changes before drawing it.
       function takepicture() {
-        var context = canvas[0].getContext('2d');
-        if (width && height) {
-          //canvas.width = width;
-          //canvas.height = height;
-          context.drawImage(video[0], 0, 0, width, 682);
+        if (controller.showing === 'video') {
+          var context = canvas[0].getContext('2d');
+          if (width && height) {
+            //canvas.width = width;
+            //canvas.height = height;
+            context.drawImage(video[0], 0, 0, width, 682);
 
 
 
-          var overlay = loadImage('/images/1.png', function(){
-            canvas.height = 682;
-            context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
-          });
+            var overlay = loadImage('/images/1.png', function() {
+              canvas.height = 682;
+              context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
+            });
 
 
 
 
 
-          var data = canvas[0].toDataURL('image/png');
-          //photo[0].setAttribute('src', data);
-          var dataBlob = toBlob(data);
-          dataBlob.name = 'canvas.png';
-          controller.preview(dataBlob);
+            var data = canvas[0].toDataURL('image/png');
+            //photo[0].setAttribute('src', data);
+            var dataBlob = toBlob(data);
+            dataBlob.name = 'canvas.png';
+            controller.preview(dataBlob);
+          } else {
+            controller.reset();
+          }
+        } else if (controller.showing === 'upload') {
+          if (fileInput.files && fileInput.files[0]) {
+
+          }
+
         } else {
           controller.reset();
         }
       }
 
       function reset() {
-        controller.previewing = false;
-        controller.overlay = null;
-        controller.src = null;
+        controller.appSvc.previewing = false;
+        controller.appSvc.overlay = null;
+        controller.appSvc.src = null;
         controller.intro = true;
       }
 
       function loadImage(src, onload) {
-          // http://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
-          var img = new Image();
+        // http://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
+        var img = new Image();
 
-          img.onload = onload;
-          img.src = src;
+        img.onload = onload;
+        img.src = src;
 
-          return img;
+        return img;
       } // End loadImage();
     } // END function video()
 
     function input(scope, element, attrs, controller) {
+      var width = 1170; // We will scale the photo width to this
+      var height = 0; // This will be computed based on the input stream
+      var streaming = false;
+      var video = null;
+      var canvas = null;
+      var photo = null;
+      var startbutton = null;
+      controller.reset = reset;
+      controller.snap = takepicture;
+
+      video = element.find('video');
+      canvas = element.find('canvas');
+      photo = element.find('blockquote').find("img");
+      startbutton = element.find('button');
+
+      function readURL(input) {
+
+
+      }
+
 
     } // END function input()
 

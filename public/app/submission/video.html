@@ -1,16 +1,21 @@
 <article class="{{vm.class}}">
-  <canvas class="debug">
+  <canvas class="debug" id="baseCanvas">
+    <!-- Temp storage for our image -->
+  </canvas>
+
+  <canvas id="cropCanvas">
     <!-- Temp storage for our image -->
   </canvas>
   <div class="row rel">
     <div class="camera">
       <div class="blocker">
+
         <video id="video">Video stream not available.</video>
 
         <blockquote>
           <img data-ng-show="vm.previewing" data-ng-src="{{vm.src}}" />
         </blockquote>
-
+          <img id="preview" />
       </div>
     </div>
 
@@ -53,11 +58,16 @@
         <a class="btn btn-success" data-ng-click="vm.reset()">Reset</a>
       </div>
       <div class="controls" data-ng-if="vm.showing === 'upload'">
-        <label for="exampleInputFile">File input</label>
-        <input type="file" id="file" name="file">
-        <p class="help-block">Example block-level help text here.</p>
-
+        <input type="file" data-capture-file="" data-ng-model="vm.theFile" />
+<input type="button" data-ng-click="vm.resetFile()" value="Reset" />
+    <div ng-show="vm.theFile">
+        {{vm.theFile.name}}<br />
+        {{vm.theFile.size}} byte(s)<br/>
+        {{vm.theFile.type}}
+        <!-- <input type="file" name='file' class='fileInput' /> -->
       </div>
+
+
       <div class="social-shares" data-ng-if="vm.src">
         <facebook-share gif="vm.gif"></facebook-share>
         <twitter-share gif="vm.gif"></twitter-share>

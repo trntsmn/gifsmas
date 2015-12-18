@@ -19,7 +19,7 @@
     vm.preview = preview;
     vm.previewing = false; // When we first load the app help text will
                       // appear until we start previewing the animation
-    vm.showing = 'video' // [video|upload|input]
+    vm.showing = 'upload' // [video|upload|input]
     vm.clicker = clicker;
     vm.dismiss = dismiss;
     vm.intro = false;
@@ -28,9 +28,12 @@
     vm.message = null;
     vm.reset = null; // Rest is pupulated by directive.
     vm.snap = null; // Submit is populated by directive.
-    vm.src = null;
     vm.placeholder = "/images/placeholder.gif";
     vm.base = null;
+    vm.fileInput = null;
+    vm.theFile;
+    vm.appSvc = appService;
+    vm.resetFile = resetFile;
     // We don't have constructors yet so here we define a contructor like
     // function and call it early on.
     ctor();
@@ -38,7 +41,6 @@
     function ctor() {
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
-
       if (Modernizr.getusermedia) {
         activate('video');
       } else if (Modernizr.capture) {
@@ -49,6 +51,9 @@
       }
     }
 
+    function resetFile() {
+      vm.theFile = null;
+    }
     function clicker() {
       console.log("Clicker from controller");
     }
@@ -66,21 +71,25 @@
     }
 
     function dismiss() {
-      if(vm.error) {
-        vm.error = false;
+      if(appService.displayError) {
+        appService.displayError = false;
         console.log("Dismissed error message.");
       }
-      if(vm.intro) {
-        vm.intro = false;
+      if(appService.displayIntro) {
+        appService.displayIntro = false;
         console.log("Dismissed intro message.");
+      }
+      if(appService.displayWrongFile) {
+        appService.displayWrongFile = false;
+        console.log('Dismissed wrong file warning.');
       }
     }
 
     function preview(file) {
       vm.dismiss();
       _getTokenAndPut(file);
-      vm.previewing = true;
-
+      appService.previewing = true;
+      console.log('Now previewing');
     }
 
     function handleError(response) {
@@ -99,7 +108,7 @@
         data: file
       };
       $http(req).then(function(response) {
-        vm.src = url;
+        vm.appSvc.src = url;
       }, handleError);
     }
 

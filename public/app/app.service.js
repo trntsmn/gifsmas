@@ -8,14 +8,21 @@
   appService.$inject = ['$http', '$routeParams', '$q'];
 
   function appService($http, $routeParams, $q) {
-    var id = null;
+    var service = {};
+    service.id = null;
+    service.overwrite = 'overwrite';
+    service.src = null;
+    service.previewing = false;
+    service.overlay = null;
+    service.getList = getList;
+    service.getActive = getActive;
+    service.readMine = readMine;
+    service.setPersonal = setPersonal;
+    service.displayIntro = false;
+    service.displayError = false;
+    service.displayWrongFile = false;
 
-    var service = {
-      getList: getList,
-      getActive: getActive,
-      readMine: readMine,
-      setPersonal: setPersonal
-    };
+
     return service;
 
     function getActive() {

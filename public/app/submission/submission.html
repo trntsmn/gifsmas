@@ -1,4 +1,134 @@
 <!-- We need this view so that our animations can work, using Modernizr we'll
   populate capture-template based on the capabilities of the browser. I
   know this seems unnessary to but it's angularjs -->
-<capture-template></capture-template>
+
+<article class="{{vm.class}}" data-ng-controller="SubmissionController as vm">
+  <canvas class="debug" id="baseCanvas">
+    <!-- Temp storage for our image -->
+  </canvas>
+
+  <canvas id="cropCanvas">
+    <!-- Temp storage for our image -->
+  </canvas>
+  <div class="row rel">
+    <div class="camera">
+      <div class="blocker">
+
+        <video id="baseVideo">Video stream not available.</video>
+
+        <blockquote>
+          <img id="basePhoto" data-ng-if="vm.appSvc.src" data-ng-src="{{vm.appSvc.src}}" />
+        </blockquote>
+      </div>
+    </div>
+
+    <div class="overlay" data-ng-if="vm.overlay == 1">
+      <img src="/images/1.gif" />
+    </div>
+    <div class="overlay" data-ng-if="vm.overlay == 2">
+      <img src="/images/2.gif" />
+    </div>
+    <div class="overlay" data-ng-if="vm.overlay == 3">
+      <img src="/images/3.gif" />
+    </div>
+    <div class="overlay" data-ng-if="vm.overlay == 4">
+      <img src="/images/4.gif" />
+    </div>
+    <div class="overlay" data-ng-if="vm.overlay == 5">
+      <img src="/images/5.gif" />
+    </div>
+    <div class="error abs" data-ng-if="vm.appSvc.displayError">
+      <div>
+        <div>
+          <h2>Could not access camera.</h2>
+          <h3>Please allow access and refresh the page or <a class='btn btn-default' data-ng-click='vm.activate("upload")'>upload an existing photo</a></h3>
+        </div>
+      </div>
+    </div>
+    <!-- End .error.abs -->
+    <div class="error abs" data-ng-if="vm.appSvc.displayWrongFile">
+      <div>
+        <div>
+          <h2>That doesn't look like any image format we know.</h2>
+          <h3>Please try again.</h3>
+        </div>
+        <a data-ng-click="vm.dismiss()" class="close">X</a>
+      </div>
+    </div>
+
+    <div class="intro abs" data-ng-if="vm.appSvc.displayIntro">
+      <div>
+        <h2>1. Snap a picture (you look great) 2. Select your holiday filter 3. Send it to your BFF</h2>
+      </div>
+    </div>
+    <!-- End .error.abs -->
+    <div class="userActions abs" data-ng-if="vm.appSvc.previewing">
+      <div>
+        <div class="social-shares" >
+          <h4>Sharing is caring</h4>
+          <facebook-share gif="vm.gif"></facebook-share>
+          <twitter-share gif="vm.gif"></twitter-share>
+          <tumblr-share gif="vm.gif"></tumblr-share>
+          <pinterest-share gif="vm.gif"></pinterest-share>
+          <link-share gif="vm.gif"></link-share>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class='row interface rel'>
+
+    <div class="cols-sm-6">
+      <div class="overlays">
+
+        <h4>Select your holiday filter</h4>
+        <a data-ng-click="vm.overlay = 1">
+          <img src="/images/1-btn.png" />
+          <span>Put a bow on it</span>
+        </a>
+        <a data-ng-click="vm.overlay = 2">
+          <img src="/images/2-btn.png" />
+          <span>Elfie</span>
+        </a>
+        <a data-ng-click="vm.overlay = 3">
+          <img src="/images/3-btn.png" />
+          <span>Lump of Coal</span>
+        </a>
+        <a data-ng-click="vm.overlay = 4">
+          <img src="/images/4-btn.png" />
+          <span>Shiny red nose</span>
+        </a>
+        <a data-ng-click="vm.overlay = 5">
+          <img src="/images/5-btn.png" />
+          <span>Snowball battle scars</span>
+        </a>
+      </div>
+    </div>
+
+
+
+
+    <div class="col-sm-6">
+      <div data-capture-video class="controls" data-ng-if="vm.showing === 'video'">
+        <h4>Send it to your BFF</h4>
+        <a class="btn btn-danger btn-lg" data-ng-click="vm.snap()">Snap</a>
+        <a class="btn btn-default btn-lg" data-ng-click="vm.reset()">Share</a>
+        <br>
+        <a class="btn btn-warning" data-ng-click="vm.reset()">Reset</a>
+
+      </div>
+
+      <div class="controls" data-ng-if="vm.showing === 'upload'">
+        <!-- <input type="file" data-capture-file="" data-ng-model="vm.theFile" /> -->
+        <input type="button" data-ng-click="vm.resetFile()" value="Reset" />
+        <input type='button' data-disjointed-capture='' value="upload file" />
+        <input id="fileCapture" type="file" data-capture-file="" data-ng-model="vm.theFile" />
+
+      </div>
+    </div>
+
+  </div>
+</article>

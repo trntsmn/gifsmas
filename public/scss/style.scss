@@ -7,8 +7,7 @@
 
 // Core variables and mixins
 @import "bootstrap/variables";
-$red: #f00;
-$link-hover-color: $red;
+
 @import "bootstrap/mixins";
 @import "bootstrap/bootswatch";
 
@@ -62,6 +61,10 @@ $link-hover-color: $red;
 ///////
 // Const
 ///////
+$red: #f00;
+$link-hover-color: $red;
+$black: #444;
+
 @mixin font-stack() {
   font-family: 'Montserrat', 'Futura', sans-serif;
   font-style: normal;
@@ -110,11 +113,36 @@ h3 {
   font-size: 24px;
   color: #424242;
 }
+h4{
+  font-size: 20px;
+  @include font-stack();
+  text-transform: uppercase;
+}
 h6 {
   @include font-stack();
   font-size: 14px;
 }
+.btn {
+  @include font-stack();
+  text-transform: uppercase;
+}
+.btn-lg {
+  font-size: 24px;
+}
+.btn-warning {
+  @include button-variant($black, #bbb, #a5a5a5); // (color, background, border)
+}
 
+.btn-danger {
+  @include button-variant(white, #f00, #e50000); // (color, background, border)
+}
+
+.btn-default {
+  @include button-variant(white, #666, #555); // (color, background, border)
+}
+.intro h3, .error h3, .intro h2, .error h2 {
+  margin: 0;
+}
 ///////
 // Header
 ///////
@@ -253,14 +281,15 @@ h6 {
 
             blockquote {
               top: 0;
-              position: absolute;
+              // Commenting this out so the image fills entire space.
+              // position: absolute;
               z-index: 143;
               display: block;
               border: none !important;
               margin: 0 !important;
               padding: 0 !important;
               img {
-
+                width: 100%;
                 // Preview
               }
               div {
@@ -281,28 +310,70 @@ h6 {
           }
         }
         .row.interface {
-          .overlays {
-            @media( min-width: $screen-md-min) {
-              top: 50%;
-              right: 0;
-              position: absolute;
-              @include transform(translateY(-50%));
+
+          .controls {
+            padding: 20px 0;
+            #fileCapture {
+              visibility: hidden;
             }
+            .btn-danger { margin-right: 10px}
+            .btn-warning { margin-top: 13px;}
+          }
+
+          .overlays {
+            float: left;
+            width: 50%;
+            margin: 20px 0;
+            // @media( min-width: $screen-md-min) {
+            //   top: 50%;
+            //   right: 0;
+            //   position: absolute;
+            //   @include transform(translateY(-50%));
+            // }
+
+                      h4 {
+                      //  margin-left: 14px;
+                      }
             a {
               width: 20%;
-              padding-left: 15px;
+              padding-right: 15px;
               display: block;
               float: left;
+              line-height: 14px;
+              text-align: center;
               img {
                 border: 2px solid #aaa;
                 width: 100%;
               }
+              span {
+                color: $black;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 12px;
+                @include font-stack();
+              }
+              &:hover span {
+                text-decoration: underline;
+              }
             }
           }
-          .controls {
-            padding: 50px 0;
-          }
         }
+        .abs.userActions {
+          bottom: 0px;
+          top: auto !important;
+
+          > div {
+            float: left;
+            background-color: rgba(255,255,255, .75);
+          }
+
+          .social-shares {
+
+          }
+
+        }
+
+
         .abs {
           width: 100%;
           padding: 25px;
@@ -312,7 +383,7 @@ h6 {
             color: white;
           }
           h3 {
-            color: black;
+            color: $black;
           }
           > div {
             background-color: rgba(255, 0, 0, .85);

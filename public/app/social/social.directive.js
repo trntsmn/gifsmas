@@ -6,8 +6,16 @@
     .directive('facebookShare', facebookShare)
     .directive('twitterShare', twitterShare)
     .directive('tumblrShare', tumblrShare)
-    .directive('pinterestShare', pinterestShare);
+    .directive('pinterestShare', pinterestShare)
+    .directive('linkShare', linkShare);
 
+
+  function linkShare() {
+    return {
+      restrict: 'E',
+      template: '<a href="/me/1_123.png" target="_blank" class="social-icon"><img src="/images/social-link.svg"</a>'
+    }
+  }
 
   function facebookShare() {
     //var title = encodeURIComponent(socialService.getTitle());
