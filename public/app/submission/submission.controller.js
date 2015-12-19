@@ -21,7 +21,6 @@
     vm.preview = preview;
     vm.overlay = overlay;
     vm.reset = reset;
-    vm.placeholder = "/images/placeholder.gif";
     vm.base = null;
     vm.fileInput = null;
     vm.theFile;

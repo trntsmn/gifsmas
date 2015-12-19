@@ -11,15 +11,12 @@
 
 
   displayVideo.$inject = ['$http', '$routeParams', '$q', 'appService'];
-  captureFile.$inject = ['appService'];
+  captureFile.$inject = ['appService', '$anchorScroll'];
   captureVideo.$inject = ['appService'];
 
 
-  function disjointedCapture(appService) {
+  function disjointedCapture() {
     return {
-      scope: {
-        vm: '='
-      },
       restrict: 'A',
       link: function($scope, element, attrs, controller) {
         element.bind('click', function() {
@@ -29,7 +26,7 @@
     }
   }
 
-  function captureFile(appService) {
+  function captureFile(appService, $anchorScroll) {
     return {
       controller: "SubmissionController",
       controllerAs: 'vm',
@@ -39,23 +36,21 @@
         element.bind('change', function(event) {
           var image = angular.element(document.querySelector('#preview'));
           controller.theFile = event.target.files[0];
-          //controller.preview(controller.theFile);
-          console.log("input changed");
-          var reader = new FileReader();
-          reader.onload = function() {
-            // var image = angular.element(document.querySelector('#preview'));
-            console.log("previewing image")
-              //image[0].src = reader.result;
-            var canvas = angular.element(document.querySelector('#baseCanvas'));
-            var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
-            var context = canvas[0].getContext('2d');
-            var dataBlob = appService.toBlob(reader.result);
-            dataBlob.name = 'canvas.png';
-            controller.preview(dataBlob);
+          if (!controller.theFile.type.match('image.*')) {
+            appService.displayWrongFile = true;
+            $scope.$apply();
+            $anchorScroll.yOffset = 0;
+            $anchorScroll("main");
+          } else {
+            var reader = new FileReader();
+            reader.onload = function() {
+              var dataBlob = appService.toBlob(reader.result);
+              dataBlob.name = 'canvas.png';
+              controller.preview(dataBlob);
+            }
+            $scope.$apply();
+            reader.readAsDataURL(controller.theFile);
           }
-          $scope.$apply();
-          reader.readAsDataURL(controller.theFile);
-
 
         });
 
