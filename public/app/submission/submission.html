@@ -14,7 +14,7 @@
     <div class="camera">
       <div class="blocker">
 
-        <video id="baseVideo">Video stream not available.</video>
+        <video data-display-video='' id="baseVideo">Video stream not available.</video>
 
         <blockquote>
           <img id="basePhoto" data-ng-if="vm.appSvc.src" data-ng-src="{{vm.appSvc.src}}" />
@@ -22,19 +22,19 @@
       </div>
     </div>
 
-    <div class="overlay" data-ng-if="vm.overlay == 1">
+    <div class="overlay" data-ng-if="vm.appSvc.overlay == 1">
       <img src="/images/1.gif" />
     </div>
-    <div class="overlay" data-ng-if="vm.overlay == 2">
+    <div class="overlay" data-ng-if="vm.appSvc.overlay == 2">
       <img src="/images/2.gif" />
     </div>
-    <div class="overlay" data-ng-if="vm.overlay == 3">
+    <div class="overlay" data-ng-if="vm.appSvc.overlay == 3">
       <img src="/images/3.gif" />
     </div>
-    <div class="overlay" data-ng-if="vm.overlay == 4">
+    <div class="overlay" data-ng-if="vm.appSvc.overlay == 4">
       <img src="/images/4.gif" />
     </div>
-    <div class="overlay" data-ng-if="vm.overlay == 5">
+    <div class="overlay" data-ng-if="vm.appSvc.overlay == 5">
       <img src="/images/5.gif" />
     </div>
     <div class="error abs" data-ng-if="vm.appSvc.displayError">
@@ -60,16 +60,17 @@
       <div>
         <h2>1. Snap a picture (you look great) 2. Select your holiday filter 3. Send it to your BFF</h2>
       </div>
+      <a data-ng-click="vm.dismiss()" class="close">X</a>
     </div>
     <!-- End .error.abs -->
-    <div class="userActions abs" data-ng-if="vm.appSvc.previewing">
+    <div class="userActions abs" data-ng-if="vm.appSvc.sharing">
       <div>
         <div class="social-shares" >
           <h4>Sharing is caring</h4>
           <facebook-share gif="vm.gif"></facebook-share>
           <twitter-share gif="vm.gif"></twitter-share>
-          <tumblr-share gif="vm.gif"></tumblr-share>
           <pinterest-share gif="vm.gif"></pinterest-share>
+          <tumblr-share gif="vm.gif"></tumblr-share>
           <link-share gif="vm.gif"></link-share>
         </div>
 
@@ -85,23 +86,23 @@
       <div class="overlays">
 
         <h4>Select your holiday filter</h4>
-        <a data-ng-click="vm.overlay = 1">
+        <a data-ng-click="vm.overlay(1)">
           <img src="/images/1-btn.png" />
           <span>Put a bow on it</span>
         </a>
-        <a data-ng-click="vm.overlay = 2">
+        <a data-ng-click="vm.overlay(2)">
           <img src="/images/2-btn.png" />
           <span>Elfie</span>
         </a>
-        <a data-ng-click="vm.overlay = 3">
+        <a data-ng-click="vm.overlay(3)">
           <img src="/images/3-btn.png" />
           <span>Lump of Coal</span>
         </a>
-        <a data-ng-click="vm.overlay = 4">
+        <a data-ng-click="vm.overlay(4)">
           <img src="/images/4-btn.png" />
           <span>Shiny red nose</span>
         </a>
-        <a data-ng-click="vm.overlay = 5">
+        <a data-ng-click="vm.overlay(5)">
           <img src="/images/5-btn.png" />
           <span>Snowball battle scars</span>
         </a>
@@ -112,10 +113,11 @@
 
 
     <div class="col-sm-6">
-      <div data-capture-video class="controls" data-ng-if="vm.showing === 'video'">
+      <div class="controls" data-ng-if="vm.showing === 'video'">
         <h4>Send it to your BFF</h4>
-        <a class="btn btn-danger btn-lg" data-ng-click="vm.snap()">Snap</a>
-        <a class="btn btn-default btn-lg" data-ng-click="vm.reset()">Share</a>
+        <a class="btn btn-danger btn-lg" data-capture-video=''>Snap</a>
+
+        <a data-ng-if="vm.appSvc.shareable" class="btn btn-default btn-lg" data-ng-click="vm.appSvc.sharing = true">Share</a>
         <br>
         <a class="btn btn-warning" data-ng-click="vm.reset()">Reset</a>
 

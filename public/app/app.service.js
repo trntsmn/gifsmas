@@ -12,7 +12,9 @@
     service.id = null;
     service.overwrite = 'overwrite';
     service.src = null;
-    service.previewing = false;
+    service.previewing = false; // Are we in preview mode?
+    service.shareable = false; // this flag will display a button to open sharing
+    service.sharing = false; // This flag will the display a box with sharing options.
     service.overlay = null;
     service.getList = getList;
     service.getActive = getActive;
@@ -21,7 +23,11 @@
     service.displayIntro = false;
     service.displayError = false;
     service.displayWrongFile = false;
-
+    service.toBlob = toBlob;
+    service.loadImage = loadImage;
+    service.height = 0;
+    service.width = 1170;
+    service.video = null;
 
     return service;
 
@@ -114,6 +120,36 @@
         // or server returns response with an error status.
       });
     }
+
+    function toBlob(dataUri) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataUri.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataUri.split(',')[1]);
+      else
+        byteString = unescape(dataUri.split(',')[1]);
+      // separate out the mime component
+      var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ia], {
+        type: mimeString
+      });
+    }
+
+    function loadImage(src, onload) {
+      // http://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
+      var img = new Image();
+
+      img.onload = onload;
+      img.src = src;
+
+      return img;
+    } // End loadImage();
+
 
   }
 })();

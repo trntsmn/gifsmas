@@ -7042,6 +7042,7 @@ h6 {
         z-index: 12; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker blockquote {
         top: 0;
+        position: relative;
         z-index: 143;
         display: block;
         border: none !important;

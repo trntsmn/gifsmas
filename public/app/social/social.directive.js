@@ -13,7 +13,7 @@
   function linkShare() {
     return {
       restrict: 'E',
-      template: '<a href="/me/1_123.png" target="_blank" class="social-icon"><img src="/images/social-link.svg"</a>'
+      template: '<a style="margin-left: 20px;" href="/me/1_123.png" target="_blank" class="social-icon"><img src="/images/social-link.svg" style="width: 40px;" /></a>'
     }
   }
 

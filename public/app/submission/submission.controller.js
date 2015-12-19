@@ -15,19 +15,12 @@
     vm.gif;
     vm.active = false; // Have we run through our initialization
     vm.activate = activate;
-    vm.overlay = null; // The overlay selected will be here.
-    vm.preview = preview;
-    vm.previewing = false; // When we first load the app help text will
-                      // appear until we start previewing the animation
     vm.showing = 'upload' // [video|upload|input]
     vm.clicker = clicker;
     vm.dismiss = dismiss;
-    vm.intro = false;
-    vm.alert = alert;
-    vm.error = false;
-    vm.message = null;
-    vm.reset = null; // Rest is pupulated by directive.
-    vm.snap = null; // Submit is populated by directive.
+    vm.preview = preview;
+    vm.overlay = overlay;
+    vm.reset = reset;
     vm.placeholder = "/images/placeholder.gif";
     vm.base = null;
     vm.fileInput = null;
@@ -42,17 +35,36 @@
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
       if (Modernizr.getusermedia) {
-        activate('video');
+        vm.activate('video');
       } else if (Modernizr.capture) {
-        activate('input');
+        vm.activate('input');
       } else {
         // BOOM upload form
-        activate('upload');
+        vm.activate('upload');
+      }
+    }
+
+    function overlay(layer) {
+      vm.appSvc.overlay = layer;
+      vm.appSvc.sharing = false; // Hide the share buttons untill we opt for them
+      if(vm.appSvc.previewing) {
+        // vm.appSvc.buildShareImage().then(function(){
+        //   vm.appSvc.s
+        // })
+        vm.appSvc.shareable = true;
       }
     }
 
     function resetFile() {
       vm.theFile = null;
+    }
+    function reset() {
+      vm.dismiss();
+      var photo = angular.element(document.querySelector('#basePhoto'));
+      photo[0].src = ''
+      vm.theFile = null;
+      vm.appSvc.sharing = false;
+      vm.appSvc.overlay = null;
     }
     function clicker() {
       console.log("Clicker from controller");
@@ -88,8 +100,6 @@
     function preview(file) {
       vm.dismiss();
       _getTokenAndPut(file);
-      appService.previewing = true;
-      console.log('Now previewing');
     }
 
     function handleError(response) {
@@ -109,6 +119,8 @@
       };
       $http(req).then(function(response) {
         vm.appSvc.src = url;
+        vm.appSvc.previewing = true;
+        vm.appSvc.shareable = vm.appSvc.overlay ? true : false;
       }, handleError);
     }
 
