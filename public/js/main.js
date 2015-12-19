@@ -34072,7 +34072,9 @@ angular.module('ngPicturefill', [])
     service.id = null;
     service.overwrite = 'overwrite';
     service.src = null;
-    service.previewing = false;
+    service.previewing = false; // Are we in preview mode?
+    service.shareable = false; // this flag will display a button to open sharing
+    service.sharing = false; // This flag will the display a box with sharing options.
     service.overlay = null;
     service.getList = getList;
     service.getActive = getActive;
@@ -34081,7 +34083,11 @@ angular.module('ngPicturefill', [])
     service.displayIntro = false;
     service.displayError = false;
     service.displayWrongFile = false;
-
+    service.toBlob = toBlob;
+    service.loadImage = loadImage;
+    service.height = 0;
+    service.width = 1170;
+    service.video = null;
 
     return service;
 
@@ -34174,6 +34180,36 @@ angular.module('ngPicturefill', [])
         // or server returns response with an error status.
       });
     }
+
+    function toBlob(dataUri) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataUri.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataUri.split(',')[1]);
+      else
+        byteString = unescape(dataUri.split(',')[1]);
+      // separate out the mime component
+      var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ia], {
+        type: mimeString
+      });
+    }
+
+    function loadImage(src, onload) {
+      // http://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
+      var img = new Image();
+
+      img.onload = onload;
+      img.src = src;
+
+      return img;
+    } // End loadImage();
+
 
   }
 })();
@@ -35162,7 +35198,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
   function linkShare() {
     return {
       restrict: 'E',
-      template: '<a href="/me/1_123.png" target="_blank" class="social-icon"><img src="/images/social-link.svg"</a>'
+      template: '<a style="margin-left: 20px;" href="/me/1_123.png" target="_blank" class="social-icon"><img src="/images/social-link.svg" style="width: 40px;" /></a>'
     }
   }
 
@@ -35231,25 +35267,16 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
   angular
     .module('app')
     .directive('captureVideo', captureVideo)
-    .directive('cameraLightbox', cameraLightbox)
     .directive('captureFile', captureFile)
-    .directive('disjointedCapture', disjointedCapture);
+    .directive('disjointedCapture', disjointedCapture)
+    .directive('displayVideo', displayVideo);
 
 
 
-  captureVideo.$inject = ['$http', '$routeParams', '$q', 'appService'];
+  displayVideo.$inject = ['$http', '$routeParams', '$q', 'appService'];
   captureFile.$inject = ['appService'];
+  captureVideo.$inject = ['appService'];
 
-  /**
-   * This isn't used just, left as an example.
-   */
-  function cameraLightbox() {
-    return {
-      template: '<video>Video stream not available.</video>',
-      restrict: 'E' // This is a Html element <camera-lightbox></camera-lightbox>
-        // could also be 'A' for attribute or 'C' for class.
-    }
-  }
 
   function disjointedCapture(appService) {
     return {
@@ -35258,7 +35285,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       },
       restrict: 'A',
       link: function($scope, element, attrs, controller) {
-        element.bind('click', function(){
+        element.bind('click', function() {
           document.querySelector('#fileCapture').click();
         });
       }
@@ -35303,105 +35330,37 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
         });
 
-        function toBlob(dataUri) {
-          // convert base64/URLEncoded data component to raw binary data held in a string
-          var byteString;
-          if (dataUri.split(',')[0].indexOf('base64') >= 0)
-            byteString = atob(dataUri.split(',')[1]);
-          else
-            byteString = unescape(dataUri.split(',')[1]);
-          // separate out the mime component
-          var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
-          // write the bytes of the string to a typed array
-          var ia = new Uint8Array(byteString.length);
-          for (var i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-          }
-          return new Blob([ia], {
-            type: mimeString
-          });
-        }
-
-        function takepicture() {
-          var canvas = angular.element(document.querySelector('#baseCanvas'));
-          var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
-          var context = canvas[0].getContext('2d');
-          if (width && height) {
-            //canvas.width = width;
-            //canvas.height = height;
-            context.drawImage(video[0], 0, 0, width, 682);
-
-
-
-            var overlay = loadImage('/images/1.png', function() {
-              canvas.height = 682;
-              context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
-            });
-
-
-
-
-
-            var data = canvas[0].toDataURL('image/png');
-            //photo[0].setAttribute('src', data);
-            var dataBlob = toBlob(data);
-            dataBlob.name = 'canvas.png';
-            controller.preview(dataBlob);
-          } else {
-            controller.reset();
-          }
-        }
-
       }
     };
   }
 
-  function captureVideo($http, $routeParams, $q, appService) {
+  function displayVideo($http, $routeParams, $q, appService) {
 
     return {
       controller: "SubmissionController",
       controllerAs: 'vm',
       //templateUrl: using,
-      restrict: "EAC",
-      scope: {
-        vm: '='
-      },
+      restrict: "A",
+      // scope: {
+      //   vm: '='
+      // },
       bindToController: true,
       link: link
     };
 
-    function clicker() {
-      console.log("Clicker from directive scope.");
-    }
 
-    /**
-     * Detect the appropriate template to use, based on
-     * browser capabilities
-     */
-    function using() {
-      return '/app/submission/video.html';
-    }
+    function link(scope, video, attrs, controller) {
 
-
-    function link(scope, element, attrs, controller) {
-
-      var width = 1170; // We will scale the photo width to this
-      var height = 0; // This will be computed based on the input stream
+      appService.width = 1170; // We will scale the photo width to this
+      appService.height = 0; // This will be computed based on the input stream
+      appService.video = video;
       var streaming = false;
-      var video = null;
-      var canvas = null;
-      var photo = null;
+      var canvas = angular.element(document.querySelector('#baseCanvas'));
+      var photo = angular.element(document.querySelector('#basePhoto'));
       var fileInput = null;
       var startbutton = null;
       controller.reset = reset;
-      controller.snap = takepicture;
 
-      video = angular.element(document.querySelector('#baseVideo'));
-      canvas = angular.element(document.querySelector('#baseCanvas'));
-      photo = angular.element(document.querySelector('#basePhoto'));
-      startbutton = angular.element(document.querySelector('#baseButton'));
-      //fileInput.bind('change', controller.clicker());
-      //clearphoto();
 
       var getMedia = Modernizr.prefixed('getUserMedia', navigator);
 
@@ -35432,84 +35391,21 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           controller.intro = true;
         });
         if (!streaming) {
-          height = video.videoHeight / (video.videoWidth / width);
+          appService.height = video.videoHeight / (video.videoWidth / appService.width);
 
           // Firefox currently has a bug where the height can't be read from
           // the video, so we will make assumptions if this happens.
-          if (isNaN(height)) {
-            height = width / (4 / 3);
+          if (isNaN(appService.height)) {
+            appService.height = appService.width / (4 / 3);
           }
 
-          video[0].setAttribute('width', width);
-          video[0].setAttribute('height', height);
-          canvas[0].setAttribute('width', width);
-          canvas[0].setAttribute('height', height);
+          video[0].setAttribute('width', appService.width);
+          video[0].setAttribute('height', appService.height);
+          canvas[0].setAttribute('width', appService.width);
+          canvas[0].setAttribute('height', appService.height);
           streaming = true;
         }
       }, false);
-
-
-      function toBlob(dataUri) {
-        // convert base64/URLEncoded data component to raw binary data held in a string
-        var byteString;
-        if (dataUri.split(',')[0].indexOf('base64') >= 0)
-          byteString = atob(dataUri.split(',')[1]);
-        else
-          byteString = unescape(dataUri.split(',')[1]);
-        // separate out the mime component
-        var mimeString = dataUri.split(',')[0].split(':')[1].split(';')[0];
-        // write the bytes of the string to a typed array
-        var ia = new Uint8Array(byteString.length);
-        for (var i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([ia], {
-          type: mimeString
-        });
-      }
-
-
-      // Capture a photo by fetching the current contents of the video
-      // and drawing it into a canvas, then converting that to a PNG
-      // format data URL. By drawing it on an offscreen canvas and then
-      // drawing that to the screen, we can change its size and/or apply
-      // other changes before drawing it.
-      function takepicture() {
-        if (controller.showing === 'video') {
-          var context = canvas[0].getContext('2d');
-          if (width && height) {
-            //canvas.width = width;
-            //canvas.height = height;
-            context.drawImage(video[0], 0, 0, width, 682);
-
-
-
-            var overlay = loadImage('/images/1.png', function() {
-              canvas.height = 682;
-              context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
-            });
-
-
-
-
-
-            var data = canvas[0].toDataURL('image/png');
-            //photo[0].setAttribute('src', data);
-            var dataBlob = toBlob(data);
-            dataBlob.name = 'canvas.png';
-            controller.preview(dataBlob);
-          } else {
-            controller.reset();
-          }
-        } else if (controller.showing === 'upload') {
-          if (fileInput.files && fileInput.files[0]) {
-
-          }
-
-        } else {
-          controller.reset();
-        }
-      }
 
       function reset() {
         controller.appSvc.previewing = false;
@@ -35517,48 +35413,53 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         controller.appSvc.src = null;
         controller.intro = true;
       }
-
-      function loadImage(src, onload) {
-        // http://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
-        var img = new Image();
-
-        img.onload = onload;
-        img.src = src;
-
-        return img;
-      } // End loadImage();
-    } // END function video()
-
-    function input(scope, element, attrs, controller) {
-      var width = 1170; // We will scale the photo width to this
-      var height = 0; // This will be computed based on the input stream
-      var streaming = false;
-      var video = null;
-      var canvas = null;
-      var photo = null;
-      var startbutton = null;
-      controller.reset = reset;
-      controller.snap = takepicture;
-
-      video = element.find('video');
-      canvas = element.find('canvas');
-      photo = element.find('blockquote').find("img");
-      startbutton = element.find('button');
-
-      function readURL(input) {
-
-
-      }
-
-
-    } // END function input()
-
-    function upload(scope, element, attrs, controller) {
-
-    } // END function upload()
-
-
+    }
   }
+
+
+
+
+  function captureVideo(appService) {
+    return {
+      controller: "SubmissionController",
+      controllerAs: 'vm',
+      restrict: "A",
+      bindToController: true,
+      link: link
+    };
+
+
+    function link(scope, element, attrs, controller) {
+      var canvas = angular.element(document.querySelector('#baseCanvas'));
+      var photo = angular.element(document.querySelector('#basePhoto'));
+      element.bind('click', function() {
+        console.log("take picture called");
+        var context = canvas[0].getContext('2d');
+        if (appService.width && appService.height) {
+          //canvas.width = width;
+          //canvas.height = height;
+          context.drawImage(appService.video[0], 0, 0, appService.width, 682);
+
+
+
+          var overlay = appService.loadImage('/images/1.png', function() {
+            canvas.height = 682;
+            context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
+          });
+
+          var data = canvas[0].toDataURL('image/png');
+          //photo[0].setAttribute('src', data);
+          var dataBlob = appService.toBlob(data);
+          dataBlob.name = 'canvas.png';
+          controller.preview(dataBlob);
+        } else {
+          controller.reset();
+        }
+
+      });
+    }
+  } // End of captureVideo directive
+
 })();
 
 (function() {
@@ -35578,19 +35479,12 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     vm.gif;
     vm.active = false; // Have we run through our initialization
     vm.activate = activate;
-    vm.overlay = null; // The overlay selected will be here.
-    vm.preview = preview;
-    vm.previewing = false; // When we first load the app help text will
-                      // appear until we start previewing the animation
     vm.showing = 'upload' // [video|upload|input]
     vm.clicker = clicker;
     vm.dismiss = dismiss;
-    vm.intro = false;
-    vm.alert = alert;
-    vm.error = false;
-    vm.message = null;
-    vm.reset = null; // Rest is pupulated by directive.
-    vm.snap = null; // Submit is populated by directive.
+    vm.preview = preview;
+    vm.overlay = overlay;
+    vm.reset = reset;
     vm.placeholder = "/images/placeholder.gif";
     vm.base = null;
     vm.fileInput = null;
@@ -35605,17 +35499,36 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
       if (Modernizr.getusermedia) {
-        activate('video');
+        vm.activate('video');
       } else if (Modernizr.capture) {
-        activate('input');
+        vm.activate('input');
       } else {
         // BOOM upload form
-        activate('upload');
+        vm.activate('upload');
+      }
+    }
+
+    function overlay(layer) {
+      vm.appSvc.overlay = layer;
+      vm.appSvc.sharing = false; // Hide the share buttons untill we opt for them
+      if(vm.appSvc.previewing) {
+        // vm.appSvc.buildShareImage().then(function(){
+        //   vm.appSvc.s
+        // })
+        vm.appSvc.shareable = true;
       }
     }
 
     function resetFile() {
       vm.theFile = null;
+    }
+    function reset() {
+      vm.dismiss();
+      var photo = angular.element(document.querySelector('#basePhoto'));
+      photo[0].src = ''
+      vm.theFile = null;
+      vm.appSvc.sharing = false;
+      vm.appSvc.overlay = null;
     }
     function clicker() {
       console.log("Clicker from controller");
@@ -35651,8 +35564,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     function preview(file) {
       vm.dismiss();
       _getTokenAndPut(file);
-      appService.previewing = true;
-      console.log('Now previewing');
     }
 
     function handleError(response) {
@@ -35672,6 +35583,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       };
       $http(req).then(function(response) {
         vm.appSvc.src = url;
+        vm.appSvc.previewing = true;
+        vm.appSvc.shareable = vm.appSvc.overlay ? true : false;
       }, handleError);
     }
 
