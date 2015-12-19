@@ -315,14 +315,15 @@ h6 {
             padding: 20px 0;
             #fileCapture {
               visibility: hidden;
+              position: absolute;
             }
-            .btn-danger { margin-right: 10px}
-            .btn-warning { margin-top: 13px;}
+            .btn-danger, .btn-default { margin: 0 10px 13px 0}
+            .btn-warning {}
           }
 
           .overlays {
             float: left;
-            width: 50%;
+
             margin: 20px 0;
             // @media( min-width: $screen-md-min) {
             //   top: 50%;

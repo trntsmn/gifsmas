@@ -64,6 +64,8 @@
       photo[0].src = ''
       vm.theFile = null;
       vm.appSvc.sharing = false;
+      vm.appSvc.shareable = false;
+      console.log('called reset');
       vm.appSvc.overlay = null;
     }
     function clicker() {

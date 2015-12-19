@@ -35297,10 +35297,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       controller: "SubmissionController",
       controllerAs: 'vm',
       bindToController: true,
-      scope: {
-        vm: '='
-      },
-
       restrict: 'A',
       link: function($scope, element, attrs, controller) {
         element.bind('change', function(event) {
@@ -35316,13 +35312,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             var canvas = angular.element(document.querySelector('#baseCanvas'));
             var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
             var context = canvas[0].getContext('2d');
-            var dataBlob = toBlob(reader.result);
+            var dataBlob = appService.toBlob(reader.result);
             dataBlob.name = 'canvas.png';
             controller.preview(dataBlob);
-            appService.overwrite = "capturefileOnload";
-            //controller.previewing = true;
-            $scope.$apply();
-
           }
           $scope.$apply();
           reader.readAsDataURL(controller.theFile);
@@ -35528,6 +35520,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       photo[0].src = ''
       vm.theFile = null;
       vm.appSvc.sharing = false;
+      vm.appSvc.shareable = false;
+      console.log('called reset');
       vm.appSvc.overlay = null;
     }
     function clicker() {

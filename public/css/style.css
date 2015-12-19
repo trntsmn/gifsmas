@@ -7062,14 +7062,12 @@ h6 {
     #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls {
       padding: 20px 0; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls #fileCapture {
-        visibility: hidden; }
-      #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls .btn-danger {
-        margin-right: 10px; }
-      #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls .btn-warning {
-        margin-top: 13px; }
+        visibility: hidden;
+        position: absolute; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls .btn-danger, #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls .btn-default {
+        margin: 0 10px 13px 0; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays {
       float: left;
-      width: 50%;
       margin: 20px 0; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays a {
         width: 20%;

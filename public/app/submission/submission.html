@@ -82,7 +82,15 @@
 
   <div class='row interface rel'>
 
-    <div class="cols-sm-6">
+    <div class="col-sm-6">
+      <div class="controls" style="padding-bottom:0;" data-ng-if="vm.showing === 'upload'">
+          <h4>First, upload an image of yourselie!</h4>
+
+          <input type='button' class="btn btn-danger btn-lg" data-disjointed-capture='' value="upload file" />
+          <input id="fileCapture" type="file" data-capture-file="" data-ng-model="vm.theFile" />
+          <br>
+          <a class="btn btn-warning" data-ng-click="vm.reset()">Reset</a>
+      </div>
       <div class="overlays">
 
         <h4>Select your holiday filter</h4>
@@ -123,12 +131,9 @@
 
       </div>
 
-      <div class="controls" data-ng-if="vm.showing === 'upload'">
-        <!-- <input type="file" data-capture-file="" data-ng-model="vm.theFile" /> -->
-        <input type="button" data-ng-click="vm.resetFile()" value="Reset" />
-        <input type='button' data-disjointed-capture='' value="upload file" />
-        <input id="fileCapture" type="file" data-capture-file="" data-ng-model="vm.theFile" />
-
+      <div class="controls" data-ng-if="vm.showing === 'upload' && vm.appSvc.shareable">
+        <h4>Send it to your BFF</h4>
+          <a class="btn btn-default btn-lg" data-ng-click="vm.appSvc.sharing = true">Share</a>
       </div>
     </div>
 
