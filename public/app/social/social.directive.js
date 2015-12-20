@@ -33,7 +33,7 @@
       scope: {
         gif: '='
       },
-      template: '<a href="https://www.facebook.com/dialog/feed?%20app_id=7970714394%20&display=popup&caption={{gif.description | escape}}%20&link={{gif.image | domain | escape}}&redirect_uri=http://gifsmas.com" target="_blank" class="social-icon"><img src="/images/social-facebook.svg" alt="Facebook Share "> </a>'
+      template: '<a href="https://www.facebook.com/dialog/feed?%20app_id=7970714394%20&display=popup&caption={{gif.description | escape}}%20&link={{gif.image | escape}}&redirect_uri=http://gifsmas.com" target="_blank" class="social-icon"><img src="/images/social-facebook.svg" alt="Facebook Share "> </a>'
     };
   }
 
@@ -54,7 +54,7 @@
       scope: {
         gif: '='
       },
-      template: '<a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={{gif.link | domain | escape}}&posttype=photo&content={{gif.image | domain | escape}}&caption={{gif.description | escape }}%20{{gif.link | domain | escape}}&tags=Gifsmas,Hiebing" target="_blank" class="social-icon"><img src="/images/social-tumblr.svg" alt="Tumblr Share "></a>',
+      template: '<a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={{gif.link | domain | escape}}&posttype=photo&content={{gif.image | escape}}&caption={{gif.description | escape }}%20{{gif.link | domain | escape}}&tags=Gifsmas,Hiebing" target="_blank" class="social-icon"><img src="/images/social-tumblr.svg" alt="Tumblr Share "></a>',
         link: function(scope, element) {
           var button = element.find('a');
           button.on('click', function(event) {
@@ -73,7 +73,7 @@
         gif: '='
       },
       restrict: "E",
-      template: '<a data-pin-do="buttonPin" data-pin-custom="true"   href="https://www.pinterest.com/pin/create/button/?description={{gif.description | escape}}&media={{gif.image | domain}}&url={{gif.link | domain}}" target="_blank" class="social-icon"><img src="/images/social-pinterest.svg" alt="Pinterest Sharing"></a>'
+      template: '<a data-pin-do="buttonPin" data-pin-custom="true"   href="https://www.pinterest.com/pin/create/button/?description={{gif.description | escape}}&media={{gif.image}}&url={{gif.link | domain}}" target="_blank" class="social-icon"><img src="/images/social-pinterest.svg" alt="Pinterest Sharing"></a>'
     };
   }
 
