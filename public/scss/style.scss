@@ -433,6 +433,11 @@ h6 {
 
       // End article.submission-controller
       article.personal-controller {
+        .row.intro {
+          h3 {
+            margin-bottom: 20px;
+          }
+        }
         .row.rel {
           .blocker {
             background-image: url(/images/placeholder.jpg);
@@ -440,11 +445,11 @@ h6 {
             background-size: cover;
             position: relative;
             width: 100%;
-            height: 700px;
+            height: auto;
             overflow: hidden;
             blockquote {
               top: 0;
-              position: absolute;
+              position: static;
               z-index: 143;
               display: block;
               border: none !important;
