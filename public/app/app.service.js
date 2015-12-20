@@ -30,7 +30,8 @@
     service.height = 0;
     service.width = 1170;
     service.video = null;
-    service.gif = {};
+    service.gif = null;
+
 
     return service;
 
@@ -99,6 +100,10 @@
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
+        console.log("hello my id is: " + service.gif.id)
+        console.log($routeParams.me);
+        // Replace the stub with the one from memory:
+        data[11] = service.gif;
         return data;
       }).
       error(function(data, status, headers, config) {

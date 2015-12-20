@@ -6975,6 +6975,9 @@ h6 {
     #main > .container > .row > div.col-xs-12 article.error-controller img {
       width: 100%;
       margin: 70px 0; }
+    #main > .container > .row > div.col-xs-12 article.feature-controller .row.intro h3,
+    #main > .container > .row > div.col-xs-12 article.personal-controller .row.intro h3 {
+      margin-bottom: 20px; }
     #main > .container > .row > div.col-xs-12 article.feature-controller .row.rel img,
     #main > .container > .row > div.col-xs-12 article.personal-controller .row.rel img {
       width: 100%; }

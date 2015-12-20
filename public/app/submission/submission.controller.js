@@ -36,8 +36,10 @@
       $anchorScroll("main");
       if (Modernizr.getusermedia) {
         vm.activate('video');
-      } else if (Modernizr.capture) {
-        vm.activate('input');
+    // I know everyone will be dissapointed here. But the analytics don't
+    // support the inclusion of this feature.
+    //  } else if (Modernizr.capture) {
+    //    vm.activate('input');
       } else {
         // BOOM upload form
         vm.activate('upload');
@@ -49,7 +51,7 @@
       if(display == true) {
         var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
         var cropContext = cropCanvas[0].getContext('2d');
-        var overlay = appService.loadImage('/images/1.png', function() {
+        var overlay = appService.loadImage('/images/'+appService.overlay+'.png', function() {
           cropContext.drawImage(overlay, 0, 0, 1170, 682);
           var data = cropCanvas[0].toDataURL('image/png');
           var dataBlob = appService.toBlob(data);
@@ -161,9 +163,9 @@
         vm.appSvc.gif = {
           "id": 1,
           "order": 12,
-          "link" : "me/" + vm.appSvc.overlay + "_" + vm.appSvc.srcName,
+          "link" : "/me/" + vm.appSvc.overlay + "_" + vm.appSvc.srcName,
           'activate': 1350677600, // Dec 21st
-          'active': false,
+          'active': true,
           'image': url,
           'medium': url,
           'thumbnail': url,

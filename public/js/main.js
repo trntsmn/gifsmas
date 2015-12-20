@@ -34090,7 +34090,8 @@ angular.module('ngPicturefill', [])
     service.height = 0;
     service.width = 1170;
     service.video = null;
-    service.gif = {};
+    service.gif = null;
+
 
     return service;
 
@@ -34159,6 +34160,10 @@ angular.module('ngPicturefill', [])
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
+        console.log("hello my id is: " + service.gif.id)
+        console.log($routeParams.me);
+        // Replace the stub with the one from memory:
+        data[11] = service.gif;
         return data;
       }).
       error(function(data, status, headers, config) {
@@ -35165,9 +35170,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     vm.overlay = null;
     vm.src = null;
     vm.req = null;
+    vm.gif = null;
     vm.activate = activate;
-    vm.gif = {"id": 1, "name" : $rootScope.title};
-
+    vm.appSvc = appService;
     ctor();
 
     function ctor() {
@@ -35175,11 +35180,25 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       var tmp = $routeParams.me.match(/(.*)_(.*)/);
       console.log(JSON.stringify(tmp));
       vm.overlay = tmp[1];
-      vm.src = "https://gifsmas.s3.amazonaws.com/" + tmp[2];
+      var url = "https://gifsmas.s3.amazonaws.com/" + tmp[2];
+      vm.src = url
+      vm.appSvc.gif = {
+        "id": 1,
+        "order": 12,
+        "link" : "/me/" + tmp[1] + "_" + tmp[2],
+        'activate': 1350677600, // Dec 21st
+        'active': true,
+        'image': url,
+        'medium': url,
+        'thumbnail': url,
+        "name": "Hiebing Holiday Elfie",
+        "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
+      };
+      vm.gif = vm.appSvc.gif;
     }
 
     // This is just to keep tha api consistant.
-    function activate(){
+    function activate() {
       return $q.when(true);
     }
 
@@ -35501,8 +35520,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       $anchorScroll("main");
       if (Modernizr.getusermedia) {
         vm.activate('video');
-      } else if (Modernizr.capture) {
-        vm.activate('input');
+    // I know everyone will be dissapointed here. But the analytics don't
+    // support the inclusion of this feature.
+    //  } else if (Modernizr.capture) {
+    //    vm.activate('input');
       } else {
         // BOOM upload form
         vm.activate('upload');
@@ -35514,7 +35535,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       if(display == true) {
         var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
         var cropContext = cropCanvas[0].getContext('2d');
-        var overlay = appService.loadImage('/images/1.png', function() {
+        var overlay = appService.loadImage('/images/'+appService.overlay+'.png', function() {
           cropContext.drawImage(overlay, 0, 0, 1170, 682);
           var data = cropCanvas[0].toDataURL('image/png');
           var dataBlob = appService.toBlob(data);
@@ -35626,9 +35647,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         vm.appSvc.gif = {
           "id": 1,
           "order": 12,
-          "link" : "me/" + vm.appSvc.overlay + "_" + vm.appSvc.srcName,
+          "link" : "/me/" + vm.appSvc.overlay + "_" + vm.appSvc.srcName,
           'activate': 1350677600, // Dec 21st
-          'active': false,
+          'active': true,
           'image': url,
           'medium': url,
           'thumbnail': url,

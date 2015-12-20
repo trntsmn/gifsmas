@@ -212,6 +212,11 @@ h6 {
       }
       article.feature-controller,
       article.personal-controller {
+        .row.intro {
+          h3 {
+            margin-bottom: 20px;
+          }
+        }
         .row.rel img {
           width: 100%;
         }
