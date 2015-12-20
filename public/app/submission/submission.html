@@ -7,7 +7,7 @@
     <!-- Temp storage for our image -->
   </canvas>
 
-  <canvas id="cropCanvas">
+  <canvas class="debug" style="top: 2999px" id="cropCanvas">
     <!-- Temp storage for our image -->
   </canvas>
   <div class="row rel">
@@ -58,7 +58,7 @@
 
     <div class="intro abs" data-ng-if="vm.appSvc.displayIntro">
       <div>
-        <h2>1. Snap a picture (you look great) 2. Select your holiday filter 3. Send it to your BFF</h2>
+        <h2>1. Select your holiday filter 2. Snap a picture (you look great) 3. Send it to your BFF</h2>
       </div>
       <a data-ng-click="vm.dismiss()" class="close">X</a>
     </div>
@@ -67,11 +67,11 @@
       <div>
         <div class="social-shares" >
           <h4>Sharing is caring</h4>
-          <facebook-share gif="vm.gif"></facebook-share>
-          <twitter-share gif="vm.gif"></twitter-share>
-          <pinterest-share gif="vm.gif"></pinterest-share>
-          <tumblr-share gif="vm.gif"></tumblr-share>
-          <link-share gif="vm.gif"></link-share>
+          <facebook-share gif="vm.appSvc.gif"></facebook-share>
+          <twitter-share gif="vm.appSvc.gif"></twitter-share>
+          <pinterest-share gif="vm.appSvc.gif"></pinterest-share>
+          <tumblr-share gif="vm.appSvc.gif"></tumblr-share>
+          <link-share gif="vm.appSvc.gif"></link-share>
         </div>
 
 
@@ -125,7 +125,7 @@
         <h4>Send it to your BFF</h4>
         <a class="btn btn-danger btn-lg" data-capture-video=''>Snap</a>
 
-        <a data-ng-if="vm.appSvc.shareable" class="btn btn-default btn-lg" data-ng-click="vm.appSvc.sharing = true">Share</a>
+        <a data-ng-if="vm.appSvc.shareable" class="btn btn-default btn-lg" data-ng-click="vm.sharing(true)">Share</a>
         <br>
         <a class="btn btn-warning" data-ng-click="vm.reset()">Reset</a>
 
@@ -133,7 +133,7 @@
 
       <div class="controls" data-ng-if="vm.showing === 'upload' && vm.appSvc.shareable">
         <h4>Send it to your BFF</h4>
-          <a class="btn btn-default btn-lg" data-ng-click="vm.appSvc.sharing = true">Share</a>
+          <a class="btn btn-default btn-lg" data-ng-click="vm.sharing(true)">Share</a>
       </div>
     </div>
 

@@ -34053,7 +34053,7 @@ angular.module('ngPicturefill', [])
       };
     }])
     .filter('escape', function() { return window.encodeURIComponent;})
-    .filter('domain', function() { return function(input) {return "http://gifsmas.com" + input;};})
+    .filter('domain', function() { return function(input) {return "https://gifsmas.com" + input;};})
      // This sets the default page title
     .run(function($rootScope){$rootScope.base = "Hiebing Gifsmas"});
 })();
@@ -34072,6 +34072,8 @@ angular.module('ngPicturefill', [])
     service.id = null;
     service.overwrite = 'overwrite';
     service.src = null;
+    service.srcName = null; // shorthand for last segment of service.src
+    service.socialSrc = null;
     service.previewing = false; // Are we in preview mode?
     service.shareable = false; // this flag will display a button to open sharing
     service.sharing = false; // This flag will the display a box with sharing options.
@@ -34088,6 +34090,7 @@ angular.module('ngPicturefill', [])
     service.height = 0;
     service.width = 1170;
     service.video = null;
+    service.gif = {};
 
     return service;
 
@@ -35198,7 +35201,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
   function linkShare() {
     return {
       restrict: 'E',
-      template: '<a style="margin-left: 20px;" href="/me/1_123.png" target="_blank" class="social-icon"><img src="/images/social-link.svg" style="width: 40px;" /></a>'
+      scope: {
+        gif: '='
+      },
+      template: '<a style="margin-left: 20px;" href="{{gif.link}}" target="_blank" class="social-icon"><img src="/images/social-link.svg" style="width: 40px;" /></a>'
     }
   }
 
@@ -35226,7 +35232,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       scope: {
         gif: '='
       },
-      template: '<a href="https://twitter.com/intent/tweet?text={{gif.description | escape}}%20{{\'/day/\'+gif.id | domain}}" target="_blank" class="social-icon"> <img src="/images/social-twitter.svg" alt="Twitter Share ">  </a>'
+      template: '<a href="https://twitter.com/intent/tweet?text={{gif.description | escape}}%20{{gif.link | domain}}" target="_blank" class="social-icon"> <img src="/images/social-twitter.svg" alt="Twitter Share ">  </a>'
     };
   }
 
@@ -35236,7 +35242,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       scope: {
         gif: '='
       },
-      template: '<a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={{\'/day/\'+gif.id | domain | escape}}&posttype=photo&content={{gif.image | domain | escape}}&caption={{gif.description | escape }}%20{{\'/day/\'+gif.id | domain | escape}}&tags=Gifsmas,Hiebing" target="_blank" class="social-icon"><img src="/images/social-tumblr.svg" alt="Tumblr Share "></a>',
+      template: '<a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={{gif.link | domain | escape}}&posttype=photo&content={{gif.image | domain | escape}}&caption={{gif.description | escape }}%20{{gif.link | domain | escape}}&tags=Gifsmas,Hiebing" target="_blank" class="social-icon"><img src="/images/social-tumblr.svg" alt="Tumblr Share "></a>',
         link: function(scope, element) {
           var button = element.find('a');
           button.on('click', function(event) {
@@ -35255,7 +35261,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         gif: '='
       },
       restrict: "E",
-      template: '<a data-pin-do="buttonPin" data-pin-custom="true"   href="https://www.pinterest.com/pin/create/button/?description={{gif.description | escape}}&media={{gif.image | domain}}&url={{\'/day/\'+gif.id | domain}}" target="_blank" class="social-icon"><img src="/images/social-pinterest.svg" alt="Pinterest Sharing"></a>'
+      template: '<a data-pin-do="buttonPin" data-pin-custom="true"   href="https://www.pinterest.com/pin/create/button/?description={{gif.description | escape}}&media={{gif.image | domain}}&url={{gif.link | domain}}" target="_blank" class="social-icon"><img src="/images/social-pinterest.svg" alt="Pinterest Sharing"></a>'
     };
   }
 
@@ -35418,24 +35424,32 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
     function link(scope, element, attrs, controller) {
       var canvas = angular.element(document.querySelector('#baseCanvas'));
-      var photo = angular.element(document.querySelector('#basePhoto'));
+      var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+      // cropCanvas.height = 682;
+      // cropCanvas.width = 1170;
+      cropCanvas[0].setAttribute('width', appService.width);
+      cropCanvas[0].setAttribute('height', 682);
+
       element.bind('click', function() {
         console.log("take picture called");
         var context = canvas[0].getContext('2d');
+        var cropContext = cropCanvas[0].getContext('2d');
+
         if (appService.width && appService.height) {
           //canvas.width = width;
           //canvas.height = height;
-          context.drawImage(appService.video[0], 0, 0, appService.width, 682);
+          context.drawImage(appService.video[0], 0, 0, appService.width, appService.height);
+          cropContext.drawImage(canvas[0], 0, 0, 1170, 682, 0, 0,  1170, 682);
+          // var overlay = appService.loadImage('/images/1.png', function() {
+          //   cropContext.drawImage(overlay, 0, 0, 1170, 682);
+          // });
 
+          var data = cropCanvas[0].toDataURL('image/png');
+          // setting the photo src creates a faux impression of speed.
+          // eventually we'll overwrite with s3's result but since they are
+          // the same the user doesn't notice the change.
 
-
-          var overlay = appService.loadImage('/images/1.png', function() {
-            canvas.height = 682;
-            context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
-          });
-
-          var data = canvas[0].toDataURL('image/png');
-          //photo[0].setAttribute('src', data);
+          appService.src = data;
           var dataBlob = appService.toBlob(data);
           dataBlob.name = 'canvas.png';
           controller.preview(dataBlob);
@@ -35472,6 +35486,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     vm.preview = preview;
     vm.overlay = overlay;
     vm.reset = reset;
+    vm.sharing = sharing;
     vm.base = null;
     vm.fileInput = null;
     vm.theFile;
@@ -35491,6 +35506,23 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       } else {
         // BOOM upload form
         vm.activate('upload');
+      }
+    }
+
+    function sharing(display) {
+      console.log('Called sharing with ' + display);
+      if(display == true) {
+        var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+        var cropContext = cropCanvas[0].getContext('2d');
+        var overlay = appService.loadImage('/images/1.png', function() {
+          cropContext.drawImage(overlay, 0, 0, 1170, 682);
+          var data = cropCanvas[0].toDataURL('image/png');
+          var dataBlob = appService.toBlob(data);
+          dataBlob.name = 'social.png';
+          console.log('sharing');
+          _getToken(dataBlob, _putSocial);
+        });
+
       }
     }
 
@@ -35551,14 +35583,15 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
     function preview(file) {
       vm.dismiss();
-      _getTokenAndPut(file);
+      _getToken(file, _putCanvas);
     }
 
     function handleError(response) {
       console.log(response);
     }
 
-    function _putFile(file, signature, url) {
+    function _putCanvas(file, signature, url) {
+      vm.appSvc.srcName = file.name;
       var req = {
         method: 'PUT',
         url: signature,
@@ -35576,7 +35609,38 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       }, handleError);
     }
 
-    function _getTokenAndPut(file) {
+    function _putSocial(file, signature, url) {
+      console.log("put social");
+      var req = {
+        method: 'PUT',
+        url: signature,
+        responseType: 'json',
+        headers: {
+          'x-amz-acl': 'public-read',
+          'Content-Type': file.type != '' ? file.type : 'application/octet-stream'
+        },
+        data: file
+      };
+      $http(req).then(function(response) {
+        vm.appSvc.socialSrc = url;
+        vm.appSvc.gif = {
+          "id": 1,
+          "order": 12,
+          "link" : "me/" + vm.appSvc.overlay + "_" + vm.appSvc.srcName,
+          'activate': 1350677600, // Dec 21st
+          'active': false,
+          'image': url,
+          'medium': url,
+          'thumbnail': url,
+          "name": "Hiebing Holiday Elfie",
+          "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
+        };
+        vm.gif = vm.appSvc.gif;
+        vm.appSvc.sharing = true;
+      }, handleError);
+    }
+
+    function _getToken(file, callback) {
       var req = {
         method: 'GET',
         url: '/sandbox/token',
@@ -35588,7 +35652,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       };
       $http(req).then(function(response) {
         file.name = response.data.name;
-        _putFile(file, response.data.signature, response.data.url);
+        callback(file, response.data.signature, response.data.url);
       }, handleError);
     }
 

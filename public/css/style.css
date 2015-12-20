@@ -7264,9 +7264,20 @@ footer {
       width: 25%; } }
     #grid .gif .thumbnail {
       width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0; }
+      height: 100%;
+      position: absolute; }
+      #grid .gif .thumbnail > img {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0; }
+      #grid .gif .thumbnail > img.id1 {
+        width: auto;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -webkit-transform: translateX(-50%); }
     #grid .gif .spacer {
       width: 100%; }
     #grid .gif .blocker {

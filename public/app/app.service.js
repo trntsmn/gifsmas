@@ -12,6 +12,8 @@
     service.id = null;
     service.overwrite = 'overwrite';
     service.src = null;
+    service.srcName = null; // shorthand for last segment of service.src
+    service.socialSrc = null;
     service.previewing = false; // Are we in preview mode?
     service.shareable = false; // this flag will display a button to open sharing
     service.sharing = false; // This flag will the display a box with sharing options.
@@ -28,6 +30,7 @@
     service.height = 0;
     service.width = 1170;
     service.video = null;
+    service.gif = {};
 
     return service;
 

@@ -155,24 +155,32 @@
 
     function link(scope, element, attrs, controller) {
       var canvas = angular.element(document.querySelector('#baseCanvas'));
-      var photo = angular.element(document.querySelector('#basePhoto'));
+      var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+      // cropCanvas.height = 682;
+      // cropCanvas.width = 1170;
+      cropCanvas[0].setAttribute('width', appService.width);
+      cropCanvas[0].setAttribute('height', 682);
+
       element.bind('click', function() {
         console.log("take picture called");
         var context = canvas[0].getContext('2d');
+        var cropContext = cropCanvas[0].getContext('2d');
+
         if (appService.width && appService.height) {
           //canvas.width = width;
           //canvas.height = height;
-          context.drawImage(appService.video[0], 0, 0, appService.width, 682);
+          context.drawImage(appService.video[0], 0, 0, appService.width, appService.height);
+          cropContext.drawImage(canvas[0], 0, 0, 1170, 682, 0, 0,  1170, 682);
+          // var overlay = appService.loadImage('/images/1.png', function() {
+          //   cropContext.drawImage(overlay, 0, 0, 1170, 682);
+          // });
 
+          var data = cropCanvas[0].toDataURL('image/png');
+          // setting the photo src creates a faux impression of speed.
+          // eventually we'll overwrite with s3's result but since they are
+          // the same the user doesn't notice the change.
 
-
-          var overlay = appService.loadImage('/images/1.png', function() {
-            canvas.height = 682;
-            context.drawImage(overlay, 0, 0, 1170, 682, 0, 0, 1170, 682);
-          });
-
-          var data = canvas[0].toDataURL('image/png');
-          //photo[0].setAttribute('src', data);
+          appService.src = data;
           var dataBlob = appService.toBlob(data);
           dataBlob.name = 'canvas.png';
           controller.preview(dataBlob);

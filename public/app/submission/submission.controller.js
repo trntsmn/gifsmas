@@ -21,6 +21,7 @@
     vm.preview = preview;
     vm.overlay = overlay;
     vm.reset = reset;
+    vm.sharing = sharing;
     vm.base = null;
     vm.fileInput = null;
     vm.theFile;
@@ -40,6 +41,23 @@
       } else {
         // BOOM upload form
         vm.activate('upload');
+      }
+    }
+
+    function sharing(display) {
+      console.log('Called sharing with ' + display);
+      if(display == true) {
+        var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+        var cropContext = cropCanvas[0].getContext('2d');
+        var overlay = appService.loadImage('/images/1.png', function() {
+          cropContext.drawImage(overlay, 0, 0, 1170, 682);
+          var data = cropCanvas[0].toDataURL('image/png');
+          var dataBlob = appService.toBlob(data);
+          dataBlob.name = 'social.png';
+          console.log('sharing');
+          _getToken(dataBlob, _putSocial);
+        });
+
       }
     }
 
@@ -100,14 +118,15 @@
 
     function preview(file) {
       vm.dismiss();
-      _getTokenAndPut(file);
+      _getToken(file, _putCanvas);
     }
 
     function handleError(response) {
       console.log(response);
     }
 
-    function _putFile(file, signature, url) {
+    function _putCanvas(file, signature, url) {
+      vm.appSvc.srcName = file.name;
       var req = {
         method: 'PUT',
         url: signature,
@@ -125,7 +144,38 @@
       }, handleError);
     }
 
-    function _getTokenAndPut(file) {
+    function _putSocial(file, signature, url) {
+      console.log("put social");
+      var req = {
+        method: 'PUT',
+        url: signature,
+        responseType: 'json',
+        headers: {
+          'x-amz-acl': 'public-read',
+          'Content-Type': file.type != '' ? file.type : 'application/octet-stream'
+        },
+        data: file
+      };
+      $http(req).then(function(response) {
+        vm.appSvc.socialSrc = url;
+        vm.appSvc.gif = {
+          "id": 1,
+          "order": 12,
+          "link" : "me/" + vm.appSvc.overlay + "_" + vm.appSvc.srcName,
+          'activate': 1350677600, // Dec 21st
+          'active': false,
+          'image': url,
+          'medium': url,
+          'thumbnail': url,
+          "name": "Hiebing Holiday Elfie",
+          "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
+        };
+        vm.gif = vm.appSvc.gif;
+        vm.appSvc.sharing = true;
+      }, handleError);
+    }
+
+    function _getToken(file, callback) {
       var req = {
         method: 'GET',
         url: '/sandbox/token',
@@ -137,7 +187,7 @@
       };
       $http(req).then(function(response) {
         file.name = response.data.name;
-        _putFile(file, response.data.signature, response.data.url);
+        callback(file, response.data.signature, response.data.url);
       }, handleError);
     }
 

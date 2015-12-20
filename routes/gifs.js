@@ -9,6 +9,7 @@ var gifHelper = require('../helpers/gifObjectHelper');
 var gifsDb =
 [{
     "id": 12,
+    'link': "/day/12",
     "order": 1,
     'activate': 1447175235,
     'active': false,
@@ -19,6 +20,7 @@ var gifsDb =
     "description": "12 Ugly Sweaters: Find all the ugly sweater inspiration you need with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 11,
+    'link': "/day/11",
     "order": 2,
     'activate': 1449468000,
     'active': false,
@@ -29,6 +31,7 @@ var gifsDb =
     "description": "11 Looming Deadlines: Cool off from all those hot deadlines with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 10,
+    'link': "/day/10",
     "order": 3,
     'activate': 1449554400,
     'active': false,
@@ -39,6 +42,7 @@ var gifsDb =
     "description": "10 Tangled Lights: Step one: Untangle. Step two: Give up and check out all 12 Days of Hiebing Gifsmas."
 },{
     "id": 9,
+    'link': "/day/9",
     "order": 4,
     'activate': 1449640800,
     'active': false,
@@ -49,6 +53,7 @@ var gifsDb =
     "description": "9 Kitties Caroling: Kitty carols, where every note’s a high note. Check out Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 8,
+    'link': "/day/8",
     "order": 5,
     'activate': 1449727200, // Dec 10th
     'active': false,
@@ -59,6 +64,7 @@ var gifsDb =
     "description": "8 Reindeers Twerking: They’re staying warm by burning up the dance floor. Check out all 12 Days of Hiebing Gifsmas."
 },{
     "id": 7,
+    'link': "/day/7",
     "order": 6,
     'activate': 1449813600, // Dec 11th
     'active': false,
@@ -69,6 +75,7 @@ var gifsDb =
     "description": "7 Surly Santas: Feeling surly? Hiebing’s 12 Days of Gifsmas should cheer you right up."
 },{
     "id": 6,
+    'link': "/day/6",
     "order": 7,
     'activate': 1450072800, // dec 14th
     'active': false,
@@ -79,6 +86,7 @@ var gifsDb =
     "description": "6 Regiftceptions: You thought that Crock-Pot looked familiar… Work through the trauma of regifts with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 5,
+    'link': "/day/5",
     "order": 8,
     'activate': 1450159200, // Dec 15h
     'active': false,
@@ -89,6 +97,7 @@ var gifsDb =
     "description": "5 Cookies Later: Five cookies later…we all know the feeling. Stay in the holiday spirit with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 4,
+    'link': "/day/4",
     "order": 9,
     'activate': 1450245600, // Dec 16th
     'active': false,
@@ -99,6 +108,7 @@ var gifsDb =
     "description": "4 Grandmas Skyping: Show your Grandma what “the kids are doing these days” with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 3,
+    'link': "/day/3",
     "order": 10,
     'activate': 1450332000, // Dec 17th
     'active': false,
@@ -109,6 +119,7 @@ var gifsDb =
     "description": "3 Chrismas Spirits: A toast to past, present and future. Check out all 12 Days of Hiebing Gifsmas."
 },{
     "id": 2,
+    'link': "/day/2",
     "order": 11,
     'activate': 1450418400, // Dec 18th
     'active': false,
@@ -119,13 +130,14 @@ var gifsDb =
     "description": "2 Pinterest Fails: What are the holidays without a few bakery mishaps? Get back in the spirit with Hiebing’s 12 Days of Gifsmas."
 },{
     "id": 1,
+    'link': "/me",
     "order": 12,
-    'activate': 1450677600, // Dec 21st
+    'activate': 1350677600, // Dec 21st
     'active': false,
-    'image': '/images/gifs/2-img.gif',
-    'medium': '/images/gifs/2-img-md.gif',
-    'thumbnail': '/images/gifs/2-th.jpg',
-    "name": "Pinterest Fails",
+    'image': 'https://gifsmas.s3.amazonaws.com/2fe02332-e308-4e34-a6e2-1d47064bed96.png',
+    'medium': 'https://gifsmas.s3.amazonaws.com/2fe02332-e308-4e34-a6e2-1d47064bed96.png',
+    'thumbnail': 'https://gifsmas.s3.amazonaws.com/2fe02332-e308-4e34-a6e2-1d47064bed96.png',
+    "name": "Hiebing Holiday Elfie",
     "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
 }];
 
