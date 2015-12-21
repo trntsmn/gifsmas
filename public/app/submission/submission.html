@@ -3,7 +3,7 @@
   know this seems unnessary to but it's angularjs -->
 
 <article class="{{vm.class}}" data-ng-controller="SubmissionController as vm" data-resize>
-  <canvas id="baseCanvas"``>
+  <canvas id="baseCanvas">
     <!-- Temp storage for our image -->
   </canvas>
 
@@ -14,12 +14,12 @@
     <div class="camera">
       <div class="blocker">
 
-        <video data-display-video='' id="baseVideo" controls= "false">Video stream not available.</video>
+        <video data-display-video='' id="baseVideo" controls="false">Video stream not available.</video>
 
         <blockquote>
           <img id="basePhoto" data-ng-if="vm.appSvc.src" data-ng-src="{{vm.appSvc.src}}" />
         </blockquote>
-        <img src="/images/placeholder.jpg" alt="You picture will appear here." class="placeholder"/>
+        <img src="/images/placeholder.jpg" alt="You picture will appear here." class="placeholder" id="placeholderImage" />
       </div>
     </div>
 
@@ -38,25 +38,28 @@
     <div class="overlay" data-ng-if="vm.appSvc.overlay == 5">
       <img src="/images/5.gif" />
     </div>
+
     <div class="error abs" data-ng-if="vm.appSvc.displayError">
       <div>
         <div>
           <h2>Could not access camera.</h2>
-          <h3>Please allow access and refresh the page or&nbsp;&nbsp; <a class='btn btn-default' data-ng-click='vm.activate("upload")'>upload an existing photo</a></h3>
+          <h3>Please allow access and refresh the page or&nbsp;&nbsp;</h3>
+          <a class='btn btn-default' data-ng-click='vm.activate("upload")'>upload an existing photo</a>
         </div>
       </div>
     </div>
     <!-- End .error.abs -->
+
     <div class="error abs" data-ng-if="vm.appSvc.displayWrongFile">
       <div>
         <div>
           <h2>That doesn't look like any image format we know.</h2>
           <h3>Please try again.</h3>
         </div>
-        <a data-ng-click="vm.dismiss()" class="close">X</a>
       </div>
     </div>
-    <div  class="intro abs" data-ng-if="vm.appSvc.displayUploadIntro">
+
+    <div class="intro abs" data-ng-if="vm.appSvc.displayUploadIntroxxx">
       <div>
         <div>
           <h2>Elfie 101 Tip: </h2>
@@ -65,86 +68,107 @@
         <a data-ng-click="vm.dismiss()" class="close">X</a>
       </div>
     </div>
-    <div class="intro abs" data-ng-if="vm.appSvc.displayIntro">
+
+    <div class="intro abs" data-ng-if="vm.appSvc.displayIntroxxx">
       <div>
         <h2>1. Select your holiday filter below 2. Snap a picture (you look great) 3. Send it to your BFF</h2>
       </div>
       <a data-ng-click="vm.dismiss()" class="close">X</a>
     </div>
     <!-- End .error.abs -->
-    <div class="userActions abs" data-ng-if="vm.appSvc.sharing">
-      <div>
-        <div class="social-shares" >
-          <h4>Sharing is caring</h4>
-          <facebook-share gif="vm.appSvc.gif"></facebook-share>
-          <twitter-share gif="vm.appSvc.gif"></twitter-share>
-          <pinterest-share gif="vm.appSvc.gif"></pinterest-share>
-          <tumblr-share gif="vm.appSvc.gif"></tumblr-share>
-          <link-share gif="vm.appSvc.gif"></link-share>
+
+    <!-- 1. Choose your overlay (video) -->
+    <div class="intro abs" data-ng-if="vm.appSvc.displayState == 'video.1'">
+      <div class="interface">
+        <div>
+          <h2>1. Select
+            <small>your filter</small>
+          </h2>
+          <div class="overlays">
+            <a data-ng-click="vm.overlay(1)">
+              <img src="/images/1-btn.png" />
+              <span>Put a bow on it</span>
+            </a>
+            <a data-ng-click="vm.overlay(2)">
+              <img src="/images/2-btn.png" />
+              <span>Elfie</span>
+            </a>
+            <a data-ng-click="vm.overlay(3)">
+              <img src="/images/3-btn.png" />
+              <span>Lump of Coal</span>
+            </a>
+            <a data-ng-click="vm.overlay(4)">
+              <img src="/images/4-btn.png" />
+              <span>Shiny red nose</span>
+            </a>
+            <a data-ng-click="vm.overlay(5)">
+              <img src="/images/5-btn.png" />
+              <span>Snowball battle scars</span>
+            </a>
+          </div>
+          <a data-ng-show="vm.appSvc.continuable" data-ng-click="vm.displayState('video.2')" class="btn btn-danger btn-lg">Continue</a>
         </div>
+      </div>
+    </div>
 
 
+
+    <!-- 2. Position self (video) -->
+    <div class="intro abs" data-ng-if="vm.appSvc.displayState == 'video.2'">
+      <div class="interface">
+        <div>
+          <h2>2. Snap
+            <small>(you look great)</small>
+          </h2>
+          <a class="btn btn-danger btn-lg" data-capture-video=''>Take a picture</a>
+          <a class="btn btn-warning" data-ng-click="vm.displayState('video.1')">Start Over</a>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- 3. Share (video) -->
+    <div class="intro abs" data-ng-if="vm.appSvc.displayState == 'video.3'">
+      <div class="interface">
+        <div>
+          <h2>3. Share
+            <small>with your BFF</small>
+          </h2>
+          <div class="social-shares">
+            <facebook-share gif="vm.appSvc.gif"></facebook-share>
+            <twitter-share gif="vm.appSvc.gif"></twitter-share>
+            <pinterest-share gif="vm.appSvc.gif"></pinterest-share>
+            <tumblr-share gif="vm.appSvc.gif"></tumblr-share>
+            <link-share gif="vm.appSvc.gif"></link-share>
+          </div>
+          <br>
+          <br>
+          <a class="btn btn-warning" data-ng-click="vm.displayState('video.1')">Start Over</a>
+        </div>
       </div>
     </div>
   </div>
+  <!-- End row.rel -->
 
-
+<br>
+<br>
+<br>
+<br>
+<br>
   <div class='row interface rel'>
 
-    <div class="col-sm-6">
+    <div class="col-sm-6 col-xs-12">
       <div class="controls" style="padding-bottom:0;" data-ng-if="vm.showing === 'upload'">
-          <h4>First, upload an image of your selfie!</h4>
+        <h4>First, upload an image of your selfie!</h4>
 
-          <input type='button' class="btn btn-danger btn-lg" data-disjointed-capture='' value="upload image" />
-          <input id="fileCapture" type="file" data-capture-file="" data-ng-model="vm.theFile" />
-          <br>
-          <a class="btn btn-warning" data-ng-click="vm.reset()">Reset</a>
-      </div>
-      <div class="overlays">
-
-        <h4>Select your holiday filter</h4>
-        <a data-ng-click="vm.overlay(1)">
-          <img src="/images/1-btn.png" />
-          <span>Put a bow on it</span>
-        </a>
-        <a data-ng-click="vm.overlay(2)">
-          <img src="/images/2-btn.png" />
-          <span>Elfie</span>
-        </a>
-        <a data-ng-click="vm.overlay(3)">
-          <img src="/images/3-btn.png" />
-          <span>Lump of Coal</span>
-        </a>
-        <a data-ng-click="vm.overlay(4)">
-          <img src="/images/4-btn.png" />
-          <span>Shiny red nose</span>
-        </a>
-        <a data-ng-click="vm.overlay(5)">
-          <img src="/images/5-btn.png" />
-          <span>Snowball battle scars</span>
-        </a>
-      </div>
-    </div>
-
-
-
-
-    <div class="col-sm-6">
-      <div class="controls" data-ng-if="vm.showing === 'video'">
-        <h4>Send it to your BFF</h4>
-        <a class="btn btn-danger btn-lg" data-capture-video=''>Snap</a>
-
-        <a data-ng-if="vm.appSvc.shareable" class="btn btn-default btn-lg" data-ng-click="vm.sharing(true)">Share</a>
+        <input type='button' class="btn btn-danger btn-lg" data-disjointed-capture='' value="upload image" />
+        <input id="fileCapture" type="file" data-capture-file="" data-ng-model="vm.theFile" />
         <br>
         <a class="btn btn-warning" data-ng-click="vm.reset()">Reset</a>
-
       </div>
 
-      <div class="controls" data-ng-if="vm.showing === 'upload' && vm.appSvc.shareable">
-        <h4>Send it to your BFF</h4>
-          <a class="btn btn-default btn-lg" data-ng-click="vm.sharing(true)">Share</a>
-      </div>
     </div>
 
-  </div>
+
 </article>

@@ -27,11 +27,13 @@
     vm.theFile;
     vm.appSvc = appService;
     vm.resetFile = resetFile;
+    vm.displayState = displayState;
     // We don't have constructors yet so here we define a contructor like
     // function and call it early on.
     ctor();
 
     function ctor() {
+      console.log('called ctor');
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
       if (Modernizr.getusermedia) {
@@ -64,9 +66,18 @@
       }
     }
 
+    function displayState(str) {
+      console.log(str);
+      if(str === 'video.1') vm.reset();
+
+      vm.appSvc.displayState = str;
+      vm.appSvc.continuable = false;
+    }
+
     function overlay(layer) {
       vm.appSvc.overlay = layer;
       vm.appSvc.sharing = false; // Hide the share buttons untill we opt for them
+      vm.appSvc.continuable = true;
       if(vm.appSvc.previewing) {
         // vm.appSvc.buildShareImage().then(function(){
         //   vm.appSvc.s
@@ -79,13 +90,13 @@
       vm.theFile = null;
     }
     function reset() {
-      vm.dismiss();
       var photo = angular.element(document.querySelector('#basePhoto'));
-      photo[0].src = ''
+      if(photo[0] !== undefined) {
+        photo[0].src = ''
+      }
       vm.theFile = null;
       vm.appSvc.sharing = false;
       vm.appSvc.shareable = false;
-      console.log('called reset');
       vm.appSvc.overlay = null;
     }
     function clicker() {
@@ -93,15 +104,16 @@
     }
 
     function activate(str) {
-      vm.active = true;
-      if(vm.showing !== str) {
-        vm.dismiss(true);
-      }
-      vm.showing = str;
+      if(vm.appSvc.displayMode !== str) {
 
-      if(str == 'upload') {
+        if(str == 'upload' && !vm.appSvc.displayState.match('upload.*')) {
 
-        vm.appSvc.displayUploadIntro = true;
+          vm.appSvc.displayState = 'upload.1';
+        }
+        if(str == 'video' && !vm.appSvc.displayState.match('video.*')) {
+          vm.appSvc.displayState = 'video.1';
+        }
+        vm.appSvc.displayMode = str
       }
     }
 
@@ -124,12 +136,11 @@
         appService.displayUploadIntro = false;
         console.log("Dismissed Upload intro message.");
       } else {
-        
+
       }
     }
 
     function preview(file) {
-      vm.dismiss();
       _getToken(file, _putCanvas);
     }
 

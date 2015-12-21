@@ -7066,45 +7066,14 @@ h6 {
       width: 100%; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .overlay img {
         width: 100%; }
-    #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls {
-      padding: 20px 0; }
-      #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls #fileCapture {
-        visibility: hidden;
-        position: absolute; }
-      #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls .btn-danger, #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .controls .btn-default {
-        margin: 0 10px 13px 0; }
-    #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays {
-      float: left;
-      margin: 20px 0; }
-      #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays a {
-        width: 20%;
-        padding-right: 15px;
-        display: block;
-        float: left;
-        line-height: 14px;
-        text-align: center; }
-        #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays a img {
-          border: 2px solid #aaa;
-          width: 100%; }
-        #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays a span {
-          color: #444;
-          text-decoration: none;
-          text-transform: uppercase;
-          font-size: 12px;
-          font-family: 'Montserrat', 'Futura', sans-serif;
-          font-style: normal;
-          font-weight: 400;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          letter-spacing: 0.01em; }
-        #main > .container > .row > div.col-xs-12 article.submission-controller .row.interface .overlays a:hover span {
-          text-decoration: underline; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .abs.userActions {
       bottom: 0px;
       top: auto !important; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .abs.userActions > div {
         float: left;
         background-color: rgba(255, 255, 255, 0.75); }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .abs.intro, #main > .container > .row > div.col-xs-12 article.submission-controller .abs.error {
+      position: static; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .abs {
       width: 100%;
       padding: 25px;
@@ -7125,13 +7094,18 @@ h6 {
       transition-duration: 400ms;
       -webkit-transition-duration: 400ms; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .abs h2 {
-        color: white; }
+        color: #444;
+        text-transform: none;
+        font-size: 18px; }
+        #main > .container > .row > div.col-xs-12 article.submission-controller .abs h2 small {
+          color: #777; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .abs h3 {
-        color: #444; }
+        color: #444;
+        font-size: 14px; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .abs > div {
-        background-color: rgba(255, 0, 0, 0.85);
+        background-color: rgba(255, 255, 255, 0.75);
         width: 100%;
-        padding: 25px; }
+        padding: 10px; }
       #main > .container > .row > div.col-xs-12 article.submission-controller .abs .close {
         -webkit-box-shadow: -8px 10px 26px 0 rgba(0, 0, 0, 0.6);
         -moz-box-shadow: -8px 10px 26px 0 rgba(0, 0, 0, 0.6);
@@ -7165,6 +7139,22 @@ h6 {
         transform: translateY(0);
         -ms-transform: translateY(0);
         -webkit-transform: translateY(0); }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .abs.intro, #main > .container > .row > div.col-xs-12 article.submission-controller .abs.error {
+      padding: 10px; }
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs.intro .btn, #main > .container > .row > div.col-xs-12 article.submission-controller .abs.error .btn {
+        margin-top: 6px; }
+    @media (min-width: 992px) {
+      #main > .container > .row > div.col-xs-12 article.submission-controller .abs.intro, #main > .container > .row > div.col-xs-12 article.submission-controller .abs.error {
+        padding: 25px;
+        position: absolute; }
+        #main > .container > .row > div.col-xs-12 article.submission-controller .abs.intro .btn, #main > .container > .row > div.col-xs-12 article.submission-controller .abs.error .btn {
+          margin-top: 15px; }
+        #main > .container > .row > div.col-xs-12 article.submission-controller .abs.intro > div, #main > .container > .row > div.col-xs-12 article.submission-controller .abs.error > div {
+          padding: 25px; }
+        #main > .container > .row > div.col-xs-12 article.submission-controller .abs.intro h2, #main > .container > .row > div.col-xs-12 article.submission-controller .abs.error h2 {
+          font-size: 28px; }
+        #main > .container > .row > div.col-xs-12 article.submission-controller .abs.intro h3, #main > .container > .row > div.col-xs-12 article.submission-controller .abs.error h3 {
+          font-size: 18px; } }
     #main > .container > .row > div.col-xs-12 article.personal-controller .row.intro h3 {
       margin-bottom: 20px; }
     #main > .container > .row > div.col-xs-12 article.personal-controller .row.rel .blocker {
@@ -7190,6 +7180,49 @@ h6 {
       width: 100%; }
       #main > .container > .row > div.col-xs-12 article.personal-controller .row.rel .overlay img {
         width: 100%; }
+
+.interface {
+  display: flex; }
+  .interface > div {
+    position: relative;
+    width: 100%; }
+  .interface .btn-warning {
+    position: absolute;
+    right: 0;
+    bottom: 0; }
+  .interface .controls {
+    padding: 20px 0; }
+    .interface .controls #fileCapture {
+      visibility: hidden;
+      position: absolute; }
+    .interface .controls .btn-danger, .interface .controls .btn-default {
+      margin: 0 10px 13px 0; }
+  .interface .overlays {
+    float: left;
+    margin: 20px 0; }
+    .interface .overlays a {
+      width: 20%;
+      padding-right: 15px;
+      display: block;
+      float: left;
+      line-height: 14px;
+      text-align: center; }
+      .interface .overlays a img {
+        border: 2px solid #aaa;
+        width: 100%; }
+      .interface .overlays a span {
+        color: #444;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-family: 'Montserrat', 'Futura', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        letter-spacing: 0.01em; }
+      .interface .overlays a:hover span {
+        text-decoration: underline; }
 
 footer {
   background: #252525 url(/images/bkgd-gray.png) repeat top left;
@@ -7328,7 +7361,8 @@ body.reverse {
     padding-top: 50px; }
   body.reverse .tree-left,
   body.reverse .tree-right {
-    bottom: 0; }
+    bottom: 0;
+    display: flex; }
   body.reverse footer {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

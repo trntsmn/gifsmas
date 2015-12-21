@@ -24,6 +24,9 @@
     service.setPersonal = setPersonal;
     service.displayIntro = false;
     service.displayUploadIntro = false;
+    service.displayState = '';
+    service.displayMode = null;
+    service.continuable = false;
     service.displayError = false;
     service.displayWrongFile = false;
     service.toBlob = toBlob;

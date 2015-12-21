@@ -35,7 +35,6 @@
       restrict: 'A',
       link: function($scope, element, attrs, controller) {
         element.bind('change', function(event) {
-          var image = angular.element(document.querySelector('#preview'));
           controller.theFile = event.target.files[0];
           if (!controller.theFile.type.match('image.*')) {
             appService.displayWrongFile = true;
@@ -45,9 +44,29 @@
           } else {
             var reader = new FileReader();
             reader.onload = function() {
-              var dataBlob = appService.toBlob(reader.result);
-              dataBlob.name = 'canvas.png';
-              controller.preview(dataBlob);
+              appService.src = reader.result;
+              $scope.$apply();
+              var otherImage = new Image();
+              otherImage.src = reader.result;
+              otherImage.onload = function() {
+                console.log("Drawing with the following: " + appService.width + ", " + (appService.width*.582906));
+
+                var canvas = angular.element(document.querySelector('#baseCanvas'));
+                appService.height = this.height / (this.width / appService.width);
+
+                canvas[0].setAttribute('width', appService.width);
+                canvas[0].setAttribute('height', appService.height);
+                var context = canvas[0].getContext('2d');
+                context.drawImage(otherImage, 0, 0, appService.width, appService.height);
+                var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+                var cropContext = cropCanvas[0].getContext('2d');
+                cropCanvas[0].setAttribute('width', appService.width);
+                cropCanvas[0].setAttribute('height', (appService.width*.582906));
+                cropContext.drawImage(canvas[0], 0, 0, appService.width, (appService.width*.582906), 0, 0,  appService.width, (appService.width*.582906));
+                var dataBlob = appService.toBlob(data);
+                dataBlob.name = 'canvas.png';
+                controller.preview(dataBlob);
+              }
             }
             $scope.$apply();
             reader.readAsDataURL(controller.theFile);
@@ -160,6 +179,7 @@
 
       element.bind('click', function() {
         console.log("take picture called");
+        appService.displayState = "video.3";
         var context = canvas[0].getContext('2d');
         var cropContext = cropCanvas[0].getContext('2d');
 
@@ -179,7 +199,6 @@
           // setting the photo src creates a faux impression of speed.
           // eventually we'll overwrite with s3's result but since they are
           // the same the user doesn't notice the change.
-
           appService.src = data;
           var dataBlob = appService.toBlob(data);
           dataBlob.name = 'canvas.png';
