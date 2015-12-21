@@ -42,6 +42,7 @@
     //    vm.activate('input');
       } else {
         // BOOM upload form
+
         vm.activate('upload');
       }
     }
@@ -94,27 +95,36 @@
     function activate(str) {
       vm.active = true;
       if(vm.showing !== str) {
-        vm.dismiss();
+        vm.dismiss(true);
       }
       vm.showing = str;
+
+      if(str == 'upload') {
+
+        vm.appSvc.displayUploadIntro = true;
+      }
     }
 
     function alert(message) {
 
     }
 
-    function dismiss() {
+    function dismiss(butshowupload) {
       if(appService.displayError) {
         appService.displayError = false;
         console.log("Dismissed error message.");
-      }
-      if(appService.displayIntro) {
+      } else if(appService.displayIntro) {
         appService.displayIntro = false;
+
         console.log("Dismissed intro message.");
-      }
-      if(appService.displayWrongFile) {
+      }else if (appService.displayWrongFile) {
         appService.displayWrongFile = false;
         console.log('Dismissed wrong file warning.');
+      }else if(appService.displayUploadIntro && butshowupload !== true) {
+        appService.displayUploadIntro = false;
+        console.log("Dismissed Upload intro message.");
+      } else {
+        
       }
     }
 

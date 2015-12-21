@@ -23,6 +23,7 @@
     service.readMine = readMine;
     service.setPersonal = setPersonal;
     service.displayIntro = false;
+    service.displayUploadIntro = false;
     service.displayError = false;
     service.displayWrongFile = false;
     service.toBlob = toBlob;

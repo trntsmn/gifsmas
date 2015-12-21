@@ -3,7 +3,7 @@
   know this seems unnessary to but it's angularjs -->
 
 <article class="{{vm.class}}" data-ng-controller="SubmissionController as vm" data-resize>
-  <canvas id="baseCanvas">
+  <canvas id="baseCanvas"``>
     <!-- Temp storage for our image -->
   </canvas>
 
@@ -56,7 +56,15 @@
         <a data-ng-click="vm.dismiss()" class="close">X</a>
       </div>
     </div>
-
+    <div  class="intro abs" data-ng-if="vm.appSvc.displayUploadIntro">
+      <div>
+        <div>
+          <h2>Elphie 101 Tip: </h2>
+          <h3>Hold Your Phone Sideways and Center Yourself in the Frame</h3>
+        </div>
+        <a data-ng-click="vm.dismiss()" class="close">X</a>
+      </div>
+    </div>
     <div class="intro abs" data-ng-if="vm.appSvc.displayIntro">
       <div>
         <h2>1. Select your holiday filter below 2. Snap a picture (you look great) 3. Send it to your BFF</h2>
@@ -85,7 +93,7 @@
 
     <div class="col-sm-6">
       <div class="controls" style="padding-bottom:0;" data-ng-if="vm.showing === 'upload'">
-          <h4>First, upload an image of your seflie!</h4>
+          <h4>First, upload an image of your selfie!</h4>
 
           <input type='button' class="btn btn-danger btn-lg" data-disjointed-capture='' value="upload image" />
           <input id="fileCapture" type="file" data-capture-file="" data-ng-model="vm.theFile" />
