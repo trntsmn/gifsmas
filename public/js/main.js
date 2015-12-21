@@ -34084,6 +34084,9 @@ angular.module('ngPicturefill', [])
     service.setPersonal = setPersonal;
     service.displayIntro = false;
     service.displayUploadIntro = false;
+    service.displayState = '';
+    service.displayMode = null;
+    service.continuable = false;
     service.displayError = false;
     service.displayWrongFile = false;
     service.toBlob = toBlob;
@@ -35323,7 +35326,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       restrict: 'A',
       link: function($scope, element, attrs, controller) {
         element.bind('change', function(event) {
-          var image = angular.element(document.querySelector('#preview'));
           controller.theFile = event.target.files[0];
           if (!controller.theFile.type.match('image.*')) {
             appService.displayWrongFile = true;
@@ -35333,9 +35335,29 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           } else {
             var reader = new FileReader();
             reader.onload = function() {
-              var dataBlob = appService.toBlob(reader.result);
-              dataBlob.name = 'canvas.png';
-              controller.preview(dataBlob);
+              appService.src = reader.result;
+              $scope.$apply();
+              var otherImage = new Image();
+              otherImage.src = reader.result;
+              otherImage.onload = function() {
+                console.log("Drawing with the following: " + appService.width + ", " + (appService.width*.582906));
+
+                var canvas = angular.element(document.querySelector('#baseCanvas'));
+                appService.height = this.height / (this.width / appService.width);
+
+                canvas[0].setAttribute('width', appService.width);
+                canvas[0].setAttribute('height', appService.height);
+                var context = canvas[0].getContext('2d');
+                context.drawImage(otherImage, 0, 0, appService.width, appService.height);
+                var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+                var cropContext = cropCanvas[0].getContext('2d');
+                cropCanvas[0].setAttribute('width', appService.width);
+                cropCanvas[0].setAttribute('height', (appService.width*.582906));
+                cropContext.drawImage(canvas[0], 0, 0, appService.width, (appService.width*.582906), 0, 0,  appService.width, (appService.width*.582906));
+                var dataBlob = appService.toBlob(data);
+                dataBlob.name = 'canvas.png';
+                controller.preview(dataBlob);
+              }
             }
             $scope.$apply();
             reader.readAsDataURL(controller.theFile);
@@ -35448,6 +35470,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
       element.bind('click', function() {
         console.log("take picture called");
+        appService.displayState = "video.3";
         var context = canvas[0].getContext('2d');
         var cropContext = cropCanvas[0].getContext('2d');
 
@@ -35467,7 +35490,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           // setting the photo src creates a faux impression of speed.
           // eventually we'll overwrite with s3's result but since they are
           // the same the user doesn't notice the change.
-
           appService.src = data;
           var dataBlob = appService.toBlob(data);
           dataBlob.name = 'canvas.png';
@@ -35559,11 +35581,13 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     vm.theFile;
     vm.appSvc = appService;
     vm.resetFile = resetFile;
+    vm.displayState = displayState;
     // We don't have constructors yet so here we define a contructor like
     // function and call it early on.
     ctor();
 
     function ctor() {
+      console.log('called ctor');
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
       if (Modernizr.getusermedia) {
@@ -35596,9 +35620,18 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       }
     }
 
+    function displayState(str) {
+      console.log(str);
+      if(str === 'video.1') vm.reset();
+
+      vm.appSvc.displayState = str;
+      vm.appSvc.continuable = false;
+    }
+
     function overlay(layer) {
       vm.appSvc.overlay = layer;
       vm.appSvc.sharing = false; // Hide the share buttons untill we opt for them
+      vm.appSvc.continuable = true;
       if(vm.appSvc.previewing) {
         // vm.appSvc.buildShareImage().then(function(){
         //   vm.appSvc.s
@@ -35611,13 +35644,13 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       vm.theFile = null;
     }
     function reset() {
-      vm.dismiss();
       var photo = angular.element(document.querySelector('#basePhoto'));
-      photo[0].src = ''
+      if(photo[0] !== undefined) {
+        photo[0].src = ''
+      }
       vm.theFile = null;
       vm.appSvc.sharing = false;
       vm.appSvc.shareable = false;
-      console.log('called reset');
       vm.appSvc.overlay = null;
     }
     function clicker() {
@@ -35625,15 +35658,16 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }
 
     function activate(str) {
-      vm.active = true;
-      if(vm.showing !== str) {
-        vm.dismiss(true);
-      }
-      vm.showing = str;
+      if(vm.appSvc.displayMode !== str) {
 
-      if(str == 'upload') {
+        if(str == 'upload' && !vm.appSvc.displayState.match('upload.*')) {
 
-        vm.appSvc.displayUploadIntro = true;
+          vm.appSvc.displayState = 'upload.1';
+        }
+        if(str == 'video' && !vm.appSvc.displayState.match('video.*')) {
+          vm.appSvc.displayState = 'video.1';
+        }
+        vm.appSvc.displayMode = str
       }
     }
 
@@ -35656,12 +35690,11 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         appService.displayUploadIntro = false;
         console.log("Dismissed Upload intro message.");
       } else {
-        
+
       }
     }
 
     function preview(file) {
-      vm.dismiss();
       _getToken(file, _putCanvas);
     }
 
