@@ -35362,9 +35362,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
     function link(scope, video, attrs, controller) {
-
-      appService.width = 1170; // We will scale the photo width to this
-      appService.height = 0; // This will be computed based on the input stream
       appService.video = video;
       var streaming = false;
       var canvas = angular.element(document.querySelector('#baseCanvas'));
@@ -35446,8 +35443,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
       // cropCanvas.height = 682;
       // cropCanvas.width = 1170;
-      cropCanvas[0].setAttribute('width', appService.width);
-      cropCanvas[0].setAttribute('height', 682);
+
 
       element.bind('click', function() {
         console.log("take picture called");
@@ -35458,7 +35454,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           //canvas.width = width;
           //canvas.height = height;
           context.drawImage(appService.video[0], 0, 0, appService.width, appService.height);
-          cropContext.drawImage(canvas[0], 0, 0, 1170, 682, 0, 0,  1170, 682);
+          console.log("Drawing with the following: " + appService.width + ", " + (appService.width*.582906));
+          cropCanvas[0].setAttribute('width', appService.width);
+          cropCanvas[0].setAttribute('height', (appService.width*.582906));
+          cropContext.drawImage(canvas[0], 0, 0, appService.width, (appService.width*.582906), 0, 0,  appService.width, (appService.width*.582906));
           // var overlay = appService.loadImage('/images/1.png', function() {
           //   cropContext.drawImage(overlay, 0, 0, 1170, 682);
           // });
