@@ -100,10 +100,9 @@
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
-        console.log("hello my id is: " + service.gif.id)
-        console.log($routeParams.me);
-        // Replace the stub with the one from memory:
-        data[11] = service.gif;
+        if(service.gif != null) {
+          data[11] = service.gif;
+        }
         return data;
       }).
       error(function(data, status, headers, config) {

@@ -34160,10 +34160,9 @@ angular.module('ngPicturefill', [])
       success(function(data, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
-        console.log("hello my id is: " + service.gif.id)
-        console.log($routeParams.me);
-        // Replace the stub with the one from memory:
-        data[11] = service.gif;
+        if(service.gif != null) {
+          data[11] = service.gif;
+        }
         return data;
       }).
       error(function(data, status, headers, config) {
@@ -35294,13 +35293,14 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     .directive('captureVideo', captureVideo)
     .directive('captureFile', captureFile)
     .directive('disjointedCapture', disjointedCapture)
-    .directive('displayVideo', displayVideo);
-
+    .directive('displayVideo', displayVideo)
+    .directive('resize', resize);
 
 
   displayVideo.$inject = ['$http', '$routeParams', '$q', 'appService'];
   captureFile.$inject = ['appService', '$anchorScroll'];
   captureVideo.$inject = ['appService'];
+  resize.$inject = ["$window", 'appService'];
 
 
   function disjointedCapture() {
@@ -35480,6 +35480,54 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }
   } // End of captureVideo directive
 
+
+
+
+  function resize($window, appService) {
+    return {
+      restrict: "A",
+      link: function (scope, element) {
+          var w = angular.element($window);
+          console.log("in resize directive");
+          scope.getWindowDimensions = function () {
+
+              return {
+                  'h': window.innerHeight,
+                  'w': window.innerWidth
+              };
+          };
+          scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+              scope.windowHeight = newValue.h;
+              scope.windowWidth = newValue.w;
+              if(newValue.w >= 1200) {
+                console.log('lg screen');
+                appService.width = 1170;
+              } else if (newValue.w >= 992 && newValue.w < 1200) {
+                console.log("md screen");
+                appService.width = 970;
+              } else if (newValue.w >= 768 && newValue.w < 992 ) {
+                console.log('sm screen');
+                appService.width = 750;
+              } else {
+                console.log("xs screen");
+                appService.width = newValue.w
+              }
+
+              scope.style = function () {
+                  return {
+                      'height': (newValue.h - 100) + 'px',
+                      'width': (newValue.w - 100) + 'px'
+                  };
+              };
+
+          }, true);
+
+          w.bind('resize', function () {
+              scope.$apply();
+          });
+      }
+    }
+  } // End of function resize()
 })();
 
 (function() {
