@@ -7031,6 +7031,8 @@ h6 {
         left: 0;
         z-index: 1999;
         pointer-events: none; }
+    #main > .container > .row > div.col-xs-12 article.submission-controller .social-shares {
+      padding-bottom: 0px; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel img.placeholder {
       width: 100%; }
     #main > .container > .row > div.col-xs-12 article.submission-controller .row.rel .blocker {
