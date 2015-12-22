@@ -479,10 +479,12 @@ h6 {
     position: relative;
     width: 100%;
   }
+  @media(min-width: $screen-sm-min) {
   .btn-warning {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
   }
   .controls {
     padding: 20px 0;

@@ -7186,10 +7186,11 @@ h6 {
   .interface > div {
     position: relative;
     width: 100%; }
-  .interface .btn-warning {
-    position: absolute;
-    right: 0;
-    bottom: 0; }
+  @media (min-width: 768px) {
+    .interface .btn-warning {
+      position: absolute;
+      right: 0;
+      bottom: 0; } }
   .interface .controls {
     padding: 20px 0; }
     .interface .controls .btn-danger, .interface .controls .btn-default {
