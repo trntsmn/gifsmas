@@ -34095,7 +34095,7 @@ angular.module('ngPicturefill', [])
     service.width = 1170;
     service.video = null;
     service.gif = null;
-    
+
     setMode();
 
     return service;
@@ -34103,8 +34103,11 @@ angular.module('ngPicturefill', [])
     function setMode() {
       if (Modernizr.getusermedia) {
         service.displayMode = 'video';
+        service.displayState = 'video.1'
       } else {
         service.displayMode = 'upload';
+        service.displayState = 'upload.1'
+
       }
     }
 
