@@ -5,9 +5,9 @@
     .module('app')
     .controller('PersonalController', PersonalController);
 
-  PersonalController.$inject = ['appService', '$routeParams', '$q', '$rootScope'];
+  PersonalController.$inject = ['appService', '$routeParams', '$q', '$rootScope', '$anchorScroll'];
 
-  function PersonalController(appService, $routeParams, $q, $rootScope) {
+  function PersonalController(appService, $routeParams, $q, $rootScope, $anchorScroll) {
     $rootScope.title = "Be the GIF that keeps on giving";
     var vm = this;
     vm.class = 'personal-controller';
@@ -20,6 +20,8 @@
     ctor();
 
     function ctor() {
+      $anchorScroll.yOffset = 0;
+      $anchorScroll("main");
       vm.req = $routeParams.me
       var tmp = $routeParams.me.match(/(.*)_(.*)/);
       console.log(JSON.stringify(tmp));
