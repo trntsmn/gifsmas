@@ -35609,21 +35609,17 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
     }
 
-    function sharing(display) {
-      console.log('Called sharing with ' + display);
-      if(display == true) {
-        var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
-        var cropContext = cropCanvas[0].getContext('2d');
-        var overlay = appService.loadImage('/images/'+appService.overlay+'.png', function() {
-          cropContext.drawImage(overlay, 0, 0, 1170, 682);
-          var data = cropCanvas[0].toDataURL('image/png');
-          var dataBlob = appService.toBlob(data);
-          dataBlob.name = 'social.png';
-          console.log('sharing');
-          _getToken(dataBlob, _putSocial);
-        });
+    function sharing() {
+      var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
+      var cropContext = cropCanvas[0].getContext('2d');
+      var overlay = appService.loadImage('/images/'+appService.overlay+'.png', function() {
+        cropContext.drawImage(overlay, 0, 0, 1170, 682);
+        var data = cropCanvas[0].toDataURL('image/png');
+        var dataBlob = appService.toBlob(data);
+        dataBlob.name = 'social.png';
+        _getToken(dataBlob, _putSocial);
 
-      }
+      });
     }
 
     function displayState(str) {
@@ -35632,7 +35628,13 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       if(str === 'video.1') vm.reset();
       if(str === 'upload.1') vm.reset();
       vm.appSvc.displayMode = tmp[1];
-      vm.appSvc.displayState = str;
+      // this is the sharing mode so we build our sharobject and set the display
+      // state when the share object is built.
+      if(tmp[2] === '3') {
+        sharing();
+      } else {
+        vm.appSvc.displayState = str;
+      }
       vm.appSvc.continuable = false;
     }
 
@@ -35755,7 +35757,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
         };
         vm.gif = vm.appSvc.gif;
-        vm.appSvc.sharing = true;
+        vm.appSvc.displayState = vm.appSvc.displayMode + ".3";
       }, handleError);
     }
 
