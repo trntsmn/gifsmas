@@ -60,6 +60,7 @@
       // this is the sharing mode so we build our sharobject and set the display
       // state when the share object is built.
       if(tmp[2] === '3') {
+        vm.appSvc.loading = true;
         sharing();
       } else {
         vm.appSvc.displayState = str;
@@ -186,6 +187,7 @@
           "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
         };
         vm.gif = vm.appSvc.gif;
+        vm.appSvc.loading = false;
         vm.appSvc.displayState = vm.appSvc.displayMode + ".3";
       }, handleError);
     }

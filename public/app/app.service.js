@@ -35,7 +35,8 @@
     service.width = 1170;
     service.video = null;
     service.gif = null;
-
+    service.loading = false;
+    
     setMode();
 
     return service;

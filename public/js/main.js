@@ -34095,7 +34095,8 @@ angular.module('ngPicturefill', [])
     service.width = 1170;
     service.video = null;
     service.gif = null;
-
+    service.loading = false;
+    
     setMode();
 
     return service;
@@ -35481,6 +35482,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       var canvas = angular.element(document.querySelector('#baseCanvas'));
       var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
       element.bind('click', function() {
+        appService.loading = true;
         var context = canvas[0].getContext('2d');
         var cropContext = cropCanvas[0].getContext('2d');
 
@@ -35614,6 +35616,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       // this is the sharing mode so we build our sharobject and set the display
       // state when the share object is built.
       if(tmp[2] === '3') {
+        vm.appSvc.loading = true;
         sharing();
       } else {
         vm.appSvc.displayState = str;
@@ -35740,6 +35743,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
         };
         vm.gif = vm.appSvc.gif;
+        vm.appSvc.loading = false;
         vm.appSvc.displayState = vm.appSvc.displayMode + ".3";
       }, handleError);
     }

@@ -178,6 +178,7 @@
       var canvas = angular.element(document.querySelector('#baseCanvas'));
       var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
       element.bind('click', function() {
+        appService.loading = true;
         var context = canvas[0].getContext('2d');
         var cropContext = cropCanvas[0].getContext('2d');
 
