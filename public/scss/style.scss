@@ -486,10 +486,7 @@ h6 {
   }
   .controls {
     padding: 20px 0;
-    #fileCapture {
-      visibility: hidden;
-      position: absolute;
-    }
+
     .btn-danger, .btn-default { margin: 0 10px 13px 0}
     .btn-warning {}
   }
@@ -744,6 +741,10 @@ body.reverse {
 ///////
 // Misc
 ///////
+#fileCapture {
+  visibility: hidden;
+  position: absolute;
+}
 .intro h4 {
   margin: 50px 0;
 }

@@ -35,9 +35,18 @@
     service.width = 1170;
     service.video = null;
     service.gif = null;
-
+    
+    setMode();
 
     return service;
+
+    function setMode() {
+      if (Modernizr.getusermedia) {
+        service.displayMode = 'video';
+      } else {
+        service.displayMode = 'upload';
+      }
+    }
 
     function getActive() {
       if (isPersonal()) {

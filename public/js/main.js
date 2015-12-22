@@ -34095,9 +34095,18 @@ angular.module('ngPicturefill', [])
     service.width = 1170;
     service.video = null;
     service.gif = null;
-
+    
+    setMode();
 
     return service;
+
+    function setMode() {
+      if (Modernizr.getusermedia) {
+        service.displayMode = 'video';
+      } else {
+        service.displayMode = 'upload';
+      }
+    }
 
     function getActive() {
       if (isPersonal()) {
@@ -35336,7 +35345,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             var reader = new FileReader();
             reader.onload = function() {
               appService.src = reader.result;
-              $scope.$apply();
+
               var otherImage = new Image();
               otherImage.src = reader.result;
               otherImage.onload = function() {
@@ -35354,8 +35363,11 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                 cropCanvas[0].setAttribute('width', appService.width);
                 cropCanvas[0].setAttribute('height', (appService.width*.582906));
                 cropContext.drawImage(canvas[0], 0, 0, appService.width, (appService.width*.582906), 0, 0,  appService.width, (appService.width*.582906));
+                var data = cropCanvas[0].toDataURL('image/png');
                 var dataBlob = appService.toBlob(data);
                 dataBlob.name = 'canvas.png';
+                appService.displayState = "upload.2";
+                $scope.$apply();
                 controller.preview(dataBlob);
               }
             }
@@ -35385,6 +35397,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
     function link(scope, video, attrs, controller) {
+      if(appService.displayMode == "upload")
+        return;
+        
       appService.video = video;
       var streaming = false;
       var canvas = angular.element(document.querySelector('#baseCanvas'));
@@ -35409,10 +35424,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             video[0].src = vendorURL.createObjectURL(stream);
           }
           video[0].play();
-          appService.displayIntro = true;
         },
         function(err) {
-          appService.displayError = true;
+          appService.displayState = 'video.error';
         }
       );
 
@@ -35587,20 +35601,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     ctor();
 
     function ctor() {
-      console.log('called ctor');
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
-      if (Modernizr.getusermedia) {
-        vm.activate('video');
-    // I know everyone will be dissapointed here. But the analytics don't
-    // support the inclusion of this feature.
-    //  } else if (Modernizr.capture) {
-    //    vm.activate('input');
-      } else {
-        // BOOM upload form
 
-        vm.activate('upload');
-      }
     }
 
     function sharing(display) {
@@ -35621,9 +35624,11 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }
 
     function displayState(str) {
-      console.log(str);
+      var tmp = str.match(/(.*)\.(.*)/)
+      console.log("mode is: " + tmp[1]);
       if(str === 'video.1') vm.reset();
-
+      if(str === 'upload.1') vm.reset();
+      vm.appSvc.displayMode = tmp[1];
       vm.appSvc.displayState = str;
       vm.appSvc.continuable = false;
     }
@@ -35659,7 +35664,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
     function activate(str) {
       if(vm.appSvc.displayMode !== str) {
-
         if(str == 'upload' && !vm.appSvc.displayState.match('upload.*')) {
 
           vm.appSvc.displayState = 'upload.1';

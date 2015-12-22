@@ -7192,9 +7192,6 @@ h6 {
     bottom: 0; }
   .interface .controls {
     padding: 20px 0; }
-    .interface .controls #fileCapture {
-      visibility: hidden;
-      position: absolute; }
     .interface .controls .btn-danger, .interface .controls .btn-default {
       margin: 0 10px 13px 0; }
   .interface .overlays {
@@ -7408,6 +7405,10 @@ body.reverse {
       position: absolute;
       top: 50% !important;
       text-align: center; }
+
+#fileCapture {
+  visibility: hidden;
+  position: absolute; }
 
 .intro h4 {
   margin: 50px 0; }

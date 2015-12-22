@@ -45,7 +45,7 @@
             var reader = new FileReader();
             reader.onload = function() {
               appService.src = reader.result;
-              $scope.$apply();
+
               var otherImage = new Image();
               otherImage.src = reader.result;
               otherImage.onload = function() {
@@ -63,8 +63,11 @@
                 cropCanvas[0].setAttribute('width', appService.width);
                 cropCanvas[0].setAttribute('height', (appService.width*.582906));
                 cropContext.drawImage(canvas[0], 0, 0, appService.width, (appService.width*.582906), 0, 0,  appService.width, (appService.width*.582906));
+                var data = cropCanvas[0].toDataURL('image/png');
                 var dataBlob = appService.toBlob(data);
                 dataBlob.name = 'canvas.png';
+                appService.displayState = "upload.2";
+                $scope.$apply();
                 controller.preview(dataBlob);
               }
             }
@@ -94,6 +97,9 @@
 
 
     function link(scope, video, attrs, controller) {
+      if(appService.displayMode == "upload")
+        return;
+        
       appService.video = video;
       var streaming = false;
       var canvas = angular.element(document.querySelector('#baseCanvas'));
@@ -118,10 +124,9 @@
             video[0].src = vendorURL.createObjectURL(stream);
           }
           video[0].play();
-          appService.displayIntro = true;
         },
         function(err) {
-          appService.displayError = true;
+          appService.displayState = 'video.error';
         }
       );
 

@@ -33,20 +33,9 @@
     ctor();
 
     function ctor() {
-      console.log('called ctor');
       $anchorScroll.yOffset = 0;
       $anchorScroll("main");
-      if (Modernizr.getusermedia) {
-        vm.activate('video');
-    // I know everyone will be dissapointed here. But the analytics don't
-    // support the inclusion of this feature.
-    //  } else if (Modernizr.capture) {
-    //    vm.activate('input');
-      } else {
-        // BOOM upload form
 
-        vm.activate('upload');
-      }
     }
 
     function sharing(display) {
@@ -67,9 +56,11 @@
     }
 
     function displayState(str) {
-      console.log(str);
+      var tmp = str.match(/(.*)\.(.*)/)
+      console.log("mode is: " + tmp[1]);
       if(str === 'video.1') vm.reset();
-
+      if(str === 'upload.1') vm.reset();
+      vm.appSvc.displayMode = tmp[1];
       vm.appSvc.displayState = str;
       vm.appSvc.continuable = false;
     }
@@ -105,7 +96,6 @@
 
     function activate(str) {
       if(vm.appSvc.displayMode !== str) {
-
         if(str == 'upload' && !vm.appSvc.displayState.match('upload.*')) {
 
           vm.appSvc.displayState = 'upload.1';

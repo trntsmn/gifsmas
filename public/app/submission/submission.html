@@ -39,12 +39,12 @@
       <img src="/images/5.gif" />
     </div>
 
-    <div class="error abs" data-ng-if="vm.appSvc.displayError">
+    <div class="error abs" data-ng-if="vm.appSvc.displayState == 'video.error'">
       <div>
         <div>
           <h2>Could not access camera.</h2>
           <h3>Please allow access and refresh the page or&nbsp;&nbsp;</h3>
-          <a class='btn btn-default' data-ng-click='vm.activate("upload")'>upload an existing photo</a>
+          <a class='btn btn-default' data-ng-click='vm.displayState("upload.1")'>upload an existing photo</a>
         </div>
       </div>
     </div>
@@ -76,6 +76,83 @@
       <a data-ng-click="vm.dismiss()" class="close">X</a>
     </div>
     <!-- End .error.abs -->
+
+    <!-- 1. Upload file (upload) -->
+    <div class="intro abs" data-ng-if="vm.appSvc.displayState == 'upload.1'">
+      <div class="interface">
+        <div>
+          <h2>1. Upload
+            <small>a photo</small>
+          </h2>
+          <input type='button' class="btn btn-danger btn-lg" data-disjointed-capture='' value="upload image" />
+          <input id="fileCapture" type="file" data-capture-file="" data-ng-model="vm.theFile" />
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 2. Choose your overlay (upload) -->
+    <div class="intro abs" data-ng-if="vm.appSvc.displayState == 'upload.2'">
+      <div class="interface">
+        <div>
+          <h2>1. Select
+            <small>your filter</small>
+          </h2>
+          <div class="overlays">
+            <a data-ng-click="vm.overlay(1)">
+              <img src="/images/1-btn.png" />
+              <span>Put a bow on it</span>
+            </a>
+            <a data-ng-click="vm.overlay(2)">
+              <img src="/images/2-btn.png" />
+              <span>Elfie</span>
+            </a>
+            <a data-ng-click="vm.overlay(3)">
+              <img src="/images/3-btn.png" />
+              <span>Lump of Coal</span>
+            </a>
+            <a data-ng-click="vm.overlay(4)">
+              <img src="/images/4-btn.png" />
+              <span>Shiny red nose</span>
+            </a>
+            <a data-ng-click="vm.overlay(5)">
+              <img src="/images/5-btn.png" />
+              <span>Snowball battle scars</span>
+            </a>
+          </div>
+          <a data-ng-show="vm.appSvc.continuable" data-ng-click="vm.displayState('upload.3')" class="btn btn-danger btn-lg">Continue</a>
+          <a class="btn btn-warning" data-ng-show="vm.appSvc.continuable" data-ng-click="vm.displayState('upload.1')">Start Over</a>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- 3. Share (upload) -->
+    <div class="intro abs" data-ng-if="vm.appSvc.displayState == 'upload.3'">
+      <div class="interface">
+        <div>
+          <h2>3. Share
+            <small>with your BFF</small>
+          </h2>
+          <div class="social-shares">
+            <facebook-share gif="vm.appSvc.gif"></facebook-share>
+            <twitter-share gif="vm.appSvc.gif"></twitter-share>
+            <pinterest-share gif="vm.appSvc.gif"></pinterest-share>
+            <tumblr-share gif="vm.appSvc.gif"></tumblr-share>
+            <link-share gif="vm.appSvc.gif"></link-share>
+          </div>
+          <br>
+          <br>
+          <a class="btn btn-warning" data-ng-click="vm.displayState('upload.1')">Start Over</a>
+        </div>
+      </div>
+    </div>
+
+
+
 
     <!-- 1. Choose your overlay (video) -->
     <div class="intro abs" data-ng-if="vm.appSvc.displayState == 'video.1'">
@@ -148,27 +225,17 @@
         </div>
       </div>
     </div>
-  </div>
-  <!-- End row.rel -->
+
+
+
+
+
+  </div><!-- End row.rel -->
 
 <br>
 <br>
 <br>
 <br>
 <br>
-  <div class='row interface rel'>
-
-    <div class="col-sm-6 col-xs-12">
-      <div class="controls" style="padding-bottom:0;" data-ng-if="vm.showing === 'upload'">
-        <h4>First, upload an image of your selfie!</h4>
-
-        <input type='button' class="btn btn-danger btn-lg" data-disjointed-capture='' value="upload image" />
-        <input id="fileCapture" type="file" data-capture-file="" data-ng-model="vm.theFile" />
-        <br>
-        <a class="btn btn-warning" data-ng-click="vm.reset()">Reset</a>
-      </div>
-
-    </div>
-
 
 </article>
