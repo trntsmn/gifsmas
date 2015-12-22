@@ -54,28 +54,11 @@
       <div>
         <div>
           <h2>That doesn't look like any image format we know.</h2>
-          <h3>Please try again.</h3>
+          <a class='btn btn-default' data-ng-click='vm.displayState("upload.1")'>Please try again</a>
         </div>
       </div>
     </div>
-
-    <div class="intro abs" data-ng-if="vm.appSvc.displayUploadIntroxxx">
-      <div>
-        <div>
-          <h2>Elfie 101 Tip: </h2>
-          <h3>Hold your phone sideways and center yourself in the frame.</h3>
-        </div>
-        <a data-ng-click="vm.dismiss()" class="close">X</a>
-      </div>
-    </div>
-
-    <div class="intro abs" data-ng-if="vm.appSvc.displayIntroxxx">
-      <div>
-        <h2>1. Select your holiday filter below 2. Snap a picture (you look great) 3. Send it to your BFF</h2>
-      </div>
-      <a data-ng-click="vm.dismiss()" class="close">X</a>
-    </div>
-    <!-- End .error.abs -->
+    
 
     <!-- 1. Upload file (upload) -->
     <div class="intro abs" data-ng-if="vm.appSvc.displayState == 'upload.1'">
