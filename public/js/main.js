@@ -35369,9 +35369,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                 var data = cropCanvas[0].toDataURL('image/png');
                 var dataBlob = appService.toBlob(data);
                 dataBlob.name = 'canvas.png';
-                appService.displayState = "upload.2";
+                controller.preview(dataBlob, "upload.2");
                 $scope.$apply();
-                controller.preview(dataBlob);
               }
             }
             $scope.$apply();
@@ -35402,7 +35401,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     function link(scope, video, attrs, controller) {
       if(appService.displayMode == "upload")
         return;
-        
+
       appService.video = video;
       var streaming = false;
       var canvas = angular.element(document.querySelector('#baseCanvas'));
@@ -35481,13 +35480,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     function link(scope, element, attrs, controller) {
       var canvas = angular.element(document.querySelector('#baseCanvas'));
       var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
-      // cropCanvas.height = 682;
-      // cropCanvas.width = 1170;
-
-
       element.bind('click', function() {
-        console.log("take picture called");
-        appService.displayState = "video.3";
         var context = canvas[0].getContext('2d');
         var cropContext = cropCanvas[0].getContext('2d');
 
@@ -35495,14 +35488,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           //canvas.width = width;
           //canvas.height = height;
           context.drawImage(appService.video[0], 0, 0, appService.width, appService.height);
-          console.log("Drawing with the following: " + appService.width + ", " + (appService.width*.582906));
           cropCanvas[0].setAttribute('width', appService.width);
           cropCanvas[0].setAttribute('height', (appService.width*.582906));
           cropContext.drawImage(canvas[0], 0, 0, appService.width, (appService.width*.582906), 0, 0,  appService.width, (appService.width*.582906));
-          // var overlay = appService.loadImage('/images/1.png', function() {
-          //   cropContext.drawImage(overlay, 0, 0, 1170, 682);
-          // });
-
           var data = cropCanvas[0].toDataURL('image/png');
           // setting the photo src creates a faux impression of speed.
           // eventually we'll overwrite with s3's result but since they are
@@ -35510,7 +35498,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           appService.src = data;
           var dataBlob = appService.toBlob(data);
           dataBlob.name = 'canvas.png';
-          controller.preview(dataBlob);
+          controller.preview(dataBlob, 'video.3');
         } else {
           controller.reset();
         }
@@ -35527,7 +35515,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       restrict: "A",
       link: function (scope, element) {
           var w = angular.element($window);
-          console.log("in resize directive");
           scope.getWindowDimensions = function () {
 
               return {
@@ -35539,16 +35526,12 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
               scope.windowHeight = newValue.h;
               scope.windowWidth = newValue.w;
               if(newValue.w >= 1200) {
-                console.log('lg screen');
                 appService.width = 1170;
               } else if (newValue.w >= 992 && newValue.w < 1200) {
-                console.log("md screen");
                 appService.width = 970;
               } else if (newValue.w >= 768 && newValue.w < 992 ) {
-                console.log('sm screen');
                 appService.width = 750;
               } else {
-                console.log("xs screen");
                 appService.width = newValue.w
               }
 
@@ -35618,13 +35601,13 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         var dataBlob = appService.toBlob(data);
         dataBlob.name = 'social.png';
         _getToken(dataBlob, _putSocial);
-
+        console.log('Sharing');
       });
     }
 
     function displayState(str) {
       var tmp = str.match(/(.*)\.(.*)/)
-      console.log("mode is: " + tmp[1]);
+      console.log("mode is: " + tmp[1] + ' and the variation is: ' + tmp[2]);
       if(str === 'video.1') vm.reset();
       if(str === 'upload.1') vm.reset();
       vm.appSvc.displayMode = tmp[1];
@@ -35703,15 +35686,15 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       }
     }
 
-    function preview(file) {
-      _getToken(file, _putCanvas);
+    function preview(file, variation) {
+      _getToken(file, _putCanvas, variation);
     }
 
     function handleError(response) {
       console.log(response);
     }
 
-    function _putCanvas(file, signature, url) {
+    function _putCanvas(file, signature, url, variation) {
       vm.appSvc.srcName = file.name;
       var req = {
         method: 'PUT',
@@ -35727,11 +35710,11 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         vm.appSvc.src = url;
         vm.appSvc.previewing = true;
         vm.appSvc.shareable = vm.appSvc.overlay ? true : false;
+        vm.displayState(variation)
       }, handleError);
     }
 
-    function _putSocial(file, signature, url) {
-      console.log("put social");
+    function _putSocial(file, signature, url, variation) {
       var req = {
         method: 'PUT',
         url: signature,
@@ -35761,7 +35744,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       }, handleError);
     }
 
-    function _getToken(file, callback) {
+    function _getToken(file, callback, variation) {
       var req = {
         method: 'GET',
         url: '/sandbox/token',
@@ -35773,7 +35756,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
       };
       $http(req).then(function(response) {
         file.name = response.data.name;
-        callback(file, response.data.signature, response.data.url);
+        callback(file, response.data.signature, response.data.url, variation);
       }, handleError);
     }
 

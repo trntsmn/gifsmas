@@ -66,9 +66,8 @@
                 var data = cropCanvas[0].toDataURL('image/png');
                 var dataBlob = appService.toBlob(data);
                 dataBlob.name = 'canvas.png';
-                appService.displayState = "upload.2";
+                controller.preview(dataBlob, "upload.2");
                 $scope.$apply();
-                controller.preview(dataBlob);
               }
             }
             $scope.$apply();
@@ -99,7 +98,7 @@
     function link(scope, video, attrs, controller) {
       if(appService.displayMode == "upload")
         return;
-        
+
       appService.video = video;
       var streaming = false;
       var canvas = angular.element(document.querySelector('#baseCanvas'));
@@ -178,13 +177,7 @@
     function link(scope, element, attrs, controller) {
       var canvas = angular.element(document.querySelector('#baseCanvas'));
       var cropCanvas = angular.element(document.querySelector('#cropCanvas'));
-      // cropCanvas.height = 682;
-      // cropCanvas.width = 1170;
-
-
       element.bind('click', function() {
-        console.log("take picture called");
-        appService.displayState = "video.3";
         var context = canvas[0].getContext('2d');
         var cropContext = cropCanvas[0].getContext('2d');
 
@@ -192,14 +185,9 @@
           //canvas.width = width;
           //canvas.height = height;
           context.drawImage(appService.video[0], 0, 0, appService.width, appService.height);
-          console.log("Drawing with the following: " + appService.width + ", " + (appService.width*.582906));
           cropCanvas[0].setAttribute('width', appService.width);
           cropCanvas[0].setAttribute('height', (appService.width*.582906));
           cropContext.drawImage(canvas[0], 0, 0, appService.width, (appService.width*.582906), 0, 0,  appService.width, (appService.width*.582906));
-          // var overlay = appService.loadImage('/images/1.png', function() {
-          //   cropContext.drawImage(overlay, 0, 0, 1170, 682);
-          // });
-
           var data = cropCanvas[0].toDataURL('image/png');
           // setting the photo src creates a faux impression of speed.
           // eventually we'll overwrite with s3's result but since they are
@@ -207,7 +195,7 @@
           appService.src = data;
           var dataBlob = appService.toBlob(data);
           dataBlob.name = 'canvas.png';
-          controller.preview(dataBlob);
+          controller.preview(dataBlob, 'video.3');
         } else {
           controller.reset();
         }
@@ -224,7 +212,6 @@
       restrict: "A",
       link: function (scope, element) {
           var w = angular.element($window);
-          console.log("in resize directive");
           scope.getWindowDimensions = function () {
 
               return {
@@ -236,16 +223,12 @@
               scope.windowHeight = newValue.h;
               scope.windowWidth = newValue.w;
               if(newValue.w >= 1200) {
-                console.log('lg screen');
                 appService.width = 1170;
               } else if (newValue.w >= 992 && newValue.w < 1200) {
-                console.log("md screen");
                 appService.width = 970;
               } else if (newValue.w >= 768 && newValue.w < 992 ) {
-                console.log('sm screen');
                 appService.width = 750;
               } else {
-                console.log("xs screen");
                 appService.width = newValue.w
               }
 

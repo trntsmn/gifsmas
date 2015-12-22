@@ -47,13 +47,13 @@
         var dataBlob = appService.toBlob(data);
         dataBlob.name = 'social.png';
         _getToken(dataBlob, _putSocial);
-
+        console.log('Sharing');
       });
     }
 
     function displayState(str) {
       var tmp = str.match(/(.*)\.(.*)/)
-      console.log("mode is: " + tmp[1]);
+      console.log("mode is: " + tmp[1] + ' and the variation is: ' + tmp[2]);
       if(str === 'video.1') vm.reset();
       if(str === 'upload.1') vm.reset();
       vm.appSvc.displayMode = tmp[1];
@@ -132,15 +132,15 @@
       }
     }
 
-    function preview(file) {
-      _getToken(file, _putCanvas);
+    function preview(file, variation) {
+      _getToken(file, _putCanvas, variation);
     }
 
     function handleError(response) {
       console.log(response);
     }
 
-    function _putCanvas(file, signature, url) {
+    function _putCanvas(file, signature, url, variation) {
       vm.appSvc.srcName = file.name;
       var req = {
         method: 'PUT',
@@ -156,11 +156,11 @@
         vm.appSvc.src = url;
         vm.appSvc.previewing = true;
         vm.appSvc.shareable = vm.appSvc.overlay ? true : false;
+        vm.displayState(variation)
       }, handleError);
     }
 
-    function _putSocial(file, signature, url) {
-      console.log("put social");
+    function _putSocial(file, signature, url, variation) {
       var req = {
         method: 'PUT',
         url: signature,
@@ -190,7 +190,7 @@
       }, handleError);
     }
 
-    function _getToken(file, callback) {
+    function _getToken(file, callback, variation) {
       var req = {
         method: 'GET',
         url: '/sandbox/token',
@@ -202,7 +202,7 @@
       };
       $http(req).then(function(response) {
         file.name = response.data.name;
-        callback(file, response.data.signature, response.data.url);
+        callback(file, response.data.signature, response.data.url, variation);
       }, handleError);
     }
 
