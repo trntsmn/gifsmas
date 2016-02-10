@@ -134,9 +134,9 @@ var gifsDb =
     "order": 12,
     'activate': 1350677600, // Dec 21st
     'active': false,
-    'image': 'https://beta.gifsmas.com/images/placeholder.jpg',
-    'medium': 'https://beta.gifsmas.com/images/placeholder.jpg',
-    'thumbnail': 'https://beta.gifsmas.com/images/placeholder.jpg',
+    'image': 'https://gifsmas.com/images/placeholder.jpg',
+    'medium': 'https://gifsmas.com/images/placeholder.jpg',
+    'thumbnail': 'https://gifsmas.com/images/placeholder.jpg',
     "name": "Hiebing Holiday Elfie",
     "description": "It’s the most GIF-tastic time of the year. Take your own Hiebing Holiday Elfie or check out all 12 Days of Gifsmas."
 }];
