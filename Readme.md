@@ -20,8 +20,8 @@ Point your browser to [http://localhost:3000].
 # Running deploys
 
 ## Deploy to Heroku
-+ Url: https://vast-beyond-5642.herokuapp.com/
-+ Git Url: https://git.heroku.com/vast-beyond-5642.git
++ Url: https://arcane-sands-3965.herokuapp.com/day/12
++ Git Url: https://git.heroku.com/arcane-sands-3965.git
 
 Environment var set as ` heroku config:set ENV=Production ` to tell heroku to use prod setting where available. Access in node as: `server.get('env') === 'development'`.
 
