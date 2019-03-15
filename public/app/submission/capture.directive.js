@@ -116,12 +116,11 @@
         },
         function(stream) {
 
-          if (navigator.mozGetUserMedia) {
-            video[0].mozSrcObject = stream;
-          } else {
-            var vendorURL = window.URL || window.webkitURL;
-            video[0].src = vendorURL.createObjectURL(stream);
-          }
+          try {
+						video[0].srcObject = stream;
+					} catch (error) {
+						video[0].src = URL.createObjectURL(stream);
+					}
           video[0].play();
         },
         function(err) {

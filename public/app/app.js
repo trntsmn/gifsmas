@@ -59,7 +59,7 @@
       };
     }])
     .filter('escape', function() { return window.encodeURIComponent;})
-    .filter('domain', function() { return function(input) {return "https://gifsmas.com" + input;};})
+    .filter('domain', function() { return function(input) {return "https://arcane-sands-3965.herokuapp.com" + input;};})
      // This sets the default page title
     .run(function($rootScope){$rootScope.base = "Hiebing Gifsmas"});
 })();
